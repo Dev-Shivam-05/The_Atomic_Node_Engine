@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Lost in the Void</title>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: none;
+        }
+
+        /* Custom cursor - creepy eye */
+        .cursor {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.1s;
+        }
+
+        .cursor-outer {
+            border: 2px solid #ff0000;
+            animation: cursorPulse 1s ease-in-out infinite;
+        }
+
+        .cursor-inner {
+            width: 8px;
+            height: 8px;
+            background: #ff0000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes cursorPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+
+        /* Static noise overlay */
+        .noise {
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 100;
+            animation: noiseMove 0.2s steps(10) infinite;
+        }
+
+        @keyframes noiseMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-10%, -10%); }
+        }
+
+        /* Fog effect */
+        .fog {
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(20, 0, 0, 0.8) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(20, 0, 0, 0.8) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 100%, rgba(50, 0, 0, 0.5) 0%, transparent 50%);
+            animation: fogPulse 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fogPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Vignette */
+        .vignette {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, transparent 30%, rgba(0,0,0,0.9) 100%);
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* Screen flicker */
+        .flicker {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 0, 0, 0.03);
+            pointer-events: none;
+            z-index: 60;
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Main content */
+        .container {
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* The creepy 404 */
+        .error-code {
+            font-family: 'Nosifer', cursive;
+            font-size: clamp(100px, 25vw, 250px);
+            color: transparent;
+            background: linear-gradient(180deg, #8B0000 0%, #ff0000 50%, #8B0000 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            position: relative;
+            animation: textFlicker 3s infinite, breathe 4s ease-in-out infinite;
+            text-shadow: 
+                0 0 10px rgba(255, 0, 0, 0.5),
+                0 0 20px rgba(255, 0, 0, 0.3),
+                0 0 40px rgba(255, 0, 0, 0.2);
+            letter-spacing: 20px;
+        }
+
+        .error-code::before,
+        .error-code::after {
+            content: '404';
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            background: linear-gradient(180deg, #8B0000 0%, #ff0000 50%, #8B0000 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .error-code::before {
+            animation: glitch1 2s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .error-code::after {
+            animation: glitch2 2s infinite;
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+        }
+
+        @keyframes textFlicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.3; }
+            94% { opacity: 1; }
+            95% { opacity: 0.5; }
+            96% { opacity: 1; }
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes glitch1 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-5px, -3px); }
+            40% { transform: translate(5px, 3px); }
+            60% { transform: translate(-3px, 2px); }
+            80% { transform: translate(3px, -2px); }
+        }
+
+        @keyframes glitch2 {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(5px, 3px); }
+            40% { transform: translate(-5px, -3px); }
+            60% { transform: translate(3px, -2px); }
+            80% { transform: translate(-3px, 2px); }
+        }
+
+        /* Message */
+        .message {
+            font-family: 'Creepster', cursive;
+            font-size: clamp(24px, 5vw, 48px);
+            color: #666;
+            margin-top: 20px;
+            letter-spacing: 8px;
+            animation: messageReveal 2s ease-out forwards, textFlicker 4s infinite 2s;
+            opacity: 0;
+        }
+
+        @keyframes messageReveal {
+            0% { 
+                opacity: 0; 
+                letter-spacing: 50px;
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                letter-spacing: 8px;
+                filter: blur(0);
+            }
+        }
+
+        .sub-message {
+            font-family: monospace;
+            font-size: 14px;
+            color: #333;
+            margin-top: 30px;
+            letter-spacing: 3px;
+            animation: fadeIn 1s ease-out 2.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Creepy eye */
+        .eye-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+        }
+
+        .eye {
+            width: 300px;
+            height: 150px;
+            background: radial-gradient(ellipse, #1a0000 0%, #000 100%);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #300;
+            animation: eyeBlink 5s infinite;
+        }
+
+        @keyframes eyeBlink {
+            0%, 100% { transform: scaleY(1); }
+            48% { transform: scaleY(1); }
+            50% { transform: scaleY(0.1); }
+            52% { transform: scaleY(1); }
+        }
+
+        .iris {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #300 0%, #600 40%, #900 60%, #300 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease-out;
+            box-shadow: 
+                inset 0 0 20px rgba(0,0,0,0.8),
+                0 0 30px rgba(255, 0, 0, 0.3);
+        }
+
+        .pupil {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #000;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 10px rgba(255,0,0,0.3);
+        }
+
+        .pupil::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            top: 5px;
+            left: 5px;
+        }
+
+        .veins {
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(139,0,0,0.3) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(139,0,0,0.2) 50%, transparent 52%),
+                linear-gradient(30deg, transparent 45%, rgba(139,0,0,0.2) 50%, transparent 55%);
+        }
+
+        /* Blood drips */
+        .drip {
+            position: fixed;
+            width: 4px;
+            background: linear-gradient(180deg, #8B0000 0%, #ff0000 100%);
+            border-radius: 0 0 50% 50%;
+            animation: drip 4s ease-in infinite;
+            opacity: 0;
+        }
+
+        @keyframes drip {
+            0% { height: 0; top: -10px; opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { height: 100px; top: 110vh; opacity: 0; }
+        }
+
+        /* Escape button */
+        .escape-btn {
+            margin-top: 50px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 1px solid #300;
+            color: #600;
+            font-family: 'Creepster', cursive;
+            font-size: 20px;
+            letter-spacing: 5px;
+            cursor: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            animation: fadeIn 1s ease-out 3s forwards;
+            opacity: 0;
+        }
+
+        .escape-btn:hover {
+            color: #ff0000;
+            border-color: #ff0000;
+            text-shadow: 0 0 20px rgba(255,0,0,0.5);
+            box-shadow: 
+                0 0 20px rgba(255,0,0,0.2),
+                inset 0 0 20px rgba(255,0,0,0.1);
+        }
+
+        .escape-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(139,0,0,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s;
+        }
+
+        .escape-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Floating ghosts */
+        .ghost {
+            position: fixed;
+            font-size: 30px;
+            opacity: 0;
+            pointer-events: none;
+            animation: ghostFloat 10s linear infinite;
+            filter: blur(1px);
+        }
+
+        @keyframes ghostFloat {
+            0% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0;
+            }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.1; }
+            100% { 
+                transform: translateY(-100vh) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+
+        /* Heartbeat line */
+        .heartbeat {
+            position: fixed;
+            bottom: 50px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #200;
+            overflow: hidden;
+        }
+
+        .heartbeat-line {
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                transparent 45%,
+                #f00 46%,
+                transparent 46.5%,
+                transparent 47%,
+                #f00 47.5%,
+                #f00 48%,
+                transparent 48.5%,
+                transparent 49%,
+                #f00 50%,
+                transparent 50.5%,
+                transparent 100%
+            );
+            animation: heartbeatMove 2s linear infinite;
+            box-shadow: 0 0 10px rgba(255,0,0,0.5);
+        }
+
+        @keyframes heartbeatMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Screen shake on hover */
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-10px, -5px); }
+            20% { transform: translate(10px, 5px); }
+            30% { transform: translate(-10px, 5px); }
+            40% { transform: translate(10px, -5px); }
+            50% { transform: translate(-5px, 10px); }
+            60% { transform: translate(5px, -10px); }
+            70% { transform: translate(-5px, -5px); }
+            80% { transform: translate(5px, 5px); }
+            90% { transform: translate(-5px, 5px); }
+        }
+
+        /* Scan line */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(180deg, transparent, rgba(255,0,0,0.1), transparent);
+            animation: scanMove 3s linear infinite;
+            pointer-events: none;
+            z-index: 80;
+        }
+
+        @keyframes scanMove {
+            0% { top: -10px; }
+            100% { top: 100vh; }
+        }
+
+        /* Random flashes */
+        .flash {
+            position: fixed;
+            inset: 0;
+            background: rgba(255,0,0,0.1);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 70;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom cursor -->
+    <div class="cursor cursor-outer"></div>
+    <div class="cursor cursor-inner"></div>
+
+    <!-- Effects -->
+    <div class="noise"></div>
+    <div class="fog"></div>
+    <div class="vignette"></div>
+    <div class="flicker"></div>
+    <div class="scanline"></div>
+    <div class="flash" id="flash"></div>
+
+    <!-- Creepy eye background -->
+    <div class="eye-container">
+        <div class="eye">
+            <div class="veins"></div>
+            <div class="iris" id="iris">
+                <div class="pupil"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blood drips -->
+    <div class="drip" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="drip" style="left: 25%; animation-delay: 1s;"></div>
+    <div class="drip" style="left: 40%; animation-delay: 2s;"></div>
+    <div class="drip" style="left: 60%; animation-delay: 1.5s;"></div>
+    <div class="drip" style="left: 75%; animation-delay: 0.5s;"></div>
+    <div class="drip" style="left: 90%; animation-delay: 2.5s;"></div>
+
+    <!-- Floating ghosts -->
+    <div class="ghost" style="left: 5%; animation-delay: 0s;">👁</div>
+    <div class="ghost" style="left: 15%; animation-delay: 2s;">💀</div>
+    <div class="ghost" style="left: 30%; animation-delay: 4s;">👁</div>
+    <div class="ghost" style="left: 50%; animation-delay: 1s;">💀</div>
+    <div class="ghost" style="left: 70%; animation-delay: 3s;">👁</div>
+    <div class="ghost" style="left: 85%; animation-delay: 5s;">💀</div>
+    <div class="ghost" style="left: 95%; animation-delay: 2.5s;">👁</div>
+
+    <!-- Main content -->
+    <div class="container">
+        <div class="error-code" id="errorCode">404</div>
+        <div class="message">PAGE NOT FOUND</div>
+        <div class="sub-message">You shouldn't be here...</div>
+        <button class="escape-btn" onclick="escape()">
+            ESCAPE
+        </button>
+    </div>
+
+    <!-- Heartbeat -->
+    <div class="heartbeat">
+        <div class="heartbeat-line"></div>
+    </div>
+
+    <script>
+        // Custom cursor
+        const cursorOuter = document.querySelector('.cursor-outer');
+        const cursorInner = document.querySelector('.cursor-inner');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursorOuter.style.left = e.clientX - 20 + 'px';
+            cursorOuter.style.top = e.clientY - 20 + 'px';
+            cursorInner.style.left = e.clientX - 4 + 'px';
+            cursorInner.style.top = e.clientY - 4 + 'px';
+
+            // Eye follows cursor
+            const iris = document.getElementById('iris');
+            const eye = document.querySelector('.eye');
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeCenterX = eyeRect.left + eyeRect.width / 2;
+            const eyeCenterY = eyeRect.top + eyeRect.height / 2;
+            
+            const angle = Math.atan2(e.clientY - eyeCenterY, e.clientX - eyeCenterX);
+            const distance = Math.min(30, Math.hypot(e.clientX - eyeCenterX, e.clientY - eyeCenterY) / 10);
+            
+            const irisX = Math.cos(angle) * distance;
+            const irisY = Math.sin(angle) * distance;
+            
+            iris.style.transform = `translate(calc(-50% + ${irisX}px), calc(-50% + ${irisY}px))`;
+        });
+
+        // Screen shake on 404 hover
+        const errorCode = document.getElementById('errorCode');
+        errorCode.addEventListener('mouseenter', () => {
+            document.body.classList.add('shake');
+            // Random flash
+            const flash = document.getElementById('flash');
+            flash.style.animation = 'none';
+            flash.offsetHeight;
+            flash.style.opacity = '1';
+            setTimeout(() => flash.style.opacity = '0', 100);
+        });
+        errorCode.addEventListener('mouseleave', () => {
+            document.body.classList.remove('shake');
+        });
+
+        // Escape button effect
+        function escape() {
+            const flash = document.getElementById('flash');
+            flash.style.background = 'white';
+            flash.style.opacity = '1';
+            
+            // Glitch everything
+            document.body.style.animation = 'shake 0.3s ease-in-out 3';
+            
+            setTimeout(() => {
+                flash.style.opacity = '0';
+                flash.style.background = 'rgba(255,0,0,0.1)';
+                // Would redirect in real scenario
+                // window.location.href = '/';
+            }, 500);
+        }
+
+        // Random flicker intensity changes
+        setInterval(() => {
+            const flicker = document.querySelector('.flicker');
+            flicker.style.animationDuration = (Math.random() * 0.1 + 0.05) + 's';
+        }, 2000);
+
+        // Occasional screen glitch
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                const flash = document.getElementById('flash');
+                flash.style.opacity = '1';
+                setTimeout(() => flash.style.opacity = '0', 50);
+            }
+        }, 3000);
+
+        // Ambient sounds visualization (visual heartbeat speed change)
+        let heartbeatSpeed = 2;
+        setInterval(() => {
+            heartbeatSpeed = 1 + Math.random();
+            document.querySelector('.heartbeat-line').style.animationDuration = heartbeatSpeed + 's';
+        }, 5000);
+    </script>
+</body>
+</html>

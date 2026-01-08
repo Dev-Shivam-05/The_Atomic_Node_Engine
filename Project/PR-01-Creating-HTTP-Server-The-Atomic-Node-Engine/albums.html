@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>iCoder Coding Guides</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <!-- Style CSS -->
+     <link rel="stylesheet" href="./css/style.css" type="text/css">
+</head>
+
+<body>
+     <header>
+        <nav class="navbar navbar-expand-lg bg-dark fixed-top p-4">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white" href="./index.html">iCoder</a>
+                <button class="navbar-toggler text-white bg-light" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mx-2 mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-info" aria-current="page" href="/albums">Albums</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/pricing">Pricing</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-white dropdown-toggle" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Topics
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Web Stack</a></li>
+                                <li><a class="dropdown-item" href="#">Development</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Editors</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/checkout">Checkout</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control mx-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button class="btn btn-outline-light" type="submit">Search</button>
+                    </form>
+                    <div class="m-2">
+                        <button type="button" class="btn btn-outline-danger text-tranform-uppercase mx-2"
+                            data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                        <button type="button" class="btn btn-outline-danger text-tranform-uppercase me-2"
+                            data-bs-toggle="modal" data-bs-target="#signupModal">Sign
+                            up</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!--::::: Sing Up Modal Starts :::::-->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                        <form class="">
+                            <div class="form-floating mb-3"> <input type="email" class="form-control rounded-3"
+                                    id="floatingInput" placeholder="name@example.com"> <label for="floatingInput">Email
+                                    address</label> </div>
+                            <div class="form-floating mb-3"> <input type="password" class="form-control rounded-3"
+                                    id="floatingPassword" placeholder="Password"> <label
+                                    for="floatingPassword">Password</label>
+                            </div> <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign
+                                up</button> <small class="text-body-secondary">By clicking Sign up, you agree to the
+                                terms of use.</small>
+                            <hr class="my-4">
+                            <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2> <button
+                                class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit"> <svg
+                                    class="bi me-1" width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="#google"></use>
+                                </svg>
+                                Sign up with Google
+                            </button> <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
+                                <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="#facebook"></use>
+                                </svg>
+                                Sign up with Facebook
+                            </button> <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+                                <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="#github"></use>
+                                </svg>
+                                Sign up with GitHub
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--::::: Sing Up Modal Ends :::::-->
+
+        <!--::::: Login Modal Starts :::::-->
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h1 class="fw-bold mb-0 fs-2">Login</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body p-5 pt-0">
+                        <form class="">
+                            <div class="form-floating mb-3"> <input type="email" class="form-control rounded-3"
+                                    id="floatingInput" placeholder="name@example.com"> <label for="floatingInput">Email
+                                    address</label> </div>
+                            <div class="form-floating mb-3"> <input type="password" class="form-control rounded-3"
+                                    id="floatingPassword" placeholder="Password"> <label
+                                    for="floatingPassword">Password</label>
+                            </div> <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign
+                                up</button> <small class="text-body-secondary">By clicking Login, you agree to the
+                                terms of use.</small>
+                            <hr class="my-4">
+                            <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2> <button
+                                class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit"> <svg
+                                    class="bi me-1" width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="#google"></use>
+                                </svg>
+                                Login with Google
+                            </button> <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
+                                <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="#facebook"></use>
+                                </svg>
+                                Login with Facebook
+                            </button> <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+                                <svg class="bi me-1" width="16" height="16" aria-hidden="true">
+                                    <use xlink:href="#github"></use>
+                                </svg>
+                                Login with GitHub
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--::::: Login Modal Ends :::::-->
+    </header>
+
+    <main>
+        <!-- ::::: Allbum Section Starts ::::: -->
+        <section class="albums mt-5 p-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+                            <h1 class="display-4 fw-normal text-body-emphasis">Albums</h1>
+                            <p class="fs-5 text-body-secondary">
+                                Quickly build an effective pricing table for your
+                                potential customers with this Bootstrap example. It’s built with default Bootstrap
+                                components and utilities with little customization.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-7.png" alt="Coding Image" class="img-fluid h-100 w-100">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> 
+                                        <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View
+                                        </button> 
+                                            <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">
+                                            Edit
+                                        </button> 
+                                    </div> 
+                                    <small class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-5.jpg" alt="Coding Image" class="img-fluid h-100 w-100">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-4.jpg" alt="Coding Image" class="img-fluid h-100 w-100">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-3.webp" alt="Coding Image" class="img-fluid h-100 w-100">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-2.jpg" alt="Coding Image" class="img-fluid h-100 w-100">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-1.webp" alt="Coding Image" class="img-fluid h-100 w-100">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-3.webp" class="w-100 h-100" alt="Coding Image"
+                                    class="img-fluid w-100 h-100 object-fit-cover">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-5.jpg" class="w-100 h-100" alt="Coding Image"
+                                    class="img-fluid w-100 h-100 object-fit-cover">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card shadow-sm"> 
+                            <img src="./images/Image-4.jpg" class="w-100 h-100" alt="Coding Image"
+                                    class="img-fluid w-100 h-100 object-fit-cover">
+                            <div class="card-body">
+                                <p class="card-text">This is a wider card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group"> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">View</button> <button type="button"
+                                            class="btn btn-sm btn-outline-secondary">Edit</button> </div> <small
+                                        class="text-body-secondary">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ::::: Allbum Section Ends ::::: -->
+    </main>
+
+    <footer class="text-light py-5 bg-dark">
+        <div class="container">
+            <p class="float-end mb-1"> <a href="#">Back to top</a> </p>
+            <p class="mb-1">This Album Shows Our History And Trust And Works</p>
+            <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
+                    href="/docs/5.3/getting-started/introduction">getting started guide</a>.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+</html>

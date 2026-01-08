@@ -1,0 +1,22 @@
+:root
+{
+    --theme-text: #011e2c;
+    --theme-light-text: #2086b8;
+}
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ::::: Header Section Starts ::::: */
+header .navbar .navbar-nav li a
+{
+    transition: all .5s ease;
+}
+header .navbar .navbar-nav li a:hover
+{
+    color: rgb(94, 94, 88);
+}
+/* ::::: Header Section Ends ::::: */
