@@ -1,40 +1,52 @@
 const http = require("http");
 const fs = require("fs");
-// const { log } = require("console");
+const path = require("path");
 
-const PORT = 5500;
+const PORT = 3000;
 
 const handleRequest = (req, res) => {
-  let fileName = "";
+  const projectRoot = path.join(__dirname, "../");
+  let filePath = "";
 
   switch (req.url) {
     case "/":
-      fileName = "index.html";
+    case "/index":
+    case "/index.html":
+      filePath = path.join(projectRoot, "index.html");
       break;
 
     case "/albums":
-      fileName = "albums.html";
+      filePath = path.join(projectRoot, "pages", "albums.html");
       break;
 
     case "/pricing":
-      fileName = "pricing.html";
+      filePath = path.join(projectRoot, "pages", "pricing.html");
       break;
 
     case "/checkout":
-      fileName = "checkout.html";
+      filePath = path.join(projectRoot, "pages", "checkout.html");
       break;
 
     default:
-      fileName = "error.html";
+      filePath = path.join(projectRoot, req.url);
       break;
   }
 
-  fs.readFile(fileName, (err, result) => {
+  fs.readFile(filePath, (err, result) => {
     if (!err) {
       res.end(result);
     } else {
-      console.error("File missing:", fileName);
-      res.end("404: File Not Found");
+      console.error("File missing:", filePath);
+
+      const errorPagePath = path.join(projectRoot, "pages", "error.html");
+
+      fs.readFile(errorPagePath, (err, errorContent) => {
+        if (!err) {
+          res.end(errorContent);
+        } else {
+          res.end("404: Page Not Found (Critical Error)");
+        }
+      });
     }
   });
 };
@@ -43,7 +55,9 @@ const server = http.createServer(handleRequest);
 
 server.listen(PORT, (err) => {
   if (!err) {
-    console.log(`The server Is Successfully Live On :- `);
-    console.log(`http://127.0.0.1:${PORT}`);
+    console.log(`-----------------------------------------------`);
+    console.log(`Server is running! Open this link in your browser:`);
+    console.log(`http://localhost:${PORT}`);        
+    console.log(`-----------------------------------------------`);
   }
 });

@@ -1,106 +1,138 @@
-# 🌐 Bootstrap Multi-Page Website — iCoder Web Clone  
+# ⚛️ The Atomic Node Engine: Custom HTTP Server
 
-> A responsive **multi-page Bootstrap website template** built for practice and showcasing modern web layouts.  
+![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white) ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-![GitHub stars](https://img.shields.io/github/stars/Dev-Shivam-05/PR-Bootstrap-iCoder-Web?style=for-the-badge)  
-![GitHub forks](https://img.shields.io/github/forks/Dev-Shivam-05/PR-Bootstrap-iCoder-Web?style=for-the-badge)  
-
----
-
-## 📑 Table of Contents  
-- [📖 Project Overview](#-project-overview)  
-- [🔗 Demo & References](#-demo--references)  
-- [✨ Features](#-features)  
-- [📂 Folder Structure](#-folder-structure)  
-- [🛠️ Tech Stack](#️-tech-stack)  
-- [👨‍💻 About Me](#-about-me)  
-- [🤝 Support & Contribution](#-support--contribution)  
+> **A raw, deep-dive implementation of a web server built entirely from scratch using the native Node.js `http` module.** No Express, no frameworks—just pure JavaScript logic.
 
 ---
 
-## 📖 Project Overview  
+## 🚀 Live Preview
 
-This **iCoder Web Clone** is a **multi-page website project** inspired by coding blog layouts.  
-It demonstrates how to use **Bootstrap utilities**, responsive grids, and reusable components to create:  
+Check out the live version of the project deployed on Vercel:
 
-- 📄 Multiple navigable pages  
-- 📰 Blog/article section layouts  
-- 💳 Pricing, checkout, and albums templates  
-- 📱 100% responsive design  
-
-⚡ Purpose: practice **Bootstrap multi-page projects** while learning professional web design.  
+### [🔗 Click Here to Visit the Live Server](https://pr-01-creating-http-server-the-atom.vercel.app/)
 
 ---
 
-## 🔗 Demo & References  
+## 📖 About The Project
 
-### 🚀 Live Preview  
-👉 (Add link here once deployed)  
+This project explores the fundamentals of backend web development. Instead of relying on heavy frameworks, I built a custom server engine that handles browser requests manually. This demonstrates how data flows between the client and server at a low level.
 
-### References Used  
-- [Bootstrap Components](https://getbootstrap.com/)  
-- [iCoder HTML Template](https://getbootstrap.com/docs/5.0/examples/)  
-
----
-
-## ✨ Features  
-
-✅ Built with **Bootstrap 5** for modern UI  
-✅ Multi-page navigation (Home, Albums, Checkout, Pricing, etc.)  
-✅ Reusable and responsive design patterns  
-✅ Clean project structure for easy scaling  
+### Key Features
+* **⚡ Zero Dependencies:** Built using only Node.js core modules (`http`, `fs`, `path`).
+* **🔀 Custom Routing:** Manual implementation of a routing system using `switch` cases.
+* **📂 File System Serving:** Dynamically reads and serves HTML, CSS, and Image files using the `fs` module.
+* **🚫 Error Handling:** A custom 404 Error page detection system for broken links.
+* **⚙️ Logic-Based Navigation:** Handles clean URLs (e.g., serving `index.html` when `/` is requested).
 
 ---
 
-## 📂 Folder Structure  
+## 📂 Project Structure
 
-```
-root/
-├── css/              # Stylesheets  
-├── images/           # Assets & images  
-├── javascript/       # JS functionality  
-├── albums.html       # Albums page  
-├── checkout.html     # Checkout page  
-├── index.html        # Homepage  
-├── pricing.html      # Pricing page  
-└── README.md         # Documentation  
+A clean and modular architecture separate logic from assets.
+
+```bash
+PR-01-CREATING-HTTP-SERVER
+├── 📂 css/              # Stylesheets
+│   └── style.css
+├── 📂 images/           # Static Assets (WebP, JPG, PNG)
+├── 📂 javascript/       # Server Logic
+│   └── index.js         # 🟢 The Core Server Entry Point
+├── 📂 pages/            # HTML Views
+│   ├── albums.html
+│   ├── checkout.html
+│   ├── pricing.html
+│   └── error.html       # Custom 404 Page
+├── index.html           # Landing Page
+└── README.md
+
 ```
 
 ---
 
-## 🛠️ Tech Stack  
+## 🛠️ How It Works (The Code)
 
-- **HTML5** — semantic markup  
-- **CSS3** — custom styling + Bootstrap utilities  
-- **Bootstrap 5** — responsive grid system & components  
-- **JavaScript (Vanilla)** — interactive behaviors  
+Here is a snippet of the custom routing logic that powers the server. It intercepts the request URL and decides which file to deliver to the user.
+
+```javascript
+const handleRequest = (req, res) => {
+  const projectRoot = path.join(__dirname, "../");
+  let filePath = "";
+
+  switch (req.url) {
+    case "/":
+    case "/index":
+      // Serve the Homepage
+      filePath = path.join(projectRoot, "index.html");
+      break;
+      
+    case "/albums":
+      // Serve the Albums Page
+      filePath = path.join(projectRoot, "pages", "albums.html");
+      break;
+
+    default:
+      // Handle static files or 404 errors dynamically
+      filePath = path.join(projectRoot, req.url);
+      break;
+  }
+  // ... file reading logic follows
+};
+
+```
+
+---
+
+## 💻 Getting Started (Run Locally)
+
+Want to run this atomic engine on your own machine? Follow these steps:          
+
+**1. Clone the repository**
+
+```bash
+git clone [https://github.com/your-username/your-repo-name.git](https://github.com/your-username/your-repo-name.git)
+
+```
+
+**2. Navigate to the project folder**
+
+```bash
+cd PR-01-CREATING-HTTP-SERVER
+
+```
+
+**3. Start the Server**
+
+> **Note:** We do not use the VS Code "Go Live" button here. We run the native node server.
+
+```bash
+node javascript/index.js
+
+```
+
+**4. View in Browser**
+Open your web browser and visit:
+`http://localhost:3000`
 
 ---
 
-## 👨‍💻 About Me  
+## 🧠 Learning Outcomes
 
-Hi 👋, I’m **Shivam Bhadoriya (Shivu)**  
-- 💻 Full-stack developer in progress  
-- 🎯 Learning through **frontend practice projects**  
-- 🚀 Passionate about building **responsive web apps**  
+By building this, I mastered:
 
-📫 Reach me:  
-- **GitHub:** [Dev-Shivam-05](https://github.com/Dev-Shivam-05)  
-- **LinkedIn:** [Shivam Bhadoriya](https://www.linkedin.com/in/shivam-bhadoriya-b82792324/)  
-- **Email:** shivambhadoriya1605@gmail.com  
+* How **Requests** and **Responses** work in the HTTP protocol.
+* Reading files asynchronously with `fs.readFile`.
+* Manipulating file paths using the `path` module.
+* Handling MIME types and Status Codes (200 vs 404) manually.
 
 ---
 
-## 🤝 Support & Contribution  
+### 👨‍💻 Author
 
-If you find this project helpful:  
-⭐ **Star this repo** to support my work  
-🐛 Open an issue for improvements  
-📌 Fork and submit a pull request  
+Developed with ❤️ by **[@Shivam]**
 
----
+*If you liked this project, give it a ⭐ on GitHub!*
 
-### 📌 License  
-This project is for **practice and learning purposes only**. Free to use & modify.  
+```
 
----
+```
