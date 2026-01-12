@@ -1,8 +1,6 @@
 import express, { request } from "express";
-
 const app = express();
 const PORT = 3000;
-
 let todos = [];
 
 app.set("view engine", "ejs");
@@ -35,7 +33,6 @@ app.get("/editTask/:id", (req, res) => {
   let todo = todos.find((todo) => todo.taskId == taskId);
   return res.render("edit.ejs", { todo });
 });
-
 app.listen(PORT, (err) => {
   if (!err) {
     console.log(`App listening on port ${PORT}!`);
