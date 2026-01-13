@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: atomic-todo-list
+    env: node
+    plan: free
+    region: singapore # Forces the server to be close to India (Lower Latency)
+
+    # This points Render to your specific project folder
+    rootDirectory: Project/PR-02-Creating-To-Do-List-With-CRUD-Operations-The-Atomic-Node-Engine
+
+    # Commands run INSIDE the rootDirectory automatically
+    buildCommand: npm install
+    startCommand: node index.js
+
+    # Environment Variables
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0 # Locks the Node version for stability
