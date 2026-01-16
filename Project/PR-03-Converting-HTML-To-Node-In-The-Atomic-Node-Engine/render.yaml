@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: atomic-pr03-node
+    env: node
+    plan: free
+    region: singapore          # Performance optimization for India
+    
+    # Based on your file path in the screenshot
+    rootDirectory: Project/PR-03-Converting-HTML-To-Node-In-The-Atomic-Node-Engine
+
+    # Since you have a yarn.lock file, we use yarn to install
+    buildCommand: yarn
+    startCommand: node index.js
+
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0         # Matching the version from your screenshot log
