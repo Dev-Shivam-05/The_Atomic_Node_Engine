@@ -1,17 +1,18 @@
 services:
   - type: web
-    name: atomic-pr03-node
+    name: atomic-node-pr03
     env: node
     plan: free
-    region: singapore          # Performance optimization for India
+    region: singapore          # Forces the server to be close to India
     
-    # Based on your file path in the screenshot
+    # This points to your specific project folder
     rootDirectory: Project/PR-03-Converting-HTML-To-Node-In-The-Atomic-Node-Engine
 
-    # Since you have a yarn.lock file, we use yarn to install
-    buildCommand: yarn
+    # Since you have a yarn.lock, we use yarn to install dependencies
+    buildCommand: yarn install
     startCommand: node index.js
 
+    # Locks the Node version to match your local environment
     envVars:
       - key: NODE_VERSION
-        value: 22.12.0         # Matching the version from your screenshot log
+        value: 22.12.0  
