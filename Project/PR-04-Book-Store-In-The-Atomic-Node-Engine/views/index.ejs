@@ -1,0 +1,173 @@
+<%- include('./partials/header.ejs') %>
+<!-- ============================================
+         HERO SECTION
+         ============================================ -->
+<section class="hero-section">
+    <!-- Animated Background -->
+    <div class="hero-bg">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+        <div class="hero-badge reveal">
+            <span class="badge-dot"></span>
+            Curated Collection of Exceptional Reads
+        </div>
+
+        <h1 class="hero-title reveal">
+            <span class="line">Where Stories</span>
+            <span class="line"><span class="highlight text-gradient">Become Legend</span></span>
+        </h1>
+
+        <p class="hero-subtitle reveal">
+            Discover a meticulously curated collection of books that challenge perspectives,
+            ignite imagination, and transform the way you see the world.
+        </p>
+
+        <div class="d-flex flex-wrap justify-content-center gap-3 reveal">
+            <a href="/view-books" class="btn-primary-custom">
+                Explore the Collection
+                <i class="bi bi-arrow-right btn-icon"></i>
+            </a>
+            <a href="/add-book" class="btn-secondary-custom">
+                <i class="bi bi-plus-circle"></i>
+                Add Your Book
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+         STATS SECTION
+         ============================================ -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card reveal reveal-delay-1">
+                <div class="stat-number" data-counter="2500" data-suffix="+">0</div>
+                <div class="stat-label">Books Available</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-2">
+                <div class="stat-number" data-counter="850" data-suffix="+">0</div>
+                <div class="stat-label">Authors Featured</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-3">
+                <div class="stat-number" data-counter="50" data-suffix="K+">0</div>
+                <div class="stat-label">Happy Readers</div>
+            </div>
+            <div class="stat-card reveal reveal-delay-4">
+                <div class="stat-number" data-counter="99" data-suffix="%">0</div>
+                <div class="stat-label">Satisfaction Rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+         FEATURED BOOKS SECTION
+         ============================================ -->
+<section class="books-section">
+    <div class="container">
+        <div class="section-header reveal">
+            <div>
+                <h2 class="section-heading">
+                    <span class="text-gradient">Featured</span> Collection
+                </h2>
+                <p class="text-muted-custom">Handpicked titles that define excellence</p>
+            </div>
+            <a href="/view-books" class="btn-secondary-custom">
+                View All Books
+                <i class="bi bi-arrow-right btn-icon"></i>
+            </a>
+        </div>
+
+        <div class="row g-4" id="featuredBooks">
+            <!-- Books will be dynamically loaded here -->
+            <% if (books && books.length > 0) { %>
+                <% books.forEach(book => { %>
+                    <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="book-card">
+                            <div class="book-image-wrapper">
+                                <img src="<%= book.bookImage %>" alt="<%= book.bookTitle %>" class="book-image">
+                            </div>
+                            <div class="book-info">
+                                <h5 class="book-title"><%= book.bookTitle %></h5>
+                                <p class="book-author"><%= book.bookAuthor %></p>
+                                <p class="book-price">$<%= book.bookPrice.toFixed(2) %></p>
+                                <p class="book-deal"><span class="badge bg-primary"><%= book.bookDealType %></span></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted-custom lead">No books available yet. <a href="/add-book" class="link-primary">Add the first book!</a></p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+         FEATURES SECTION
+         ============================================ -->
+<section class="py-5 my-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 reveal reveal-delay-1">
+                <div class="stat-card h-100">
+                    <div class="mb-3">
+                        <i class="bi bi-lightning-charge-fill fs-1 text-gradient"></i>
+                    </div>
+                    <h4>Instant Access</h4>
+                    <p class="text-muted-custom mb-0">Add books to your collection instantly. No waiting, no
+                        delays—just pure literary discovery.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 reveal reveal-delay-2">
+                <div class="stat-card h-100">
+                    <div class="mb-3">
+                        <i class="bi bi-shield-check fs-1 text-gradient"></i>
+                    </div>
+                    <h4>Curated Quality</h4>
+                    <p class="text-muted-custom mb-0">Every book in our collection meets rigorous standards for
+                        content, writing quality, and impact.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 reveal reveal-delay-3">
+                <div class="stat-card h-100">
+                    <div class="mb-3">
+                        <i class="bi bi-stars fs-1 text-gradient"></i>
+                    </div>
+                    <h4>Exclusive Deals</h4>
+                    <p class="text-muted-custom mb-0">Access limited-time offers, bestseller discounts, and new
+                        arrival specials you won't find elsewhere.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+         CALL TO ACTION
+         ============================================ -->
+<section class="py-5 my-5">
+    <div class="container">
+        <div class="stat-card text-center py-5 reveal" style="background: var(--gradient-card);">
+            <h2 class="section-heading mb-3">
+                Ready to <span class="text-gradient">Expand</span> Your Library?
+            </h2>
+            <p class="text-muted-custom mb-4 mx-auto" style="max-width: 500px;">
+                Join thousands of readers who have discovered their next favorite book through NEXUS.
+            </p>
+            <a href="view-books.html" class="btn-primary-custom">
+                Start Browsing Now
+                <i class="bi bi-arrow-right btn-icon"></i>
+            </a>
+        </div>
+    </div>
+</section>
+<%- include('./partials/footer.ejs') %>

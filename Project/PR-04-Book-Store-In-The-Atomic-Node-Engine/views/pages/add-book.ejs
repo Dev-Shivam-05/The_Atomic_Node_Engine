@@ -1,0 +1,142 @@
+<%- include('../partials/header.ejs') %>
+    <!-- ============================================
+         FORM SECTION
+         ============================================ -->
+    <section class="form-section">
+        <div class="container">
+            <div class="form-container reveal">
+                <div class="form-header">
+                    <div class="form-header-icon">
+                        <span>✨</span>
+                    </div>
+                    <h1 class="section-heading mb-2">
+                        Add <span class="text-gradient">New Book</span>
+                    </h1>
+                    <p class="text-muted-custom">
+                        Share a new title with the NEXUS community
+                    </p>
+                </div>
+
+                <form id="addBookForm" novalidate method="post" enctype="multipart/form-data" action="/">
+                    <!-- Book Title -->
+                    <div class="form-group">
+                        <label for="bookTitle" class="form-label">
+                            Book Title <span class="required">*</span>
+                        </label>
+                        <input type="text" id="bookTitle" name="bookTitle" class="form-control-custom"
+                            placeholder="Enter the book title" required maxlength="100">
+                        <div class="invalid-feedback">Please enter a valid book title</div>
+                    </div>
+
+                    <!-- Author -->
+                    <div class="form-group">
+                        <label for="bookAuthor" class="form-label">
+                            Author <span class="required">*</span>
+                        </label>
+                        <input type="text" id="bookAuthor" name="bookAuthor" class="form-control-custom"
+                            placeholder="Enter the author's name" required maxlength="80">
+                        <div class="invalid-feedback">Please enter the author's name</div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="bookDescription" class="form-label">
+                            Description <span class="required">*</span>
+                        </label>
+                        <textarea id="bookDescription" name="bookDescription" class="form-control-custom"
+                            placeholder="Write a compelling description of the book..." required maxlength="500"
+                            rows="4"></textarea>
+                        <div class="invalid-feedback">Please enter a description (10-500 characters)</div>
+                    </div>
+
+                    <!-- Price and Deal Type Row -->
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bookPrice" class="form-label">
+                                    Price (USD) <span class="required">*</span>
+                                </label>
+                                <input type="number" id="bookPrice" name="bookPrice" class="form-control-custom"
+                                    placeholder="29.99" required min="0.01" max="9999" step="0.01">
+                                <div class="invalid-feedback">Please enter a valid price</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="bookDealType" class="form-label">
+                                    Deal Type <span class="required">*</span>
+                                </label>
+                                <select id="bookDealType" name="bookDealType"
+                                    class="form-control-custom form-select-custom" required>
+                                    <option value="" disabled selected>Select deal type</option>
+                                    <option value="new">⚡ New Arrival</option>
+                                    <option value="hot">🔥 Hot Deal</option>
+                                    <option value="bestseller">💎 Bestseller</option>
+                                    <option value="limited">⏳ Limited Offer</option>
+                                </select>
+                                <div class="invalid-feedback">Please select a deal type</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="form-group">
+                        <label for="image" class="form-label">
+                            Cover Image <span class="required">*</span>
+                        </label>
+                        <input type="file" id="image" name="bookImage" class="form-control-custom" accept="image/*"
+                            required>
+                        <div class="invalid-feedback">Please upload a book cover image</div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="mt-4">
+                        <button type="submit" class="btn-submit">
+                            <span class="spinner">
+                                <i class="bi bi-arrow-repeat"></i>
+                            </span>
+                            <span class="btn-text">
+                                <i class="bi bi-plus-circle me-2"></i>
+                                Add Book to Collection
+                            </span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Quick Tips -->
+                <div class="mt-4 pt-4" style="border-top: 1px solid var(--glass-border);">
+                    <h6 class="text-muted-custom mb-3">
+                        <i class="bi bi-lightbulb me-2"></i>Quick Tips
+                    </h6>
+                    <ul class="text-muted-custom small mb-0" style="padding-left: 1.25rem;">
+                        <li class="mb-2">Use high-quality cover images (recommended: 400x600px)</li>
+                        <li class="mb-2">Write engaging descriptions that capture the book's essence</li>
+                        <li>Choose the appropriate deal type to highlight your book</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SUCCESS OVERLAY
+         ============================================ -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-content">
+            <div class="success-icon">
+                <i class="bi bi-check-lg"></i>
+            </div>
+            <h2 class="success-title text-white">Book Added!</h2>
+            <p class="success-text">Your book has been successfully added to the collection.</p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a href="/view-books" class="btn-primary-custom">
+                    <i class="bi bi-collection me-2"></i>
+                    View All Books
+                </a>
+                <button onclick="App.closeSuccessOverlay()" class="btn-secondary-custom">
+                    Add Another
+                </button>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer.ejs') %>

@@ -1,0 +1,73 @@
+<%- include('../partials/header.ejs') %>
+
+<!-- ============================================
+     BROWSE PAGE HEADER
+     ============================================ -->
+<div class="browse-header">
+    <div class="container">
+        <h1 class="display-4">📚 My Book Collection</h1>
+        <p class="text-muted-custom">View and manage all your books</p>
+    </div>
+</div>
+
+<!-- ============================================
+     BOOKS TABLE
+     ============================================ -->
+<div class="container my-5">
+    <% if (books && books.length > 0) { %>
+        <div class="table-responsive books-table-wrapper">
+            <table class="table table-hover books-table table-dark text-center align-middle">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 5%;">#</th>
+                        <th class="text-center" style="width: 12%;">Image</th>
+                        <th style="width: 20%;">Title</th>
+                        <th style="width: 18%;">Author</th>
+                        <th style="width: 20%;">Description</th>
+                        <th class="text-center" style="width: 10%;">Price</th>
+                        <th class="text-center" style="width: 8%;">Type</th>
+                        <th class="text-center" style="width: 12%;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% books.forEach((book, index) => { %>
+                        <tr class="book-row">
+                            <td class="text-center fw-bold"><%= index + 1 %></td>
+                            <td class="text-center">
+                                <img src="<%= book.bookImage %>" alt="<%= book.bookTitle %>" class="book-thumb" style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">
+                            </td>
+                            <td>
+                                <span class="fw-semibold"><%= book.bookTitle %></span>
+                            </td>
+                            <td><%= book.bookAuthor %></td>
+                            <td>
+                                <p class="text-muted" style="color: #c3d0e0 !important;"><%= book.bookDescription.substring(0, 50) %>...</p>
+                            </td>
+                            <td class="text-center fw-semibold">$<%= book.bookPrice.toFixed(2) %></td>
+                            <td class="text-center">
+                                <span class="badge bg-info"><%= book.bookDealType %></span>
+                            </td>
+                            <td class="text-center d-flex flex-wrap justify-content-center align-items-center">
+                                <a href="/delete/user/<%= book._id %>" class="btn btn-sm btn-delete-small my-3" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <a href="/edit/user/<%= book._id %>" class="btn btn-sm btn-edit-small my-3" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <!-- <a class="btn btn-sm btn-delete-small" onclick="deleteBook('<%= book._id %>')" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a> -->
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    <% } else { %>
+        <div class="text-center py-5">
+            <p class="lead text-muted-custom">📭 No books added yet. Start by <a href="/add-book" class="link-primary">adding a book</a>!</p>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../partials/footer.ejs') %>

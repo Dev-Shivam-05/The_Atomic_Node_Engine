@@ -1,0 +1,1105 @@
+<!-- ============================================
+         FOOTER
+         ============================================ -->
+<footer class="footer">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="footer-brand">📚 NEXUS</div>
+                <p class="footer-text">
+                    The premium destination for readers who demand excellence. Curated collections, exceptional
+                    quality, unforgettable stories.
+                </p>
+                <div class="footer-social mt-4">
+                    <a href="#" class="social-link" aria-label="Twitter">
+                        <i class="bi bi-twitter-x"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="#" class="social-link" aria-label="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4">
+                <h5 class="footer-heading">Navigation</h5>
+                <ul class="footer-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/view-books">Browse Books</a></li>
+                    <li><a href="/add-book">Add Book</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4">
+                <h5 class="footer-heading">Categories</h5>
+                <ul class="footer-links">
+                    <li><a href="/view-books">Bestsellers</a></li>
+                    <li><a href="/view-books">New Arrivals</a></li>
+                    <li><a href="/view-books">Hot Deals</a></li>
+                    <li><a href="/view-books">Limited Offers</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2 col-md-4">
+                <h5 class="footer-heading">Support</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-2">
+                <h5 class="footer-heading">Legal</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 NEXUS Books. Crafted with precision and passion.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script>
+    /* ============================================
+NEXUS BOOKS — Application Logic
+Elite Bookstore JavaScript Engine
+============================================ */
+
+    // ============================================
+    // DATA LAYER — Central Data Structure
+    // ============================================
+
+    const DEFAULT_BOOKS = [
+        {
+            id: 1,
+            title: "The Quantum Paradox",
+            author: "Dr. Elena Vance",
+            description: "A mind-bending journey through the fabric of reality, exploring the deepest mysteries of quantum mechanics and their implications for human consciousness.",
+            price: 29.99,
+            dealType: "bestseller",
+            image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=600&fit=crop",
+            dateAdded: Date.now()
+        },
+        {
+            id: 2,
+            title: "Shadows of Tomorrow",
+            author: "Marcus Chen",
+            description: "In a dystopian future where memories are currency, one woman discovers a secret that could change everything. A gripping thriller that will keep you on the edge.",
+            price: 24.99,
+            dealType: "hot",
+            image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&h=600&fit=crop",
+            dateAdded: Date.now() - 86400000
+        },
+        {
+            id: 3,
+            title: "Code & Conscience",
+            author: "Sarah Mitchell",
+            description: "The definitive guide to ethical AI development. Essential reading for anyone building the future of technology with responsibility and vision.",
+            price: 39.99,
+            dealType: "new",
+            image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=400&h=600&fit=crop",
+            dateAdded: Date.now() - 172800000
+        },
+    ];
+
+    // ============================================
+    // STORAGE LAYER — LocalStorage Management
+    // ============================================
+
+    const StorageManager = {
+        STORAGE_KEY: 'nexus_books_data',
+
+        /**
+         * Initialize storage with default books if empty
+         */
+        init() {
+            const existingData = this.getBooks();
+            if (!existingData || existingData.length === 0) {
+                this.saveBooks(DEFAULT_BOOKS);
+            }
+        },
+
+        /**
+         * Get all books from localStorage
+         * @returns {Array} Array of book objects
+         */
+        getBooks() {
+            try {
+                const data = localStorage.getItem(this.STORAGE_KEY);
+                return data ? JSON.parse(data) : [];
+            } catch (error) {
+                console.error('Error reading from localStorage:', error);
+                return [];
+            }
+        },
+
+        /**
+         * Save books to localStorage
+         * @param {Array} books - Array of book objects
+         */
+        saveBooks(books) {
+            try {
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(books));
+            } catch (error) {
+                console.error('Error saving to localStorage:', error);
+            }
+        },
+
+        /**
+         * Add a new book
+         * @param {Object} book - Book object to add
+         * @returns {Object} The added book with generated ID
+         */
+        addBook(book) {
+            const books = this.getBooks();
+            const newBook = {
+                ...book,
+                id: Date.now(),
+                dateAdded: Date.now()
+            };
+            books.unshift(newBook);
+            this.saveBooks(books);
+            return newBook;
+        },
+
+        /**
+         * Delete a book by ID
+         * @param {number} id - Book ID to delete
+         */
+        deleteBook(id) {
+            const books = this.getBooks().filter(book => book.id !== id);
+            this.saveBooks(books);
+        },
+
+        /**
+         * Get book by ID
+         * @param {number} id - Book ID
+         * @returns {Object|null} Book object or null
+         */
+        getBookById(id) {
+            return this.getBooks().find(book => book.id === id) || null;
+        }
+    };
+
+    // ============================================
+    // UI COMPONENTS — Rendering Functions
+    // ============================================
+
+    const UIComponents = {
+        /**
+         * Generate badge HTML based on deal type
+         * @param {string} dealType - Type of deal
+         * @returns {string} Badge HTML
+         */
+        getBadgeHTML(dealType) {
+            const badges = {
+                hot: { class: 'badge-hot', icon: '🔥', text: 'Hot Deal' },
+                limited: { class: 'badge-limited', icon: '⏳', text: 'Limited Offer' },
+                bestseller: { class: 'badge-bestseller', icon: '💎', text: 'Bestseller' },
+                new: { class: 'badge-new', icon: '⚡', text: 'New Arrival' }
+            };
+
+            const badge = badges[dealType] || badges.new;
+            return `<span class="deal-badge ${badge.class}">${badge.icon} ${badge.text}</span>`;
+        },
+
+        /**
+         * Generate a book card HTML
+         * @param {Object} book - Book object
+         * @returns {string} Card HTML
+         */
+        createBookCard(book) {
+            return `
+            <div class="col reveal" data-book-id="${book.id}">
+                <article class="book-card">
+                    ${this.getBadgeHTML(book.dealType)}
+                    <div class="book-image-wrapper">
+                        <img src="${book.image}" alt="${book.title}" class="book-image" loading="lazy"
+                             onerror="this.src='https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&h=600&fit=crop'">
+                        <div class="book-overlay">
+                            <button class="book-quick-view" onclick="App.quickView(${book.id})">
+                                Quick View
+                            </button>
+                        </div>
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">${this.escapeHTML(book.title)}</h3>
+                        <p class="book-author">by ${this.escapeHTML(book.author)}</p>
+                        <p class="book-description">${this.escapeHTML(book.description)}</p>
+                        <div class="book-footer">
+                            <span class="book-price">
+                                <span class="currency">$</span>${book.price.toFixed(2)}
+                            </span>
+                            <button class="btn-buy" onclick="App.addToCart(${book.id})">
+                                <i class="bi bi-cart-plus"></i> Buy Now
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        `;
+        },
+
+        /**
+         * Generate skeleton loader HTML
+         * @param {number} count - Number of skeletons to generate
+         * @returns {string} Skeleton HTML
+         */
+        createSkeletons(count = 4) {
+            let html = '';
+            for (let i = 0; i < count; i++) {
+                html += `
+                <div class="col">
+                    <div class="skeleton-card">
+                        <div class="skeleton skeleton-image"></div>
+                        <div class="skeleton-content">
+                            <div class="skeleton skeleton-title"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text"></div>
+                            <div class="skeleton skeleton-text"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            }
+            return html;
+        },
+
+        /**
+         * Generate empty state HTML
+         * @param {string} message - Message to display
+         * @returns {string} Empty state HTML
+         */
+        createEmptyState(message = 'No books found') {
+            return `
+            <div class="col-12">
+                <div class="empty-state">
+                    <div class="empty-icon">📚</div>
+                    <h3 class="empty-title">${message}</h3>
+                    <p class="empty-text">Try adjusting your filters or search terms.</p>
+                </div>
+            </div>
+        `;
+        },
+
+        /**
+         * Escape HTML to prevent XSS
+         * @param {string} text - Text to escape
+         * @returns {string} Escaped text
+         */
+        escapeHTML(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        },
+
+        /**
+         * Show toast notification
+         * @param {string} message - Message to show
+         * @param {string} type - 'success' or 'error'
+         */
+        showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer') || this.createToastContainer();
+
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+            <span class="toast-icon">
+                <i class="bi bi-${type === 'success' ? 'check-circle-fill' : 'exclamation-circle-fill'}"></i>
+            </span>
+            <span class="toast-message">${message}</span>
+        `;
+
+            container.appendChild(toast);
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+                toast.classList.add('show');
+            });
+
+            // Remove after delay
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        },
+
+        /**
+         * Create toast container if it doesn't exist
+         * @returns {HTMLElement} Toast container element
+         */
+        createToastContainer() {
+            const container = document.createElement('div');
+            container.id = 'toastContainer';
+            container.className = 'toast-container';
+            document.body.appendChild(container);
+            return container;
+        }
+    };
+
+    // ============================================
+    // MAIN APPLICATION — Core Logic
+    // ============================================
+
+    const App = {
+        currentFilter: 'all',
+        currentView: 'grid',
+        searchQuery: '',
+
+        /**
+         * Initialize the application
+         */
+        init() {
+            // Initialize storage
+            StorageManager.init();
+
+            // Setup theme
+            this.initTheme();
+
+            // Setup navigation
+            this.initNavigation();
+
+            // Setup scroll reveal
+            this.initScrollReveal();
+
+            // Page-specific initialization
+            const page = this.getCurrentPage();
+
+            switch (page) {
+                case 'index':
+                case '':
+                    this.initHomePage();
+                    break;
+                case 'view-books':
+                    this.initViewBooksPage();
+                    break;
+                case 'add-book':
+                    this.initAddBookPage();
+                    break;
+            }
+
+            // Animate counters if on home page
+            if (page === 'index' || page === '') {
+                this.initCounters();
+            }
+        },
+
+        /**
+         * Get current page name
+         * @returns {string} Page name
+         */
+        getCurrentPage() {
+            const path = window.location.pathname;
+            const filename = path.substring(path.lastIndexOf('/') + 1);
+            return filename.replace('.html', '') || 'index';
+        },
+
+        // ============================================
+        // THEME MANAGEMENT
+        // ============================================
+
+        /**
+         * Initialize theme from localStorage or system preference
+         */
+        initTheme() {
+            const savedTheme = localStorage.getItem('nexus_theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (prefersDark ? 'dark' : 'dark');
+
+            this.setTheme(theme);
+
+            // Listen for theme toggle
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => this.toggleTheme());
+            }
+        },
+
+        /**
+         * Set the theme
+         * @param {string} theme - 'light' or 'dark'
+         */
+        setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('nexus_theme', theme);
+
+            // Update toggle icon
+            const icon = document.querySelector('#themeToggle i');
+            if (icon) {
+                icon.className = theme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-fill';
+            }
+        },
+
+        /**
+         * Toggle between light and dark theme
+         */
+        toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            this.setTheme(next);
+        },
+
+        // ============================================
+        // NAVIGATION
+        // ============================================
+
+        /**
+         * Initialize navigation behavior
+         */
+        initNavigation() {
+            const navbar = document.querySelector('.navbar-custom');
+
+            // Set active nav link based on current page
+            const currentPage = this.getCurrentPage();
+            const navLinks = document.querySelectorAll('.nav-link-custom');
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                const href = link.getAttribute('href');
+
+                if (
+                    (currentPage === 'index' || currentPage === '') &&
+                    (href === '' || href === '/' || href === '/index')
+                ) {
+                    link.classList.add('active');
+                } else if (
+                    currentPage === 'view-books' &&
+                    (href === 'view-books' || href === '/view-books')
+                ) {
+                    link.classList.add('active');
+                } else if (
+                    currentPage === 'add-book' &&
+                    (href === 'add-book' || href === '/add-book')
+                ) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll effect
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar?.classList.add('scrolled');
+                } else {
+                    navbar?.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile menu close on link click
+            const navCollapse = document.querySelector('.navbar-collapse');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navCollapse?.classList.contains('show')) {
+                        new bootstrap.Collapse(navCollapse).hide();
+                    }
+                });
+            });
+        },
+
+        // ============================================
+        // SCROLL REVEAL ANIMATION
+        // ============================================
+
+        /**
+         * Initialize scroll reveal animations
+         */
+        initScrollReveal() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all elements with reveal class
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        },
+
+        /**
+         * Re-initialize scroll reveal for dynamically added elements
+         */
+        refreshScrollReveal() {
+            setTimeout(() => {
+                this.initScrollReveal();
+            }, 100);
+        },
+
+        // ============================================
+        // HOME PAGE
+        // ============================================
+
+        /**
+         * Initialize home page
+         */
+        initHomePage() {
+            this.renderFeaturedBooks();
+        },
+
+        /**
+         * Render featured books on home page
+         */
+        renderFeaturedBooks() {
+            const container = document.getElementById('featuredBooks');
+            if (!container) return;
+
+            // Show skeletons first
+            container.innerHTML = UIComponents.createSkeletons(4);
+
+            // Simulate loading delay for effect
+            setTimeout(() => {
+                const books = StorageManager.getBooks().slice(0, 4);
+
+                if (books.length === 0) {
+                    container.innerHTML = UIComponents.createEmptyState('No books available yet');
+                    return;
+                }
+
+                container.innerHTML = books.map(book => UIComponents.createBookCard(book)).join('');
+                this.refreshScrollReveal();
+            }, 800);
+        },
+
+        /**
+         * Initialize animated counters
+         */
+        initCounters() {
+            const counters = document.querySelectorAll('[data-counter]');
+
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.counter, 10);
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString() + (counter.dataset.suffix || '');
+                    }
+                };
+
+                // Start counter when visible
+                const observer = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting) {
+                        updateCounter();
+                        observer.disconnect();
+                    }
+                });
+
+                observer.observe(counter);
+            });
+        },
+
+        // ============================================
+        // VIEW BOOKS PAGE
+        // ============================================
+
+        /**
+         * Initialize view books page
+         */
+        initViewBooksPage() {
+            this.renderAllBooks();
+            this.initSearch();
+            this.initFilters();
+            this.initViewToggle();
+        },
+
+        /**
+         * Render all books with current filters
+         */
+        renderAllBooks() {
+            const container = document.getElementById('booksGrid');
+            if (!container) return;
+
+            // Show skeletons
+            container.innerHTML = UIComponents.createSkeletons(4);
+
+            setTimeout(() => {
+                let books = StorageManager.getBooks();
+
+                // Apply search filter
+                if (this.searchQuery) {
+                    const query = this.searchQuery.toLowerCase();
+                    books = books.filter(book =>
+                        book.title.toLowerCase().includes(query) ||
+                        book.author.toLowerCase().includes(query) ||
+                        book.description.toLowerCase().includes(query)
+                    );
+                }
+
+                // Apply deal type filter
+                if (this.currentFilter !== 'all') {
+                    books = books.filter(book => book.dealType === this.currentFilter);
+                }
+
+                // Apply price filter
+                const priceFilter = document.querySelector('.filter-btn[data-price].active');
+                if (priceFilter) {
+                    const [min, max] = priceFilter.dataset.price.split('-').map(Number);
+                    books = books.filter(book => {
+                        if (max) {
+                            return book.price >= min && book.price <= max;
+                        }
+                        return book.price >= min;
+                    });
+                }
+
+                // Show only 4 books by default
+                const displayBooks = books.slice(0, 4);
+
+                if (displayBooks.length === 0) {
+                    container.innerHTML = UIComponents.createEmptyState();
+                    return;
+                }
+
+                container.innerHTML = displayBooks.map(book => UIComponents.createBookCard(book)).join('');
+
+                // Apply current view mode
+                if (this.currentView === 'list') {
+                    container.classList.add('list-view');
+                }
+
+                this.refreshScrollReveal();
+                this.updateResultsCount(books.length);
+            }, 500);
+        },
+
+        /**
+         * Update results count display
+         * @param {number} count - Number of results
+         */
+        updateResultsCount(count) {
+            const countEl = document.getElementById('resultsCount');
+            if (countEl) {
+                countEl.textContent = `${count} book${count !== 1 ? 's' : ''} found`;
+            }
+        },
+
+        /**
+         * Initialize search functionality
+         */
+        initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            if (!searchInput) return;
+
+            let debounceTimer;
+
+            searchInput.addEventListener('input', (e) => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(() => {
+                    this.searchQuery = e.target.value.trim();
+                    this.renderAllBooks();
+                }, 300);
+            });
+        },
+
+        /**
+         * Initialize filter buttons
+         */
+        initFilters() {
+            const filterBtns = document.querySelectorAll('.filter-btn[data-filter]');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active from all
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    this.currentFilter = btn.dataset.filter;
+                    this.renderAllBooks();
+                });
+            });
+
+            // Price filters
+            const priceBtns = document.querySelectorAll('.filter-btn[data-price]');
+
+            priceBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const wasActive = btn.classList.contains('active');
+                    priceBtns.forEach(b => b.classList.remove('active'));
+
+                    if (!wasActive) {
+                        btn.classList.add('active');
+                    }
+
+                    this.renderAllBooks();
+                });
+            });
+        },
+
+        /**
+         * Initialize view toggle (grid/list)
+         */
+        initViewToggle() {
+            const viewBtns = document.querySelectorAll('.view-btn');
+            const booksGrid = document.getElementById('booksGrid');
+
+            viewBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    viewBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    this.currentView = btn.dataset.view;
+
+                    if (this.currentView === 'list') {
+                        booksGrid?.classList.add('list-view');
+                    } else {
+                        booksGrid?.classList.remove('list-view');
+                    }
+                });
+            });
+        },
+
+        // ============================================
+        // ADD BOOK PAGE
+        // ============================================
+
+        /**
+         * Initialize add book page
+         */
+        initAddBookPage() {
+            const form = document.getElementById('addBookForm');
+            if (!form) return;
+
+            // Image preview
+            const imageInput = document.getElementById('bookImage');
+            const preview = document.getElementById('imagePreview');
+
+            imageInput?.addEventListener('input', (e) => {
+                const url = e.target.value.trim();
+                if (url) {
+                    preview.innerHTML = `<img src="${url}" alt="Preview" onerror="this.parentElement.innerHTML='<div class=\\'image-preview-placeholder\\'><i class=\\'bi bi-image\\'></i><span>Invalid image URL</span></div>'">`;
+                } else {
+                    preview.innerHTML = `<div class="image-preview-placeholder"><i class="bi bi-image"></i><span>Image preview</span></div>`;
+                }
+            });
+
+            // Form submission
+            form.addEventListener('submit', (e) => this.handleFormSubmit(e));
+
+            // Real-time validation
+            const inputs = form.querySelectorAll('.form-control-custom');
+            inputs.forEach(input => {
+                input.addEventListener('blur', () => this.validateField(input));
+                input.addEventListener('input', () => {
+                    if (input.classList.contains('is-invalid')) {
+                        this.validateField(input);
+                    }
+                });
+            });
+        },
+
+        /**
+         * Validate a form field
+         * @param {HTMLElement} field - Form field to validate
+         * @returns {boolean} Is valid
+         */
+        validateField(field) {
+            const value = field.value.trim();
+            let isValid = true;
+            let message = '';
+
+            // Required check
+            if (field.hasAttribute('required') && !value) {
+                isValid = false;
+                message = 'This field is required';
+            }
+
+            // Specific validations
+            if (value) {
+                switch (field.id) {
+                    case 'bookPrice':
+                        const price = parseFloat(value);
+                        if (isNaN(price) || price <= 0) {
+                            isValid = false;
+                            message = 'Please enter a valid price greater than 0';
+                        } else if (price > 9999) {
+                            isValid = false;
+                            message = 'Price cannot exceed $9,999';
+                        }
+                        break;
+
+                    case 'bookImage':
+                        try {
+                            new URL(value);
+                        } catch {
+                            isValid = false;
+                            message = 'Please enter a valid URL';
+                        }
+                        break;
+
+                    case 'bookTitle':
+                        if (value.length < 2) {
+                            isValid = false;
+                            message = 'Title must be at least 2 characters';
+                        } else if (value.length > 100) {
+                            isValid = false;
+                            message = 'Title cannot exceed 100 characters';
+                        }
+                        break;
+
+                    case 'bookAuthor':
+                        if (value.length < 2) {
+                            isValid = false;
+                            message = 'Author name must be at least 2 characters';
+                        }
+                        break;
+
+                    case 'bookDescription':
+                        if (value.length < 10) {
+                            isValid = false;
+                            message = 'Description must be at least 10 characters';
+                        } else if (value.length > 500) {
+                            isValid = false;
+                            message = 'Description cannot exceed 500 characters';
+                        }
+                        break;
+                }
+            }
+
+            // Update UI
+            const feedback = field.nextElementSibling;
+
+            if (isValid) {
+                field.classList.remove('is-invalid');
+                field.classList.add('is-valid');
+            } else {
+                field.classList.remove('is-valid');
+                field.classList.add('is-invalid');
+                if (feedback?.classList.contains('invalid-feedback')) {
+                    feedback.textContent = message;
+                }
+            }
+
+            return isValid;
+        },
+
+        /**
+         * Handle form submission
+         * @param {Event} e - Submit event
+         */
+        async handleFormSubmit(e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const submitBtn = form.querySelector('.btn-submit');
+
+            // Validate all fields
+            const fields = form.querySelectorAll('.form-control-custom');
+            let isFormValid = true;
+
+            fields.forEach(field => {
+                if (!this.validateField(field)) {
+                    isFormValid = false;
+                }
+            });
+
+            if (!isFormValid) {
+                UIComponents.showToast('Please fix the errors in the form', 'error');
+                return;
+            }
+
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            try {
+                // Create FormData for file upload
+                const formData = new FormData();
+                formData.append('bookTitle', document.getElementById('bookTitle').value.trim());
+                formData.append('bookAuthor', document.getElementById('bookAuthor').value.trim());
+                formData.append('bookDescription', document.getElementById('bookDescription').value.trim());
+                formData.append('bookPrice', parseFloat(document.getElementById('bookPrice').value));
+                formData.append('bookDealType', document.getElementById('bookDealType').value);
+
+                // Handle file upload
+                const imageInput = document.getElementById('image');
+                if (imageInput && imageInput.files.length > 0) {
+                    formData.append('image', imageInput.files[0]);
+                }
+
+                // Send data to server
+                const response = await fetch('/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (response.ok && result.success) {
+                    // Remove loading state
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+
+                    // Show success overlay
+                    this.showSuccessOverlay();
+
+                    // Reset form
+                    form.reset();
+
+                    // Remove validation classes
+                    fields.forEach(field => {
+                        field.classList.remove('is-valid', 'is-invalid');
+                    });
+
+                    UIComponents.showToast('Book added successfully!', 'success');
+
+                    // Redirect after success
+                    setTimeout(() => {
+                        window.location.href = '/view-books';
+                    }, 2000);
+                } else {
+                    throw new Error(result.message || 'Failed to add book');
+                }
+            } catch (error) {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                UIComponents.showToast(error.message || 'Error adding book', 'error');
+                console.error('Error:', error);
+            }
+        },
+
+        /**
+         * Show success overlay after adding book
+         */
+        showSuccessOverlay() {
+            const overlay = document.getElementById('successOverlay');
+            if (overlay) {
+                overlay.classList.add('show');
+
+                // Auto hide after delay
+                setTimeout(() => {
+                    overlay.classList.remove('show');
+                }, 3000);
+            }
+        },
+
+        /**
+         * Close success overlay
+         */
+        closeSuccessOverlay() {
+            const overlay = document.getElementById('successOverlay');
+            overlay?.classList.remove('show');
+        },
+
+        // ============================================
+        // UTILITY METHODS
+        // ============================================
+
+        /**
+         * Quick view book (placeholder for modal)
+         * @param {number} id - Book ID
+         */
+        quickView(id) {
+            const book = StorageManager.getBookById(id);
+            if (book) {
+                UIComponents.showToast(`Quick view: ${book.title}`, 'success');
+                // Could open a modal here
+            }
+        },
+
+        /**
+         * Add book to cart (placeholder)
+         * @param {number} id - Book ID
+         */
+        addToCart(id) {
+            const book = StorageManager.getBookById(id);
+            if (book) {
+                UIComponents.showToast(`Added "${book.title}" to cart!`, 'success');
+                // Could implement cart functionality here
+            }
+        }
+    };
+
+    // ============================================
+    // INITIALIZATION
+    // ============================================
+
+    // ============================================
+    // GLOBAL FUNCTIONS — Edit & Delete Book
+    // ============================================
+
+    /**
+     * Delete a book by MongoDB ID
+     * @param {string} bookId - Book MongoDB ID
+     */
+    function deleteBook(bookId) {
+        if (!confirm('Are you sure you want to delete this book?')) {
+            return;
+        }
+
+        fetch(`/delete-book/${bookId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                UIComponents.showToast('Book deleted successfully!', 'success');
+                // Reload page to refresh books list
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } else {
+                UIComponents.showToast(data.message || 'Failed to delete book', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Delete error:', error);
+            UIComponents.showToast('Error deleting book: ' + error.message, 'error');
+        });
+    }
+
+    /**
+     * Edit a book by MongoDB ID
+     * @param {string} bookId - Book MongoDB ID
+     */
+    function editBook(bookId) {
+        alert('Edit functionality coming soon! Book ID: ' + bookId);
+        // TODO: Implement edit modal or redirect to edit page
+        // For now, placeholder function
+    }
+
+    // Initialize app when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        App.init();
+    });
+
+    // Export for global access
+    window.App = App;
+    window.UIComponents = UIComponents;
+    window.StorageManager = StorageManager;
+    window.deleteBook = deleteBook;
+    window.editBook = editBook;
+
+</script>
+</body>
+
+</html>
