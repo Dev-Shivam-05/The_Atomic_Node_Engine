@@ -132,7 +132,7 @@ app.post("/update-book/:id", imageUpload, (req, res) => {
 // ============================================
 // Starting Server ROUTE
 // ============================================
-app.listen(port, (err) => {
+app.listen(port, "0.0.0.0", (err) => {
   if (!err) {
     console.log("App listening on port 3000!");
     console.log(`http://localhost:${port}`);
