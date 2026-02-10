@@ -10,10 +10,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
+
+// Parse URL-encoded bodies (excluding multipart)
+app.use(express.urlencoded({ extended: true, type: 'application/x-www-form-urlencoded' }));
+
+// Parse JSON bodies (excluding multipart)
+app.use(express.json({ type: 'application/json' }));
 
 app.get("/", (req, res) => {
   Book.find({})

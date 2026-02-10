@@ -84,7 +84,7 @@
             </a>
         </div>
 
-        <div class="row g-4" id="featuredBooks">
+        <div class="row g-4 books-grid" id="featuredBooks">
             <!-- Books will be dynamically loaded here -->
             <% if (books && books.length > 0) { %>
                 <% books.forEach(book => { %>
@@ -93,11 +93,14 @@
                             <div class="book-image-wrapper">
                                 <img src="<%= book.bookImage %>" alt="<%= book.bookTitle %>" class="book-image">
                             </div>
-                            <div class="book-info">
+                            <div class="book-content">
                                 <h5 class="book-title"><%= book.bookTitle %></h5>
                                 <p class="book-author"><%= book.bookAuthor %></p>
-                                <p class="book-price">$<%= book.bookPrice.toFixed(2) %></p>
-                                <p class="book-deal"><span class="badge bg-primary"><%= book.bookDealType %></span></p>
+                                <p class="book-description"><%= book.bookDescription %></p>
+                                <div class="book-footer">
+                                    <span class="book-price">$<%= book.bookPrice.toFixed(2) %></span>
+                                    <span class="badge badge-<%= book.bookDealType %>"><%= book.bookDealType.toUpperCase() %></span>
+                                </div>
                             </div>
                         </div>
                     </div>
