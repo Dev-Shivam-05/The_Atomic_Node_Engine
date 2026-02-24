@@ -4,7 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Movie Admin Panel | Live Preview & Login</title>
+    <meta name="description"
+        content="Movie Admin Panel with secure login, admin dashboard, and movie CRUD. Explore the live preview and manage a cinematic movie list with rich detail pages.">
+    <meta name="keywords"
+        content="movie admin panel, movie list, movie management, admin dashboard, movie CRUD, EJS, Node.js, Express, MongoDB, movie detail page, movie catalog">
+    <meta name="author" content="The Atomic Node Engine">
+    <meta property="og:title" content="Movie Admin Panel | Live Preview & Login">
+    <meta property="og:description"
+        content="Explore the live preview of a movie admin panel with dashboard, CRUD, and cinematic movie details.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://the-atomic-node-engine-6m5e.onrender.com/">
+    <meta property="og:image" content="https://the-atomic-node-engine-6m5e.onrender.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Movie Admin Panel | Live Preview & Login">
+    <meta name="twitter:description"
+        content="Live preview of a movie admin panel with admin dashboard, movie cards, and rich detail pages.">
+    <link rel="canonical" href="https://the-atomic-node-engine-6m5e.onrender.com/">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -16,9 +32,46 @@
         body {
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            display: grid;
-            place-items: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+            padding-top: 72px;
+        }
+
+        .live-preview-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(10, 10, 26, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(16px);
+        }
+
+        .live-preview-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: #fff;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .live-preview-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 34px rgba(99, 102, 241, 0.5);
         }
 
         .card {
@@ -202,6 +255,10 @@
 </head>
 
 <body>
+    <div class="live-preview-banner">
+        <a class="live-preview-link" href="https://the-atomic-node-engine-6m5e.onrender.com/" target="_blank"
+            rel="noopener noreferrer">Live Preview</a>
+    </div>
     <div class="card">
         <h1>Welcome</h1>
         <p class="sub">Sign in to continue</p>
