@@ -1,0 +1,196 @@
+<%- include('../partials/header.ejs') %>
+<%
+    const castText = Array.isArray(editData.cast)
+        ? editData.cast.map((member) => `${member.name}${member.role ? `: ${member.role}` : ''}`).join(', ')
+        : '';
+    const crewText = Array.isArray(editData.crew)
+        ? editData.crew.map((member) => `${member.name}${member.role ? `: ${member.role}` : ''}`).join(', ')
+        : '';
+    const trailerText = Array.isArray(editData.trailerLinks) ? editData.trailerLinks.join(', ') : '';
+    const releaseValue = editData.movieRelease ? new Date(editData.movieRelease).toISOString().slice(0, 10) : '';
+    const durationMinutes = typeof editData.movieDuration === 'number' ? editData.movieDuration : null;
+    const durationValue = durationMinutes !== null
+        ? `${String(Math.floor(durationMinutes / 60)).padStart(2, '0')}:${String(durationMinutes % 60).padStart(2, '0')}`
+        : '';
+%>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <form class="form-horizontal" method="POST" action="/movie/edit-movie/<%= editData._id %>"
+                            enctype="multipart/form-data">
+                            <div class="card-body">
+                                <h4 class="card-title">Edit Movie</h4>
+                                <div class="form-group row">
+                                    <label for="fname" class="col-sm-3 text-end control-label col-form-label">Movie
+                                        Title</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="fname" name="movieTitle" required
+                                            value="<%= editData.movieTitle %>" placeholder="Enter movie title" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lname"
+                                        class="col-sm-3 text-end control-label col-form-label">Genre</label>
+                                    <div class="col-sm-9">
+                                        <select name="genre" id="genre" class="form-select form-control">
+                                            <option value="">Select genre</option>
+                                            <option value="Action" <%=editData.genre==="Action" ? "selected" : "" %>
+                                                >Action</option>
+                                            <option value="Comedy" <%=editData.genre==="Comedy" ? "selected" : "" %>
+                                                >Comedy</option>
+                                            <option value="Drama" <%=editData.genre==="Drama" ? "selected" : "" %>>Drama
+                                            </option>
+                                            <option value="Horror" <%=editData.genre==="Horror" ? "selected" : "" %>
+                                                >Horror</option>
+                                            <option value="Sci-Fi" <%=editData.genre==="Sci-Fi" ? "selected" : "" %>
+                                                >Sci-Fi</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lname"
+                                        class="col-sm-3 text-end control-label col-form-label">Rating</label>
+                                    <div class="col-sm-9">
+                                        <select name="rating" id="rating" class="form-select form-control">
+                                            <option value="">Rate this movie</option>
+                                            <option value="1" <%=editData.rating==='1' ? "selected" : "" %>>⭐</option>
+                                            <option value="2" <%=editData.rating==='2' ? "selected" : "" %>>⭐⭐</option>
+                                            <option value="3" <%=editData.rating==='3' ? "selected" : "" %>>⭐⭐⭐</option>
+                                            <option value="4" <%=editData.rating==='4' ? "selected" : "" %>>⭐⭐⭐⭐
+                                            </option>
+                                            <option value="5" <%=editData.rating==='5' ? "selected" : "" %>>⭐⭐⭐⭐⭐
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Movie
+                                        Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="movieDescription" rows="4"
+                                            placeholder="Short description or synopsis"><%= editData.movieDescription %></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="plotSummary" class="col-sm-3 text-end control-label col-form-label">Plot
+                                        Summary</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" name="plotSummary" rows="4"
+                                            placeholder="Full plot summary"><%= editData.plotSummary || '' %></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="castText" class="col-sm-3 text-end control-label col-form-label">Cast</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="castText" name="castText"
+                                            value="<%= castText %>" placeholder="Actor: Role, Actor: Role">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="crewText" class="col-sm-3 text-end control-label col-form-label">Crew</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="crewText" name="crewText"
+                                            value="<%= crewText %>" placeholder="Name: Responsibility, Name: Responsibility">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="trailerText" class="col-sm-3 text-end control-label col-form-label">Trailer
+                                        Links</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="trailerText" name="trailerText"
+                                            value="<%= trailerText %>" placeholder="https://youtube.com/..., https://vimeo.com/...">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Movie
+                                        Release Date</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" name="movieRelease" id="movieRelease" class="form-control"
+                                            value="<%= releaseValue %>"
+                                            required />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="cono1" class="col-sm-3 text-end control-label col-form-label">Movie
+                                        Duration</label>
+                                    <div class="col-sm-9">
+                                        <input type="time" name="movieDuration" id="movieDuration" class="form-control"
+                                            value="<%= durationValue %>"
+                                            required />
+                                    </div>
+                                </div>
+                                <div class="form-group row align-items-center">
+                                    <label class="col-sm-3 text-end control-label col-form-label">Poster</label>
+                                    <div class="col-sm-6">
+                                        <input type="file" name="poster" id="posterInput" accept="image/*" required
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-sm-3 text-star  t">
+                                        <img id="posterPreview" src="/<%= editData.poster %>" alt="poster preview"
+                                            class="img-thumbnail" style="width:120px;height:120px;object-fit:cover;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-top">
+                                <div class="card-body">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-save me-2"></i> Save Movie
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <script>
+            (function () {
+                let input = document.getElementById('posterInput');
+                let preview = document.getElementById('posterPreview');
+                if (!input || !preview) return;
+                input.addEventListener('change', function (e) {
+                    let file = e.target.files && e.target.files[0];
+                    if (!file) { preview.src = '../assets/images/users/1.jpg'; return; }
+                    let reader = new FileReader();
+                    reader.onload = function (ev) { preview.src = ev.target.result; };
+                    reader.readAsDataURL(file);
+                });
+            })();
+        </script>
+        <%- include('../partials/footer.ejs') %>

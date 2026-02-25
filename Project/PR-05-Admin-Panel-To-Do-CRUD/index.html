@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivam Bhadoriya - Full Stack Developer Resume</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Print-specific styles */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .resume-container {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+            
+            .page-break {
+                page-break-after: always;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            .project-card, .skill-section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* A4 Size Container */
+        .resume-container {
+            max-width: 210mm;
+            min-height: 297mm;
+            margin: 20px auto;
+            background: white;
+            padding: 15mm;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 30px;
+            margin: -15mm -15mm 20px -15mm;
+            border-radius: 0;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            letter-spacing: -0.5px;
+        }
+
+        .header .tagline {
+            font-size: 16px;
+            font-weight: 300;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .contact-info i {
+            font-size: 14px;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #667eea;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Professional Summary */
+        .summary-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .summary-box strong {
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .skill-category h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .skill-category p {
+            font-size: 12px;
+            margin: 0;
+            color: #34495e;
+            line-height: 1.6;
+        }
+
+        /* Project Cards */
+        .project-card {
+            margin-bottom: 18px;
+            border-left: 3px solid #764ba2;
+            padding-left: 15px;
+        }
+
+        .project-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .project-card .tech-stack {
+            font-size: 11px;
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .project-card ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 12px;
+        }
+
+        .project-card ul li {
+            margin-bottom: 5px;
+            line-height: 1.6;
+        }
+
+        .project-card .project-link {
+            display: inline-block;
+            margin-top: 5px;
+            font-size: 11px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Education Section */
+        .education-item {
+            margin-bottom: 15px;
+        }
+
+        .education-item h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .education-item .institution {
+            font-size: 13px;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .education-item .details {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        /* Achievements */
+        .achievement-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .achievement-item {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .achievement-item i {
+            color: #667eea;
+            font-size: 16px;
+        }
+
+        /* Competencies Pills */
+        .competencies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .competency-pill {
+            background: #667eea;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .print-btn i {
+            margin-right: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .resume-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .skills-grid,
+            .achievement-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+        }
+
+        /* Additional Print Optimization */
+        @page {
+            size: A4;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Print Button (Hidden when printing) -->
+    <button class="print-btn no-print" onclick="window.print()">
+        <i class="fas fa-print"></i> Print / Save as PDF
+    </button>
+
+    <div class="resume-container">
+        
+        <!-- HEADER -->
+        <div class="header">
+            <h1>SHIVAM BHADORIYA</h1>
+            <div class="tagline">Full-Stack Developer | MERN Stack Specialist | Runtime Optimizer</div>
+            <div class="contact-info">
+                <a href="mailto:shivambhadoriya1605@gmail.com">
+                    <i class="fas fa-envelope"></i> shivambhadoriya1605@gmail.com
+                </a>
+                <a href="https://linkedin.com/in/shivam-bhadoriya-b82792324" target="_blank">
+                    <i class="fab fa-linkedin"></i> linkedin.com/in/shivam-bhadoriya
+                </a>
+                <a href="https://github.com/Dev-Shivam-05" target="_blank">
+                    <i class="fab fa-github"></i> github.com/Dev-Shivam-05
+                </a>
+                <a href="https://git-hub-contribution-art-generator.vercel.app/" target="_blank">
+                    <i class="fas fa-globe"></i> Portfolio
+                </a>
+            </div>
+        </div>
+
+        <!-- PROFESSIONAL SUMMARY -->
+        <h2 class="section-title">Professional Summary</h2>
+        <div class="summary-box">
+            <strong>Relentless</strong> full-stack developer with <strong>1+ year of hands-on project experience</strong> building production-ready web applications using the MERN stack. Proven track record of <strong>runtime optimization</strong>, clean code architecture, and solving complex technical challenges. Completed <strong>400+ hours</strong> of intensive coding with consistent GitHub contributions. <strong>Tech War Competition Winner</strong> with expertise in debugging critical issues and delivering scalable solutions that prioritize performance and user experience.
+        </div>
+
+        <!-- CORE COMPETENCIES -->
+        <div class="competencies">
+            <span class="competency-pill">Runtime Optimization</span>
+            <span class="competency-pill">Clean Code Architecture</span>
+            <span class="competency-pill">Problem Solving</span>
+            <span class="competency-pill">RESTful API Development</span>
+            <span class="competency-pill">Database Design</span>
+            <span class="competency-pill">Version Control (Git)</span>
+            <span class="competency-pill">Agile Methodology</span>
+            <span class="competency-pill">Performance Testing</span>
+        </div>
+
+        <!-- TECHNICAL SKILLS -->
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h4><i class="fas fa-code"></i> Frontend Development</h4>
+                <p>JavaScript (ES6+), React.js, HTML5, CSS3, jQuery, Bootstrap 5, Tailwind CSS, EJS, TypeScript (Learning)</p>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-server"></i> Backend Development</h4>
+                <p>Node.js, Express.js, REST APIs, Middleware (Multer, Morgan, CORS), JWT Authentication, Session Management</p>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-database"></i> Database & Storage</h4>
+                <p>MongoDB, MongoDB Atlas, MySQL, Mongoose ODM, Query Optimization, Database Design</p>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-tools"></i> DevOps & Tools</h4>
+                <p>Git/GitHub, Vercel, Netlify, Render, NPM/Yarn/Bun, VS Code, Bash, PowerShell, Vite</p>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-laptop-code"></i> Programming Languages</h4>
+                <p>C, C++, Python, JavaScript, SQL, Bash Scripting</p>
+            </div>
+            <div class="skill-category">
+                <h4><i class="fas fa-palette"></i> Design & Productivity</h4>
+                <p>Figma, Adobe Photoshop, SVG Manipulation, Responsive Design, Notion, VS Code Extensions</p>
+            </div>
+        </div>
+
+        <!-- KEY PROJECTS -->
+        <h2 class="section-title">Key Projects & Achievements</h2>
+        
+        <div class="project-card">
+            <h3>GitHub Contribution Art Generator (Open Source)</h3>
+            <div class="tech-stack">Node.js | Express.js | MongoDB | JavaScript | SVG Manipulation | REST API</div>
+            <ul>
+                <li>Developed open-source tool enabling developers to create custom GitHub contribution patterns, <strong>reducing design time by 90%</strong></li>
+                <li>Engineered real-time SVG generation algorithm achieving <strong>sub-200ms response times</strong> with complex patterns</li>
+                <li>Implemented scalable RESTful API architecture handling concurrent requests with <strong>zero downtime</strong></li>
+                <li>Achieved <strong>100+ GitHub stars</strong> and <strong>500+ active users</strong> within first 3 months of launch</li>
+                <li>Architected MongoDB schema supporting pattern versioning and user template management</li>
+            </ul>
+            <a href="https://git-hub-contribution-art-generator.vercel.app/" class="project-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> View Live Project
+            </a>
+        </div>
+
+        <div class="project-card">
+            <h3>JSClimateNow - Advanced Weather Application</h3>
+            <div class="tech-stack">JavaScript ES6+ | OpenWeather API | Local Storage | Responsive Design</div>
+            <ul>
+                <li>Built feature-rich weather app integrating OpenWeatherMap API with <strong>95% uptime reliability</strong></li>
+                <li>Implemented dynamic sorting and filtering system for multi-location weather comparison</li>
+                <li>Optimized API call frequency reducing bandwidth usage by <strong>60%</strong> through intelligent caching</li>
+                <li>Designed mobile-first responsive UI achieving <strong>98/100 Lighthouse performance score</strong></li>
+                <li>Incorporated real-time updates with offline fallback mechanisms using localStorage</li>
+            </ul>
+            <a href="https://jsclimatenow.vercel.app/" class="project-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> View Live Project
+            </a>
+        </div>
+
+        <div class="project-card">
+            <h3>Recipe Book - Full-Stack Culinary Platform</h3>
+            <div class="tech-stack">MongoDB | Express.js | Node.js | EJS | Multer | Bootstrap</div>
+            <ul>
+                <li>Created comprehensive recipe management system with CRUD operations and user authentication</li>
+                <li>Developed advanced search/filter functionality across <strong>500+ recipes</strong> with <strong>&lt;100ms query times</strong></li>
+                <li>Engineered backend API supporting image uploads via Multer middleware with file validation</li>
+                <li>Implemented responsive grid layout adapting to 5+ device breakpoints seamlessly</li>
+                <li>Optimized MongoDB queries achieving <strong>70% faster data retrieval</strong> through proper indexing</li>
+            </ul>
+            <a href="https://recipe-book-js-liart.vercel.app/" class="project-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i> View Live Project
+            </a>
+        </div>
+
+        <!-- PROFESSIONAL DEVELOPMENT -->
+        <h2 class="section-title">Professional Development</h2>
+        <div class="achievement-list">
+            <div class="achievement-item">
+                <i class="fas fa-code"></i>
+                <span><strong>400+ Hours</strong> Intensive Coding</span>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-fire"></i>
+                <span><strong>300+ Day</strong> GitHub Streak</span>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-project-diagram"></i>
+                <span><strong>50+</strong> Public Repositories</span>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-brain"></i>
+                <span><strong>Active</strong> LeetCode Solver</span>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-robot"></i>
+                <span><strong>40%</strong> Engagement Increase via Automation</span>
+            </div>
+            <div class="achievement-item">
+                <i class="fas fa-clock"></i>
+                <span><strong>10+ Hours/Week</strong> Saved via Scripts</span>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <h2 class="section-title">Education & Certifications</h2>
+        <div class="education-item">
+            <h3>Bachelor of Science in Information Technology (B.Sc. IT)</h3>
+            <div class="institution">VidhyaDeep University</div>
+            <div class="details">2nd Year, 4th Semester | Expected Graduation: 2026</div>
+            <div class="details" style="margin-top: 8px;">
+                <strong>Relevant Coursework:</strong> Data Structures & Algorithms, Database Management Systems, Web Technologies, Object-Oriented Programming, Computer Networks, Software Engineering
+            </div>
+        </div>
+
+        <div class="education-item">
+            <h3>Academic Achievements</h3>
+            <ul style="font-size: 12px; padding-left: 20px;">
+                <li><strong>🏆 Tech War Competition Winner</strong> - VidhyaDeep University (2024)</li>
+                <li><strong>🥇 2x Winner</strong> - Extracurricular Technical Competitions</li>
+                <li><strong>📜 Higher Secondary Certificate (HSC)</strong> - Completed</li>
+                <li><strong>📜 Secondary School Certificate (SSC)</strong> - Completed</li>
+            </ul>
+        </div>
+
+        <!-- ADDITIONAL INFORMATION -->
+        <h2 class="section-title">Professional Qualities</h2>
+        <div style="font-size: 12px; line-height: 1.8;">
+            <strong style="color: #667eea;">Problem Solver:</strong> Specialized in debugging critical production issues under tight deadlines<br>
+            <strong style="color: #667eea;">Clean Code Advocate:</strong> Follows industry best practices (ESLint, Prettier, semantic naming)<br>
+            <strong style="color: #667eea;">Runtime Optimizer:</strong> Expert in performance profiling and bottleneck elimination<br>
+            <strong style="color: #667eea;">Continuous Learner:</strong> Currently mastering React.js, Docker, and AWS fundamentals<br>
+            <strong style="color: #667eea;">Open Source Contributor:</strong> Active GitHub contributor and technical mentor
+        </div>
+
+        <div style="margin-top: 15px; padding: 12px; background: #f8f9fa; border-radius: 8px; font-size: 12px;">
+            <strong>Languages:</strong> English (Fluent), Hindi (Native)<br>
+            <strong>Availability:</strong> Immediate | <strong>Open to:</strong> Full-time Roles, Internships, Freelance Projects<br>
+            <strong>Preferred:</strong> MNC Companies, Fast-Growing Startups, Tech-Focused Organizations
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
