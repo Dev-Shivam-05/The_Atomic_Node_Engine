@@ -5,8 +5,8 @@ with a Matrix Admin–style UI shell.
 
 ## Live Preview
 
-- [Primary demo][live-demo]
-- [Secondary demo][live-demo]
+- [Primary demo][[live-demo](https://blog-crud-pr-06-latest-working.onrender.com/)]
+- [Secondary demo][[live-demo](https://blog-crud-pr-06-latest-working.onrender.com/)]
 
 ![Live Preview][badge-live]
 ![Render][badge-render]
