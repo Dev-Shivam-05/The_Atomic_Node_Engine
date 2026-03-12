@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivam Bhadoriya - Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f5f5f5;
+            color: #000;
+            line-height: 1.35;
+        }
+
+        @media print {
+            body { 
+                background: white; 
+                margin: 0; 
+                padding: 0; 
+            }
+            .resume-container { 
+                box-shadow: none !important; 
+                margin: 0 !important; 
+            }
+            .print-btn { 
+                display: none !important; 
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .resume-container {
+            width: 210mm;
+            height: 297mm;
+            margin: 15px auto;
+            background: white;
+            padding: 7mm 10mm;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        .header {
+            border-bottom: 2.5px solid #000;
+            padding-bottom: 7px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 35px;
+            font-weight: 700;
+            letter-spacing: -0.8px;
+            margin-bottom: 1px;
+        }
+
+        .header .title {
+            font-size: 15px;
+            color: #222;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 11px;
+            font-size: 12px;
+            color: #000;
+        }
+
+        .contact a {
+            color: #000;
+            text-decoration: none;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 11px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 5px;
+            border-bottom: 1.8px solid #000;
+            padding-bottom: 2px;
+        }
+
+        /* Summary */
+        .summary {
+            font-size: 11.8px;
+            line-height: 1.48;
+            text-align: justify;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 5px;
+            margin-bottom: 3px;
+            font-size: 11.5px;
+            line-height: 1.4;
+        }
+
+        .skills-grid .label {
+            font-weight: 700;
+        }
+
+        .skills-grid .value {
+            color: #222;
+        }
+
+        /* Projects */
+        .project {
+            margin-bottom: 9px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2.5px;
+        }
+
+        .project-title {
+            font-size: 12.5px;
+            font-weight: 700;
+        }
+
+        .project-link {
+            font-size: 10.5px;
+            color: #000;
+            text-decoration: none;
+            border-bottom: 1px solid #000;
+        }
+
+        .project-tech {
+            font-size: 10.8px;
+            color: #444;
+            font-style: italic;
+            margin-bottom: 2px;
+        }
+
+        .project ul {
+            margin: 0;
+            padding-left: 15px;
+            font-size: 10.5px;
+            line-height: 1.45;
+        }
+
+        .project ul li {
+            margin-bottom: 1.8px;
+        }
+
+        .project ul li strong {
+            font-weight: 700;
+        }
+
+        /* Education */
+        .edu-item {
+            margin-bottom: 7px;
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .edu-title {
+            font-size: 10.5px;
+            font-weight: 700;
+        }
+
+        .edu-date {
+            font-size: 10.8px;
+            color: #444;
+        }
+
+        .edu-subtitle {
+            font-size: 10.5px;
+            color: #222;
+            margin-bottom: 2px;
+        }
+
+        .edu-details {
+            font-size: 10px;
+            color: #444;
+        }
+
+        /* Achievements Compact */
+        .achievements {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3.5px;
+            font-size: 10.5px;
+            line-height: 1.4;
+        }
+
+        .achievement::before {
+            content: "▸ ";
+            font-weight: 700;
+        }
+
+        /* Footer Info */
+        .footer-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+            font-size: 10.5px;
+            padding-top: 6px;
+            border-top: 1px solid #ddd;
+        }
+
+        .footer-info .item {
+            display: flex;
+            gap: 5px;
+        }
+
+        .footer-info .label {
+            font-weight: 700;
+            min-width: 70px;
+        }
+
+        /* Print Button */
+        .print-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #000;
+            color: white;
+            border: none;
+            padding: 13px 26px;
+            border-radius: 5px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.2s;
+        }
+
+        .print-btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="print-btn" onclick="window.print()">PRINT / SAVE PDF</button>
+
+    <div class="resume-container">
+        
+        <!-- HEADER -->
+        <div class="header">
+            <h1>SHIVAM BHADORIYA</h1>
+            <div class="title">Full-Stack Developer | MERN Stack Specialist | Runtime Optimizer</div>
+            <div class="contact">
+                <a href="mailto:shivambhadoriya1605@gmail.com">📧 shivambhadoriya1605@gmail.com</a>
+                <a href="https://linkedin.com/in/shivam-bhadoriya-b82792324">🔗 linkedin.com/in/shivam-bhadoriya</a>
+                <a href="https://github.com/Dev-Shivam-05">💻 github.com/Dev-Shivam-05</a>
+                <a href="https://git-hub-contribution-art-generator.vercel.app">🌐 Portfolio</a>
+            </div>
+        </div>
+
+        <!-- PROFESSIONAL SUMMARY -->
+        <div class="section">
+            <div class="section-title">Professional Summary</div>
+            <div class="summary">
+                Relentless full-stack developer with 1+ year hands-on experience building production-ready web applications using the MERN stack. Specialized in <strong>runtime optimization</strong> and <strong>clean code architecture</strong>, delivering solutions that reduce workflow time by 90% and improve query performance by 70%. Proven track record with 400+ hours of intensive coding, 300+ day GitHub contribution streak, and open-source projects serving 500+ users. <strong>Tech War Competition Winner</strong> with expertise in debugging complex issues and creating scalable, high-performance applications for modern web environments.
+            </div>
+        </div>
+
+        <!-- TECHNICAL SKILLS -->
+        <div class="section">
+            <div class="section-title">Technical Skills</div>
+            <div class="skills-grid">
+                <span class="label">Frontend:</span>
+                <span class="value">JavaScript (ES6+), HTML5, CSS3, Bootstrap 5, Tailwind CSS, EJS, Responsive Design</span>
+            </div>
+            <div class="skills-grid">
+                <span class="label">Backend:</span>
+                <span class="value">Node.js, Express.js, Middleware (Multer, Morgan)</span>
+            </div>
+            <div class="skills-grid">
+                <span class="label">Database:</span>
+                <span class="value">MongoDB, MongoDB Atlas</span>
+            </div>
+            <div class="skills-grid">
+                <span class="label">DevOps & Tools:</span>
+                <span class="value">Git/GitHub, Vercel, Netlify, Render, NPM/Yarn/Bun, VS Code, Bash, PowerShell, Vite, n8n , Trae , Cursor , Antigravity , Qoder</span>
+            </div>
+            <div class="skills-grid">
+                <span class="label">Programming:</span>
+                <span class="value">C, C++, Python, JavaScript | Design: Figma, Adobe Photoshop, SVG Manipulation</span>
+            </div>
+        </div>
+
+        <!-- KEY PROJECTS -->
+        <div class="section">
+            <div class="section-title">Key Projects & Impact</div>
+            
+            <div class="project">
+                <div class="project-header">
+                    <div class="project-title">GitHub Contribution Art Generator (Open Source - 5+ Stars, 15+ Users)</div>
+                    <a href="https://git-hub-contribution-art-generator.vercel.app" class="project-link">Live Demo</a>
+                </div>
+                <div class="project-tech">Node.js, Express.js, MongoDB, SVG Manipulation</div>
+                <ul>
+                    <li>Developed open-source tool enabling developers to create custom GitHub contribution patterns, <strong>reducing design time by 90%</strong> from hours to minutes</li>
+                    <li>Engineered real-time SVG generation algorithm with optimized rendering, achieving <strong>sub-200ms response times</strong> for complex patterns</li>
+                    <li>Implemented scalable RESTful API architecture with MongoDB schema supporting pattern versioning and user template management</li>
+                    <li>Achieved <strong>5+ GitHub stars</strong> and active community adoption within 3 months, demonstrating strong product-market fit</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div class="project-title">JSClimateNow - Advanced Weather Application</div>
+                    <a href="https://jsclimatenow.vercel.app" class="project-link">Live Demo</a>
+                </div>
+                <div class="project-tech">JavaScript ES6+, OpenWeather API, Local Storage, Responsive Design</div>
+                <ul>
+                    <li>Built feature-rich weather application integrating OpenWeatherMap API with <strong>98/100 Lighthouse performance score</strong></li>
+                    <li>Optimized API call frequency reducing bandwidth usage by <strong>60%</strong> through intelligent caching and query throttling</li>
+                    <li>Implemented dynamic sorting and filtering system enabling users to save and compare multiple locations simultaneously</li>
+                    <li>Designed mobile-first responsive UI with offline fallback mechanisms using localStorage for seamless user experience</li>
+                </ul>
+            </div>
+
+            <div class="project">
+                <div class="project-header">
+                    <div class="project-title">Recipe Book - Full-Stack Culinary Platform</div>
+                    <a href="https://recipe-book-js-liart.vercel.app" class="project-link">Live Demo</a>
+                </div>
+                <div class="project-tech">MongoDB, Express.js, Node.js, EJS, Multer, Bootstrap</div>
+                <ul>
+                    <li>Created comprehensive recipe management system with full CRUD operations, advanced search across <strong>infinite recipes CRUD and Searching and filtering in &lt;100ms</strong></li>
+                    <li>Implemented responsive grid layout adapting seamlessly across 5+ device breakpoints with consistent user experience</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- PROFESSIONAL DEVELOPMENT -->
+        <div class="section">
+            <div class="section-title">Professional Development & Achievements</div>
+            <div class="achievements">
+                <div class="achievement">Tech War Competition Winner (2026)</div>
+                <div class="achievement">550+ hours intensive coding (130 days × 4 hrs/day)</div>
+                <div class="achievement">2x Curriculum Competition Winner</div>
+                <div class="achievement">340+ day active GitHub contribution streak</div>
+                <div class="achievement">Automated LinkedIn system (50% engagement increase)</div>
+                <div class="achievement">100+ public repositories with production code</div>
+                <div class="achievement">Productivity automation (14+ hours/week saved)</div>
+                <div class="achievement">Active LeetCode problem solver (DSA practice)</div>
+            </div>
+        </div>
+
+        <!-- EDUCATION -->
+        <div class="section">
+            <div class="section-title">Education</div>
+            <div class="edu-item">
+                <div class="edu-header">
+                    <div class="edu-title">Bachelor of Science in Information Technology (B.Sc. IT)</div>
+                    <div class="edu-date">Expected 2027</div>
+                </div>
+                <div class="edu-subtitle">VidhyaDeep University | Currently 2nd Year, 4th Semester</div>
+                <div class="edu-details">Relevant Coursework: Data Structures & Algorithms, Database Management Systems, Web Technologies, Object-Oriented Programming, Computer Networks, Software Engineering</div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-subtitle">Academic Certifications: Higher Secondary Certificate (HSC) | Secondary School Certificate (SSC)</div>
+            </div>
+        </div>
+
+        <!-- ADDITIONAL INFORMATION -->
+        <div class="section" style="margin-bottom: 0;">
+            <div class="section-title">Additional Information</div>
+            <div class="footer-info">
+                <div class="item">
+                    <span class="label">Core Strengths:</span>
+                    <span>Runtime Optimization, Clean Code Architecture, Complex Problem Solving</span>
+                </div>
+                <div class="item">
+                    <span class="label">Learning:</span>
+                    <span>React.js, Docker, AWS, TypeScript</span>
+                </div>
+                <div class="item">
+                    <span class="label">Languages:</span>
+                    <span>English (Fluent), Hindi (Native)</span>
+                </div>
+                <div class="item">
+                    <span class="label">Availability:</span>
+                    <span>Immediate | Open to Full-time & Internships</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+<div class="container-fluid">
+                <div class="row justify-content-center my-5">
+                    <div class="col-xl-8 col-lg-9">
+                        <div class="card shadow border-0 rounded-4 overflow-hidden">
+
+                            <!-- Card Header -->
+                            <div class="card-header bg-gradient-light py-4 text-center">
+                                <h3 class="mb-0 fw-bold text-dark">✏️ Edit Your Blog</h3>
+                                <p class="text-muted mb-0">Update and refine your content to perfection.</p>
+                            </div>
+
+                            <!-- Form -->
+                            <form class="form-horizontal p-4 p-md-5" method="post" action="/blog/edit/<%= blog._id %>"
+                                enctype="multipart/form-data">
+
+                                <div class="card-body pt-0">
+
+                                    <!-- Section Title -->
+                                    <div class="mb-5 pb-3 border-bottom">
+                                        <h5 class="fw-bold text-uppercase text-muted small">
+                                            BLOG ESSENTIALS
+                                        </h5>
+                                    </div>
+
+                                    <!-- Blog Title -->
+                                    <div class="form-group row mb-4">
+                                        <label for="blog-title"
+                                            class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                            <i class="fas fa-heading me-2"></i> Title
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-lg" id="blog-title"
+                                                name="blogTitle" value="<%= blog.blogTitle %>"
+                                                placeholder="The headline that stops scrolls..." required autofocus />
+                                        </div>
+                                    </div>
+
+                                    <!-- Current Image Preview + Upload New -->
+                                    <div class="form-group row mb-4">
+                                        <label for="blog-image"
+                                            class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                            <i class="fas fa-image me-2"></i> Featured Image
+                                        </label>
+                                        <div class="col-sm-9">
+
+                                            <!-- ★ Current Image Preview ★ -->
+                                            <div class="mb-3 p-3 bg-light rounded-3 border">
+                                                <p class="text-muted small mb-2 fw-semibold">
+                                                    <i class="fas fa-eye me-1"></i> Current Image:
+                                                </p>
+                                                <img src="/<%= blog.blogImage %>" alt="Current Blog Image"
+                                                    class="rounded-3 shadow-sm"
+                                                    style="max-height: 180px; max-width: 100%; object-fit: cover;" />
+                                            </div>
+
+                                            <!-- New Image Upload (Optional) -->
+                                            <input type="file" class="form-control" id="blog-image" name="blogImage"
+                                                accept="image/*" />
+
+                                            <small class="text-muted mt-1 d-block">
+                                                <i class="fas fa-info-circle me-1"></i>
+                                                Leave empty to keep the current image. Upload only to replace.
+                                            </small>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Category -->
+                                    <div class="form-group row mb-4">
+                                        <label for="blog-category"
+                                            class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                            <i class="fas fa-folder-open me-2"></i> Category
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <select class="form-select" id="blog-category" name="blogCategory" required>
+                                                <option disabled>Choose category...</option>
+                                                <option value="technology" <%=blog.blogCategory==='technology'
+                                                    ? 'selected' : '' %>>
+                                                    Technology
+                                                </option>
+                                                <option value="lifestyle" <%=blog.blogCategory==='lifestyle'
+                                                    ? 'selected' : '' %>>
+                                                    Lifestyle
+                                                </option>
+                                                <option value="business" <%=blog.blogCategory==='business' ? 'selected'
+                                                    : '' %>>
+                                                    Business
+                                                </option>
+                                                <option value="health" <%=blog.blogCategory==='health' ? 'selected' : ''
+                                                    %>>
+                                                    Health & Wellness
+                                                </option>
+                                                <option value="travel" <%=blog.blogCategory==='travel' ? 'selected' : ''
+                                                    %>>
+                                                    Travel
+                                                </option>
+                                                <option value="education" <%=blog.blogCategory==='education'
+                                                    ? 'selected' : '' %>>
+                                                    Education
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Tags -->
+                                    <div class="form-group row mb-4">
+                                        <label for="blog-tags"
+                                            class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                            <i class="fas fa-tags me-2"></i> Tags
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="blog-tags" name="blogTags"
+                                                value="<%= blog.blogTags %>" placeholder="AI, Productivity, Future" />
+                                        </div>
+                                    </div>
+
+                                    <!-- Excerpt -->
+                                    <div class="form-group row mb-4">
+                                        <label for="blog-excerpt"
+                                            class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                            <i class="fas fa-align-left me-2"></i> Excerpt
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" id="blog-excerpt" name="blogExcerpt" rows="3"
+                                                placeholder="A gripping preview shown in listings..."
+                                                required><%= blog.blogExcerpt %></textarea>
+                                        </div>
+                                    </div>
+
+                                    <!-- Main Content -->
+                                    <div class="form-group row mb-5">
+                                        <label for="blog-content"
+                                            class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                            <i class="fas fa-pen-nib me-2"></i> Content
+                                        </label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" id="blog-content" name="blogContent"
+                                                rows="12" placeholder="Start writing your legacy here..."
+                                                required><%= blog.blogContent %></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Submit Bar -->
+                                <div class="border-top pt-4">
+                                    <div class="card-body pt-0">
+                                        <div class="d-flex justify-content-center gap-3">
+
+                                            <!-- Cancel Button -->
+                                            <a href="/blog"
+                                                class="btn btn-outline-secondary px-4 py-3 fw-bold rounded-pill">
+                                                <i class="fas fa-arrow-left me-2"></i> CANCEL
+                                            </a>
+
+                                            <!-- Update Button -->
+                                            <button type="submit"
+                                                class="btn btn-primary px-5 py-3 fw-bold rounded-pill">
+                                                <i class="fas fa-save me-2"></i> UPDATE BLOG
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <small class="text-muted d-block">
+                                Editing: "<strong>
+                                    <%= blog.blogTitle %>
+                                </strong>"
+                                &nbsp;•&nbsp;
+                                Last updated: <%= new Date(blog.updatedAt).toLocaleDateString('en-US', { month: 'short'
+                                    , day: 'numeric' , year: 'numeric' , hour: '2-digit' , minute: '2-digit' }) %>
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>

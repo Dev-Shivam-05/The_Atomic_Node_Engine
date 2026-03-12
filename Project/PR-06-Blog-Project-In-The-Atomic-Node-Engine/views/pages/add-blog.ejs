@@ -1,0 +1,165 @@
+<%- include('../partials/header.ejs') %>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row align-items-center">
+                <div class="col-12 d-flex flex-wrap justify-content-between align-items-center">
+                    <h4 class="page-title mb-0 fw-bold">✍️ Create New Blog</h4>
+                    <div class="ms-auto mt-3 mt-md-0">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb bg-transparent p-0 m-0">
+                                <li class="breadcrumb-item"><a href="#" class="text-decoration-none">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">New Blog</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row justify-content-center my-5">
+                <div class="col-xl-8 col-lg-9">
+                    <div class="card shadow border-0 rounded-4 overflow-hidden">
+                        <!-- Card Header -->
+                        <div class="card-header bg-gradient-light py-4 text-center">
+                            <h3 class="mb-0 fw-bold text-dark">🔥 Craft Your Masterpiece</h3>
+                            <p class="text-muted mb-0">Every great blog starts with intention. Make this one
+                                unforgettable.</p>
+                        </div>
+
+                        <!-- Form Body -->
+                        <form class="form-horizontal p-4 p-md-5" method="post" action="" enctype="multipart/form-data">
+                            <div class="card-body pt-0">
+
+                                <!-- Section Title -->
+                                <div class="mb-5 pb-3 border-bottom">
+                                    <h5 class="fw-bold text-uppercase text-muted small tracking-wider">BLOG ESSENTIALS
+                                    </h5>
+                                </div>
+
+                                <!-- Blog Title -->
+                                <div class="control-label row mb-4">
+                                    <label for="blog-title"
+                                        class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                        <i class="fas fa-heading me-2"></i> Title
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control form-control-lg" id="blog-title"
+                                            name="blogTitle" placeholder="The headline that stops scrolls..." required
+                                            autofocus />
+                                    </div>
+                                </div>
+
+                                <!-- Featured Image -->
+                                <div class="control-label row mb-4">
+                                    <label for="blog-image"
+                                        class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                        <i class="fas fa-image me-2"></i> Featured Image
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="file" class="form-control" id="blog-image" name="blogImage"
+                                            accept="image/*" required />
+                                    </div>
+                                </div>
+
+                                <!-- Category -->
+                                <div class="control-label row mb-4">
+                                    <label for="blog-category"
+                                        class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                        <i class="fas fa-folder-open me-2"></i> Category
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <select class="custom-select" id="blog-category" name="blogCategory" required>
+                                            <option selected disabled>Choose category...</option>
+                                            <option value="technology">Technology</option>
+                                            <option value="lifestyle">Lifestyle</option>
+                                            <option value="business">Business</option>
+                                            <option value="health">Health & Wellness</option>
+                                            <option value="travel">Travel</option>
+                                            <option value="education">Education</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Tags -->
+                                <div class="control-label row mb-4">
+                                    <label for="blog-tags"
+                                        class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                        <i class="fas fa-tags me-2"></i> Tags
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="blog-tags" name="blogTags"
+                                            placeholder="AI, Productivity, Future" />
+                                    </div>
+                                </div>
+
+                                <!-- Excerpt -->
+                                <div class="control-label row mb-4">
+                                    <label for="blog-excerpt"
+                                        class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                        <i class="fas fa-align-left me-2"></i> Excerpt
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" id="blog-excerpt" name="blogExcerpt" rows="3"
+                                            placeholder="A gripping preview shown in listings..." required></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Main Content -->
+                                <div class="control-label row mb-5">
+                                    <label for="blog-content"
+                                        class="col-sm-3 text-end control-label col-form-label fw-semibold">
+                                        <i class="fas fa-pen-nib me-2"></i> Content
+                                    </label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" id="blog-content" name="blogContent" rows="12"
+                                            placeholder="Start writing your legacy here..." required></textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Submit Bar -->
+                            <div class="border-top pt-4">
+                                <div class="card-body pt-0">
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary px-5 py-3 fw-bold rounded-pill">
+                                            <i class="fas fa-paper-plane me-2"></i> CREATE BLOG
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Silent Victory Badge -->
+                    <div class="text-center mt-4">
+                        <small class="text-muted d-block">Built to execute. Designed to deliver.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <%- include('../partials/footer.ejs') %>

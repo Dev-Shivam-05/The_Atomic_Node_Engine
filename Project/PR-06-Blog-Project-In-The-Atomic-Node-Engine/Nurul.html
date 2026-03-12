@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurul Shaikh - Full-Stack Developer Resume</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #000000;
+            --dark: #111111;
+            --gray-900: #1a1a1a;
+            --gray-800: #2a2a2a;
+            --gray-700: #3a3a3a;
+            --gray-600: #555555;
+            --gray-500: #777777;
+            --gray-400: #999999;
+            --gray-300: #bbbbbb;
+            --gray-200: #dddddd;
+            --gray-100: #eeeeee;
+            --gray-50: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--gray-300);
+            color: var(--black);
+            line-height: 1.4;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== A4 PAGE ========== */
+        .resume-page {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 30px auto;
+            background: var(--white);
+            box-shadow: 0 10px 50px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Top black bar */
+        .resume-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--black);
+        }
+
+        /* ========== HEADER ========== */
+        .resume-header {
+            background: var(--black);
+            color: var(--white);
+            padding: 26px 32px 20px;
+            position: relative;
+        }
+
+        .header-name {
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+
+        .header-name .last-name {
+            color: var(--gray-400);
+        }
+
+        .header-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--gray-400);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .header-line {
+            width: 45px;
+            height: 2px;
+            background: var(--white);
+            margin-bottom: 14px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10.5px;
+            color: var(--gray-300);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .contact-item:hover {
+            color: var(--white);
+        }
+
+        .contact-item i {
+            font-size: 11px;
+            color: var(--gray-400);
+            width: 14px;
+            text-align: center;
+        }
+
+        /* ========== BODY ========== */
+        .resume-body {
+            padding: 18px 32px 20px;
+        }
+
+        /* ========== SECTIONS ========== */
+        .section {
+            margin-bottom: 13px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 7px;
+            padding-bottom: 4px;
+            border-bottom: 2px solid var(--black);
+        }
+
+        .section-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--black);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 10px;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 12.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--black);
+        }
+
+        /* ========== SUMMARY ========== */
+        .summary-text {
+            font-size: 10.8px;
+            line-height: 1.55;
+            color: var(--gray-700);
+            text-align: justify;
+            padding: 8px 12px;
+            background: var(--gray-50);
+            border-left: 3px solid var(--black);
+        }
+
+        .summary-text strong {
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        /* ========== SKILLS ========== */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .skills-table tr {
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .skills-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .skills-table td {
+            padding: 5px 0;
+            font-size: 10.5px;
+            vertical-align: top;
+        }
+
+        .skills-table .skill-label {
+            font-weight: 700;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-size: 10px;
+            width: 140px;
+            white-space: nowrap;
+            padding-right: 12px;
+        }
+
+        .skills-table .skill-value {
+            color: var(--gray-700);
+        }
+
+        /* ========== EXPERIENCE ========== */
+        .exp-header {
+            margin-bottom: 4px;
+        }
+
+        .exp-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .exp-company {
+            font-size: 11px;
+            color: var(--gray-600);
+            font-weight: 600;
+        }
+
+        .exp-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .exp-bullets li {
+            font-size: 10.3px;
+            line-height: 1.5;
+            color: var(--gray-700);
+            padding-left: 14px;
+            position: relative;
+            margin-bottom: 2.5px;
+        }
+
+        .exp-bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 5px;
+            height: 5px;
+            background: var(--black);
+            border-radius: 50%;
+        }
+
+        .exp-bullets li strong {
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        /* ========== ACHIEVEMENTS ========== */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            font-size: 10.3px;
+            line-height: 1.45;
+            color: var(--gray-700);
+            padding: 5px 8px;
+            background: var(--gray-50);
+            border-left: 2px solid var(--black);
+        }
+
+        .achievement-item i {
+            color: var(--black);
+            font-size: 8px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .achievement-item strong {
+            color: var(--black);
+            font-weight: 700;
+        }
+
+        /* ========== EDUCATION ========== */
+        .edu-item {
+            margin-bottom: 6px;
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .edu-degree {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--black);
+        }
+
+        .edu-date {
+            font-size: 10px;
+            color: var(--white);
+            font-weight: 600;
+            background: var(--black);
+            padding: 1px 10px;
+            border-radius: 2px;
+        }
+
+        .edu-school {
+            font-size: 10.5px;
+            color: var(--gray-600);
+            margin-bottom: 2px;
+        }
+
+        .edu-school strong {
+            color: var(--black);
+        }
+
+        .edu-details {
+            font-size: 10px;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        .edu-details strong {
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        /* ========== ADDITIONAL INFO ========== */
+        .additional-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 16px;
+            font-size: 10.5px;
+        }
+
+        .additional-item {
+            display: flex;
+            gap: 5px;
+        }
+
+        .additional-label {
+            font-weight: 700;
+            color: var(--black);
+            white-space: nowrap;
+            font-size: 10px;
+        }
+
+        .additional-value {
+            color: var(--gray-600);
+        }
+
+        /* ========== PRINT BUTTON ========== */
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 0;
+            background: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .print-btn-inner {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--black);
+            color: var(--white);
+            border-radius: 50px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .print-btn:hover .print-btn-inner {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+            background: var(--gray-800);
+        }
+
+        .print-btn-inner i {
+            font-size: 16px;
+        }
+
+        .print-btn-inner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50px;
+            animation: pulse-ring 2s ease-out infinite;
+            border: 2px solid var(--black);
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.4; }
+            100% { transform: scale(1.15); opacity: 0; }
+        }
+
+        /* ========== PRINT STYLES ========== */
+        @media print {
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+
+            body {
+                background: white !important;
+                margin: 0;
+                padding: 0;
+            }
+
+            .resume-page {
+                margin: 0 !important;
+                box-shadow: none !important;
+                width: 210mm;
+                min-height: 297mm;
+            }
+
+            .print-btn {
+                display: none !important;
+            }
+
+            .resume-header {
+                background: var(--black) !important;
+            }
+
+            .section-icon {
+                background: var(--black) !important;
+            }
+
+            .edu-date {
+                background: var(--black) !important;
+                color: var(--white) !important;
+            }
+
+            .summary-text {
+                background: var(--gray-50) !important;
+                border-left-color: var(--black) !important;
+            }
+
+            .achievement-item {
+                background: var(--gray-50) !important;
+                border-left-color: var(--black) !important;
+            }
+
+            .resume-page::before {
+                background: var(--black) !important;
+            }
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media screen and (max-width: 800px) {
+            .resume-page {
+                width: 100%;
+                min-height: auto;
+                margin: 0;
+            }
+
+            .contact-grid,
+            .skills-container,
+            .achievements-grid,
+            .additional-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .print-btn {
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRINT BUTTON -->
+    <button class="print-btn" onclick="handlePrint()" id="printBtn">
+        <div class="print-btn-inner">
+            <i class="bi bi-printer-fill"></i>
+            <span>PRINT / SAVE PDF</span>
+        </div>
+    </button>
+
+    <!-- RESUME PAGE -->
+    <div class="resume-page" id="resumePage">
+
+        <!-- HEADER -->
+        <header class="resume-header">
+            <h1 class="header-name">
+                <span class="first-name">NURUL </span>
+                <span class="last-name">SHAIKH</span>
+            </h1>
+            <div class="header-title">Full-Stack Developer</div>
+            <div class="header-line"></div>
+            <div class="contact-grid">
+                <a href="mailto:shaikhnurul8200@gmail.com" class="contact-item">
+                    <i class="bi bi-envelope-fill"></i>
+                    shaikhnurul8200@gmail.com
+                </a>
+                <a href="tel:+919274490242" class="contact-item">
+                    <i class="bi bi-telephone-fill"></i>
+                    +91-9274490242
+                </a>
+                <a href="https://www.linkedin.com/in/nurul-shaikh-44b41838b/" target="_blank" class="contact-item">
+                    <i class="bi bi-linkedin"></i>
+                    linkedin.com/in/nurul-shaikh-44b41838b
+                </a>
+                <a href="https://github.com/Dev-Nurul08" target="_blank" class="contact-item">
+                    <i class="bi bi-github"></i>
+                    github.com/Dev-Nurul08
+                </a>
+                <a class="contact-item">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    Navsari, Gujarat, India
+                </a>
+                <a class="contact-item">
+                    <i class="bi bi-check-circle-fill"></i>
+                    Immediate | Open to Full-Time & Relocation
+                </a>
+            </div>
+        </header>
+
+        <!-- BODY -->
+        <div class="resume-body">
+
+            <!-- PROFESSIONAL SUMMARY -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="bi bi-person-fill"></i></div>
+                    <h2 class="section-title">Professional Summary</h2>
+                </div>
+                <div class="summary-text">
+                    Results-driven <strong>Full-Stack Developer</strong> with hands-on experience designing, developing, and deploying production-ready web applications using <strong>JavaScript, Node.js, Express.js, and MongoDB</strong>. Successfully delivered a real-world client project for a logistics company as an independent freelance developer. Nationally recognized as <strong>NSDC IndiaSkills District Level Champion</strong> and <strong>Tech War Competition Winner (2026)</strong>. Maintaining a <strong>100+ day active GitHub contribution streak</strong> with consistent open-source coding activity. Strong foundation in data structures, algorithms, and code optimization across C, C++, Python, Java, and JavaScript. Seeking entry-level full-time Full-Stack Developer roles to contribute to high-impact engineering teams at scale.
+                </div>
+            </section>
+
+            <!-- TECHNICAL SKILLS -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="bi bi-code-slash"></i></div>
+                    <h2 class="section-title">Technical Skills</h2>
+                </div>
+                <table class="skills-table">
+                    <tr>
+                        <td class="skill-label">Programming</td>
+                        <td class="skill-value">C, C++, Python, JavaScript (ES6+), Java</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-label">Frontend</td>
+                        <td class="skill-value">HTML5, CSS3, Tailwind CSS, Bootstrap 5, JavaScript</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-label">Backend</td>
+                        <td class="skill-value">Node.js, Express.js, MongoDB</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-label">Database</td>
+                        <td class="skill-value">MongoDB</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-label">DevOps & Tools</td>
+                        <td class="skill-value">Git, Vercel, Netlify, Render, VS Code, Cursor, Antigravity, DevC++, Turbo C++</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- PROFESSIONAL EXPERIENCE -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="bi bi-briefcase-fill"></i></div>
+                    <h2 class="section-title">Professional Experience</h2>
+                </div>
+                <div>
+                    <div class="exp-header">
+                        <div class="exp-title">Freelance Web Developer</div>
+                        <div class="exp-company">Kail Logistics — Navsari, Gujarat</div>
+                    </div>
+                    <ul class="exp-bullets">
+                        <li>Designed, developed, and deployed a <strong>complete business website</strong> for Kail Logistics, delivering end-to-end professional digital presence from client consultation to final production deployment</li>
+                        <li>Built fully <strong>responsive, mobile-first</strong> user interface using HTML5, CSS3, and JavaScript ensuring cross-browser compatibility across mobile, tablet, and desktop breakpoints</li>
+                        <li>Delivered project within agreed timeline resulting in <strong>positive client feedback</strong> and demonstrated ability to translate business requirements into functional production-grade web solutions</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ACHIEVEMENTS -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="bi bi-trophy-fill"></i></div>
+                    <h2 class="section-title">Achievements & Competitions</h2>
+                </div>
+                <div class="achievements-grid">
+                    <div class="achievement-item">
+                        <i class="bi bi-diamond-fill"></i>
+                        <span><strong>NSDC IndiaSkills District Level Champion</strong> — Won district-level championship under the National Skill Development Corporation IndiaSkills Competition 2025-26</span>
+                    </div>
+                    <div class="achievement-item">
+                        <i class="bi bi-diamond-fill"></i>
+                        <span><strong>Tech War Winner (2026)</strong> — Secured first place demonstrating superior coding speed, algorithmic problem-solving, and real-time debugging efficiency</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EDUCATION -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                    <h2 class="section-title">Education</h2>
+                </div>
+
+                <div class="edu-item">
+                    <div class="edu-header">
+                        <span class="edu-degree">Diploma in Computer Engineering (Pursuing)</span>
+                        <span class="edu-date">Expected 2027</span>
+                    </div>
+                    <div class="edu-school">2nd Year, 4th Semester &nbsp;|&nbsp; <strong>CGPA: 7.6 / 10.0</strong></div>
+                    <div class="edu-details">
+                        <strong>Relevant Coursework:</strong> Data Structures & Algorithms, Database Management Systems, Web Technologies, Object-Oriented Programming, Computer Networks, Software Engineering
+                    </div>
+                </div>
+
+                <div class="edu-item">
+                    <div class="edu-header">
+                        <span class="edu-degree">Secondary School Certificate (SSC)</span>
+                        <span class="edu-date">Completed</span>
+                    </div>
+                    <div class="edu-school">Gujarat Secondary and Higher Secondary Education Board &nbsp;|&nbsp; <strong>Percentage: 78%</strong></div>
+                </div>
+            </section>
+
+            <!-- ADDITIONAL INFORMATION -->
+            <section class="section" style="margin-bottom: 0;">
+                <div class="section-header">
+                    <div class="section-icon"><i class="bi bi-info-circle-fill"></i></div>
+                    <h2 class="section-title">Additional Information</h2>
+                </div>
+                <div class="additional-grid">
+                    <div class="additional-item">
+                        <span class="additional-label">Languages:</span>
+                        <span class="additional-value">English (Fluent), Hindi (Fluent), Gujarati (Conversational)</span>
+                    </div>
+                    <div class="additional-item">
+                        <span class="additional-label">Core Strengths:</span>
+                        <span class="additional-value">Problem Solving, Fast Learner, Code Optimization</span>
+                    </div>
+                    <div class="additional-item">
+                        <span class="additional-label">Currently Learning:</span>
+                        <span class="additional-value">Advanced Node.js, Express.js Middleware Patterns</span>
+                    </div>
+                    <div class="additional-item">
+                        <span class="additional-label">Availability:</span>
+                        <span class="additional-value">Immediate | Open to Full-Time & Relocation</span>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // ========== PRINT FUNCTION ==========
+        function handlePrint() {
+            const btn = document.getElementById('printBtn');
+            const inner = btn.querySelector('.print-btn-inner');
+
+            inner.innerHTML = '<i class="bi bi-hourglass-split"></i><span>PREPARING...</span>';
+
+            setTimeout(() => {
+                window.print();
+                setTimeout(() => {
+                    inner.innerHTML = '<i class="bi bi-printer-fill"></i><span>PRINT / SAVE PDF</span>';
+                }, 1000);
+            }, 400);
+        }
+
+        // ========== CTRL+P OVERRIDE ==========
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                handlePrint();
+            }
+        });
+
+        // ========== SCROLL HIDE BUTTON ==========
+        const printBtn = document.getElementById('printBtn');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const current = window.pageYOffset;
+            if (current > lastScroll && current > 200) {
+                printBtn.style.transform = 'translateY(100px)';
+                printBtn.style.opacity = '0';
+            } else {
+                printBtn.style.transform = 'translateY(0)';
+                printBtn.style.opacity = '1';
+            }
+            lastScroll = current;
+        });
+
+        // ========== LOAD ANIMATION ==========
+        document.addEventListener('DOMContentLoaded', () => {
+            const header = document.querySelector('.resume-header');
+            header.style.opacity = '0';
+            header.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => { header.style.opacity = '1'; }, 50);
+
+            document.querySelectorAll('.section').forEach((s, i) => {
+                s.style.opacity = '0';
+                s.style.transform = 'translateY(12px)';
+                s.style.transition = `opacity 0.4s ease ${i * 0.07}s, transform 0.4s ease ${i * 0.07}s`;
+                setTimeout(() => {
+                    s.style.opacity = '1';
+                    s.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+
+</body>
+</html>
