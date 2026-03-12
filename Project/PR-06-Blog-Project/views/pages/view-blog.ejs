@@ -1,0 +1,278 @@
+<%- include('../partials/header.ejs') %>
+
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center justify-content-between">
+                    <h4 class="page-title">Blog Library</h4>
+                    <div class="ms-auto">
+                        <a href="/blog/add-blog" class="btn btn-primary">
+                            <i class="mdi mdi-plus me-1"></i> Create New
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+
+            <!-- Start Blog Grid -->
+            <div class="row">
+                <% if (!blogs || blogs.length===0) { %>
+                    <div class="col-12 text-center py-5">
+                        <i class="mdi mdi-book-open-page-variant display-1 text-muted"></i>
+                        <h4 class="mt-3 text-muted">No Blogs Found</h4>
+                        <p class="text-muted">Start writing your first story today.</p>
+                        <a href="/blog/add-blog" class="btn btn-primary px-4">
+                            <i class="mdi mdi-plus"></i> Write Blog
+                        </a>
+                    </div>
+
+                    <% } else { %>
+
+                        <div class="container-fluid px-lg-5 py-4">
+
+                            <div class="row g-4 justify-content-center">
+
+                                <% let count=blogs.length; let colClass="col-lg-4" ; if (count===1) {
+                                    colClass="col-lg-8 mx-auto" ; } else if (count===2) { colClass="col-lg-5" ; } else
+                                    if (count===4) { colClass="col-lg-6" ; } else { colClass="col-lg-4" ; } %>
+
+                                    <% blogs.forEach(blog=> { %>
+
+                                        <div class="<%= colClass %> col-md-6 my-4 overflow-hidden">
+
+                                            <div class="card blog-card border-0 shadow rounded-4 overflow-hidden h-100">
+
+                                                <!-- ══════ IMAGE AREA ══════ -->
+                                                <div class="position-relative overflow-hidden">
+
+                                                    <img src="/<%= blog.blogImage || 'default.png' %>"
+                                                        alt="<%= blog.blogTitle %>" class="w-100 blog-img">
+
+                                                    <!-- Dark Overlay -->
+                                                    <div
+                                                        class="img-overlay position-absolute top-0 start-0 w-100 h-100">
+                                                    </div>
+
+                                                    <!-- Category Badge -->
+                                                    <div class="position-absolute top-0 start-0 m-3" style="z-index:3;">
+                                                        <span
+                                                            class="badge bg-warning text-dark rounded-pill px-3 py-2 fw-bold shadow-sm"
+                                                            style="font-size: 0.72rem; letter-spacing: 0.5px;">
+                                                            <i class="mdi mdi-tag-outline me-1"></i>
+                                                            <%= blog.blogCategory %>
+                                                        </span>
+                                                    </div>
+
+                                                    <!-- ★ EDIT & DELETE — Top Right on Image ★ -->
+                                                    <div class="position-absolute top-0 end-0 m-3 d-flex gap-2"
+                                                        style="z-index:3;">
+
+                                                        <a href="/blog/edit/<%= blog._id %>"
+                                                            class="action-btn btn btn-light rounded-circle shadow-sm"
+                                                            title="Edit">
+                                                            <i class="mdi mdi-pencil text-primary fs-6"></i>
+                                                        </a>
+
+                                                        <a href="/blog/delete/<%= blog._id %>"
+                                                            onclick="return confirm('Are you sure you want to delete this blog?')"
+                                                            class="action-btn btn btn-light rounded-circle shadow-sm"
+                                                            title="Delete">
+                                                            <i class="mdi mdi-delete text-danger fs-6"></i>
+                                                        </a>
+
+                                                    </div>
+
+                                                    <!-- Title + Date on Image Bottom -->
+                                                    <div class="position-absolute bottom-0 start-0 w-100 p-4"
+                                                        style="z-index:2;">
+
+                                                        <div class="d-flex align-items-center gap-2 mb-2">
+                                                            <span
+                                                                class="bg-white rounded-circle d-inline-flex align-items-center justify-content-center"
+                                                                style="width:8px; height:8px;"></span>
+                                                            <small class="text-white-50 fw-semibold"
+                                                                style="font-size:0.75rem; letter-spacing:1px;">
+                                                                <i class="mdi mdi-calendar-outline me-1"></i>
+                                                                <%= new Date(blog.createdAt).toLocaleDateString('en-US',
+                                                                    { month: 'short' , day: 'numeric' , year: 'numeric'
+                                                                    }) %>
+                                                            </small>
+                                                        </div>
+
+                                                        <h5 class="text-white fw-bold mb-0 blog-title-clamp"
+                                                            style="line-height:1.4;">
+                                                            <%= blog.blogTitle %>
+                                                        </h5>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <!-- ══════ CARD BODY ══════ -->
+                                                <div class="card-body d-flex flex-column p-4">
+
+                                                    <!-- Accent Line -->
+                                                    <div class="mb-3">
+                                                        <div class="rounded-pill"
+                                                            style="width:40px; height:3px; background:linear-gradient(90deg,#6366f1,#a855f7);">
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Excerpt -->
+                                                    <p class="text-muted excerpt-clamp flex-grow-1 mb-4"
+                                                        style="font-size:0.9rem; line-height:1.75;">
+                                                        <%= blog.blogExcerpt %>
+                                                    </p>
+
+                                                    <!-- Bottom Row -->
+                                                    <div
+                                                        class="d-flex align-items-center justify-content-between pt-3 border-top">
+
+                                                        <!-- Read Article -->
+                                                        <a href="#"
+                                                            class="btn btn-dark btn-sm rounded-pill px-4 py-2 fw-semibold shadow-sm"
+                                                            style="font-size:0.8rem; letter-spacing:0.3px;">
+                                                            Read Article
+                                                            <i class="mdi mdi-arrow-right ms-1"></i>
+                                                        </a>
+
+                                                        <!-- ★ EDIT & DELETE — Also in Footer (Always Visible) ★ -->
+                                                        <div class="d-flex gap-2">
+
+                                                            <a href="/blog/edit/<%= blog._id %>"
+                                                                class="action-btn btn btn-outline-primary rounded-circle border-2"
+                                                                title="Edit Post">
+                                                                <i class="mdi mdi-pencil fs-6"></i>
+                                                            </a>
+
+                                                            <a href="/blog/delete/<%= blog._id %>"
+                                                                onclick="return confirm('Are you sure you want to delete this blog?')"
+                                                                class="action-btn btn btn-outline-danger rounded-circle border-2"
+                                                                title="Delete Post">
+                                                                <i class="mdi mdi-delete fs-6"></i>
+                                                            </a>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <% }) %>
+
+                            </div>
+
+                        </div>
+
+
+                        <% } %>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Blog Grid -->
+            <!-- ============================================================== -->
+        </div>
+
+        <%- include('../partials/footer.ejs') %>
+    </div>
+
+    <style>
+        /* Simple hover effect for cards */
+        .hover-shadow {
+            transition: all 0.3s ease;
+        }
+
+        .hover-shadow:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .blog-card {
+            transition: all .3s ease;
+            border-radius: 12px;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .blog-img {
+            height: 200px;
+            object-fit: cover;
+            transition: transform .3s ease;
+        }
+
+        .blog-card:hover .blog-img {
+            transform: scale(1.05);
+        }
+
+        .blog-desc {
+            line-height: 1.5;
+        }
+
+        .blog-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.18) !important;
+        }
+
+        .blog-card:hover .blog-img {
+            transform: scale(1.08);
+        }
+
+        .blog-img {
+            height: 260px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .img-overlay {
+            background: linear-gradient(to top,
+                    rgba(0, 0, 0, 0.88) 0%,
+                    rgba(0, 0, 0, 0.4) 50%,
+                    rgba(0, 0, 0, 0.05) 100%);
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.25s ease;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .blog-title-clamp {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .excerpt-clamp {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>

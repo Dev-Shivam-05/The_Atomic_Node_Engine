@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Create Account</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
+
+    <link rel="stylesheet" href="/assets/libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/dist/css/style.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, system-ui;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Card */
+
+        .auth-card {
+
+            width: 420px;
+            padding: 40px;
+
+            border-radius: 16px;
+
+            background: rgba(20, 20, 20, 0.85);
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.6),
+                inset 0 1px rgba(255, 255, 255, 0.05);
+
+        }
+
+        /* Title */
+
+        .page-title {
+            color: white;
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Inputs */
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        .input-group-text h-100 {
+            width: 48px;
+            justify-content: center;
+            border: none;
+            background: #1e1e1e;
+            color: #bbb;
+        }
+
+        .form-control {
+
+            height: 50px;
+
+            background: #1e1e1e;
+            border: none;
+
+            color: white;
+
+        }
+
+        .form-control:focus {
+
+            background: #1e1e1e;
+            color: white;
+
+            box-shadow: 0 0 0 2px #4facfe;
+
+        }
+
+        /* Buttons */
+
+        .btn-primary-custom {
+
+            height: 50px;
+            font-weight: 600;
+
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+
+            border: none;
+
+        }
+
+        .btn-primary-custom:hover {
+
+            opacity: 0.9;
+
+        }
+
+        /* Secondary button */
+
+        .btn-secondary-custom {
+
+            height: 50px;
+            margin-top: 12px;
+
+            background: #2a2a2a;
+            border: none;
+            color: white;
+
+        }
+
+        .btn-secondary-custom:hover {
+
+            background: #333;
+
+        }
+
+        /* Password strength */
+
+        .strength {
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        .weak {
+            color: #ff4d4d
+        }
+
+        .medium {
+            color: #ffc107
+        }
+
+        .strong {
+            color: #28a745
+        }
+
+        /* Toggle icon */
+
+        .password-toggle {
+            cursor: pointer;
+        }
+
+        /* Mobile */
+
+        @media(max-width:500px) {
+
+            .auth-card {
+                width: 90%;
+                padding: 30px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="auth-card">
+
+        <div class="text-center mb-4">
+
+            <img src="/assets/images/logo.png" width="110">
+
+            <div class="page-title mt-3">Create Account</div>
+
+            <div class="subtitle">
+                Join the platform in seconds
+            </div>
+
+        </div>
+
+        <form method="post" action="/create/user/">
+
+            <!-- Username -->
+
+            <div class="input-group">
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text h-100" style="background: #1e1e1e;border: 1px solid grey; border-right: 2px solid grey;">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+
+                <input type="text" class="form-control" placeholder="Username" name="userName" required>
+
+            </div>
+
+            <!-- Email -->
+
+            <div class="input-group">
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text h-100" style="background: #1e1e1e;border: 1px solid grey; border-right: 2px solid grey;">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                </div>
+
+                <input type="email" class="form-control" placeholder="Email Address" name="userEmail" required>
+
+            </div>
+
+            <!-- Password -->
+
+            <div class="input-group">
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text h-100" style="background: #1e1e1e;border: 1px solid grey; border-right: 2px solid grey;">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+
+                <input type="password" class="form-control" placeholder="Password" name="userPassword" id="password"
+                    required>
+
+                <div class="input-group-append">
+                    <span class="input-group-text h-100 password-toggle" style="background: #1e1e1e;border: 1px solid grey; border-right: 2px solid grey;" id="togglePassword">
+                        <i class="fa fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+
+            <div id="strengthText" class="strength"></div>
+
+            <!-- Confirm Password -->
+
+            <div class="input-group">
+
+                <div class="input-group-prepend">
+                    <span class="input-group-text h-100" style="background: #1e1e1e;border: 1px solid grey; border-right: 2px solid grey;">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+
+                <input type="password" class="form-control" placeholder="Confirm Password" name="confirmPassword"
+                    id="confirmPassword" required>
+
+            </div>
+
+            <div id="matchMessage" class="strength"></div>
+
+            <div class="btn-group d-flex align-items-center justify-content-between text-center">
+
+                <button class="btn btn-primary-custom btn-block me-2 mt-2" type="submit">
+                    Create Account
+                </button>
+
+                <a href="/" class="btn btn-secondary-custom btn-block d-flex align-items-center justify-content-center text-center mb-1">
+                    Already have an account?
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+
+    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+
+        /* Password visibility */
+
+        const toggle = document.getElementById("togglePassword");
+        const password = document.getElementById("password");
+
+        toggle.addEventListener("click", () => {
+
+            if (password.type === "password") {
+                password.type = "text";
+                toggle.innerHTML = '<i class="fa fa-eye-slash"></i>';
+            }
+            else {
+                password.type = "password";
+                toggle.innerHTML = '<i class="fa fa-eye"></i>';
+            }
+
+        });
+
+        /* Password strength */
+
+        password.addEventListener("input", () => {
+
+            let val = password.value;
+            let strength = document.getElementById("strengthText");
+
+            if (val.length < 6) {
+                strength.textContent = "Weak password";
+                strength.className = "strength weak";
+            }
+
+            else if (val.match(/[A-Z]/) && val.match(/[0-9]/)) {
+                strength.textContent = "Strong password";
+                strength.className = "strength strong";
+            }
+
+            else {
+                strength.textContent = "Medium password";
+                strength.className = "strength medium";
+            }
+
+        });
+
+        /* Password match */
+
+        document.getElementById("confirmPassword").addEventListener("input", function () {
+
+            let confirm = this.value;
+            let message = document.getElementById("matchMessage");
+
+            if (confirm !== password.value) {
+
+                message.textContent = "Passwords do not match";
+                message.className = "strength weak";
+
+                this.setCustomValidity("Passwords do not match");
+
+            } else {
+
+                message.textContent = "Passwords match";
+                message.className = "strength strong";
+
+                this.setCustomValidity("");
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
