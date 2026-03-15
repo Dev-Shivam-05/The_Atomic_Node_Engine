@@ -28,8 +28,11 @@ export const authVisitor = async (req, res) => {
       return res.redirect("/admin/dashboard");
     }
 
+    console.log(visitorEmail,visitorPassword);
     const findUser = await User.findOne({ userEmail: visitorEmail });
+    console.log(findUser);
 
+    
     if (!findUser) {
       return res.status(401).send("No User Found");
     }

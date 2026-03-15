@@ -11,7 +11,7 @@ const browserController = {
   async createUser(req, res) {
     try {
       console.log(req.body);
-      let isUser = User.find(req.body.userName);
+      let isUser = await User.findOne({userName : req.body.userName});
       if (isUser) {
         return res.redirect("/");
       } else {
