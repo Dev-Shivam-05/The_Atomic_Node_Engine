@@ -1,0 +1,81 @@
+<!-- views/client/pages/blog-listing.ejs -->
+
+<!-- Page Header -->
+<section class="py-5 bg-light border-bottom">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-lg-8">
+                <h1 class="display-6 fw-bold mb-2">Blog</h1>
+                <p class="text-muted mb-0 lead">
+                    Discover stories, ideas & expertise from our writers.
+                </p>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-lg-end mb-0">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item active">Blog</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filter Bar -->
+<section class="py-3 bg-white border-bottom sticky-top" style="z-index:100;">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <!-- Category Pills -->
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="/blog"
+                   class="btn btn-sm rounded-pill px-3 py-2
+                          <%= !currentCategory ? 'btn-dark' : 'btn-outline-secondary' %>">
+                    All Posts
+                </a>
+                <% categories.forEach(cat => { %>
+                    <a href="/blog?category=<%= cat.slug %>"
+                       class="btn btn-sm rounded-pill px-3 py-2
+                              <%= currentCategory === cat.slug ? 'btn-dark' : 'btn-outline-secondary' %>">
+                        <%= cat.name %>
+                    </a>
+                <% }) %>
+            </div>
+            <!-- Search -->
+            <form action="/search" class="d-flex" style="max-width:250px;">
+                <div class="input-group input-group-sm">
+                    <input type="text" name="q" class="form-control rounded-pill rounded-end-0"
+                           placeholder="Search articles...">
+                    <button class="btn btn-dark rounded-pill rounded-start-0 px-3">
+                        <i class="mdi mdi-magnify"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content + Sidebar -->
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <div class="row g-4">
+                    <% blogs.forEach(blog => { %>
+                        <%- include('../partials/blog-card', { blog }) %>
+                    <% }) %>
+                </div>
+                <!-- Pagination -->
+                <%- include('../partials/pagination') %>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <%- include('../partials/sidebar') %>
+            </div>
+
+        </div>
+    </div>
+</section>

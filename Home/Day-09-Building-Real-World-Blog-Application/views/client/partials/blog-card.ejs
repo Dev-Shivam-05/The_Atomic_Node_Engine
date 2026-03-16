@@ -1,0 +1,80 @@
+<!-- views/client/partials/blog-card.ejs -->
+
+<div class="col-lg-6 col-md-6">
+    <a href="/blog/<%= blog.slug || blog._id %>"
+       class="card blog-card border-0 shadow-sm rounded-4 overflow-hidden
+              h-100 text-decoration-none">
+
+        <!-- Image -->
+        <div class="position-relative overflow-hidden" style="height:220px;">
+            <img src="/<%= blog.blogImage || 'images/defaults/blog.png' %>"
+                 alt="<%= blog.blogTitle %>"
+                 class="w-100 h-100 blog-card-img"
+                 style="object-fit:cover;
+                        transition:transform 0.5s ease;">
+
+            <!-- Overlay -->
+            <div class="position-absolute top-0 start-0 w-100 h-100"
+                 style="background:linear-gradient(to top,
+                        rgba(0,0,0,0.5),transparent);"></div>
+
+            <!-- Category -->
+            <span class="badge bg-white text-dark rounded-pill px-3 py-2
+                         position-absolute top-0 start-0 m-3 shadow-sm fw-bold"
+                  style="font-size:0.68rem;letter-spacing:0.5px;">
+                <%= blog.blogCategory %>
+            </span>
+
+            <!-- Date on image -->
+            <div class="position-absolute bottom-0 end-0 m-3">
+                <span class="badge bg-dark bg-opacity-75 text-white rounded-pill
+                             px-3 py-2" style="font-size:0.7rem;">
+                    <i class="mdi mdi-calendar-outline me-1"></i>
+                    <%= new Date(blog.createdAt).toLocaleDateString('en-US',{
+                        month:'short',day:'numeric'
+                    }) %>
+                </span>
+            </div>
+        </div>
+
+        <!-- Body -->
+        <div class="card-body p-4 d-flex flex-column">
+            <h5 class="fw-bold text-dark mb-2" style="line-height:1.4;
+                display:-webkit-box;-webkit-line-clamp:2;
+                -webkit-box-orient:vertical;overflow:hidden;">
+                <%= blog.blogTitle %>
+            </h5>
+
+            <p class="text-muted small flex-grow-1 mb-3"
+               style="display:-webkit-box;-webkit-line-clamp:2;
+                      -webkit-box-orient:vertical;overflow:hidden;
+                      line-height:1.7;">
+                <%= blog.blogExcerpt %>
+            </p>
+
+            <div class="d-flex align-items-center justify-content-between pt-3 border-top">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="rounded-circle bg-primary d-flex align-items-center
+                                justify-content-center text-white fw-bold"
+                         style="width:30px;height:30px;font-size:0.7rem;">
+                        <%= (blog.author?.name || 'A').charAt(0) %>
+                    </div>
+                    <small class="fw-semibold text-dark">
+                        <%= blog.author?.name || 'Admin' %>
+                    </small>
+                </div>
+                <small class="fw-semibold" style="color:var(--primary);">
+                    Read →
+                </small>
+            </div>
+        </div>
+
+    </a>
+</div>
+
+<style>
+    .blog-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .blog-card:hover { transform: translateY(-6px);
+                       box-shadow: 0 12px 40px rgba(0,0,0,0.12) !important; }
+    .blog-card:hover .blog-card-img { transform: scale(1.08); }
+</style>

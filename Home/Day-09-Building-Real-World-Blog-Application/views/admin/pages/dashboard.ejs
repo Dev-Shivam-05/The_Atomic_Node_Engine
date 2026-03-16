@@ -1,0 +1,171 @@
+<!-- views/admin/pages/dashboard.ejs -->
+
+<!-- Welcome -->
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+        <h3 class="fw-bold mb-1">Welcome back, Admin! 👋</h3>
+        <p class="text-muted mb-0">Here's what's happening with your blog today.</p>
+    </div>
+    <a href="/admin/posts/create" class="btn btn-primary rounded-pill px-4 py-2">
+        <i class="mdi mdi-plus me-1"></i> New Post
+    </a>
+</div>
+
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-4">
+
+    <!-- Total Posts -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold mb-1">Total Posts</p>
+                        <h3 class="fw-bold mb-0"><%= stats.totalPosts %></h3>
+                        <small class="text-success fw-semibold">
+                            <i class="mdi mdi-trending-up"></i> +12%
+                        </small>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                         style="width:50px;height:50px;background:var(--primary-light);">
+                        <i class="mdi mdi-file-document-outline fs-4"
+                           style="color:var(--primary);"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold mb-1">Categories</p>
+                        <h3 class="fw-bold mb-0"><%= stats.totalCategories %></h3>
+                        <small class="text-muted fw-semibold">+2 new</small>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                         style="width:50px;height:50px;background:#fef3c7;">
+                        <i class="mdi mdi-folder-outline fs-4" style="color:#f59e0b;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Comments -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold mb-1">Comments</p>
+                        <h3 class="fw-bold mb-0"><%= stats.totalComments %></h3>
+                        <small class="text-success fw-semibold">
+                            <i class="mdi mdi-trending-up"></i> +8%
+                        </small>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                         style="width:50px;height:50px;background:#dbeafe;">
+                        <i class="mdi mdi-comment-outline fs-4" style="color:#3b82f6;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Views -->
+    <div class="col-xl-3 col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <p class="text-muted small fw-semibold mb-1">Total Views</p>
+                        <h3 class="fw-bold mb-0"><%= stats.totalViews %></h3>
+                        <small class="text-success fw-semibold">
+                            <i class="mdi mdi-trending-up"></i> +24%
+                        </small>
+                    </div>
+                    <div class="rounded-3 d-flex align-items-center justify-content-center"
+                         style="width:50px;height:50px;background:#dcfce7;">
+                        <i class="mdi mdi-eye-outline fs-4" style="color:#10b981;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Charts + Recent Posts Row -->
+<div class="row g-4 mb-4">
+
+    <!-- Chart Area -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="fw-bold mb-0">Views Overview</h6>
+                    <select class="form-select form-select-sm rounded-pill"
+                            style="width:auto;">
+                        <option>Last 7 days</option>
+                        <option>Last 30 days</option>
+                        <option>Last 90 days</option>
+                    </select>
+                </div>
+                <!-- Chart placeholder -->
+                <div class="bg-light rounded-3 d-flex align-items-center
+                            justify-content-center" style="height:280px;">
+                    <span class="text-muted">📊 Chart renders here</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Posts -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="fw-bold mb-0">Recent Posts</h6>
+                    <a href="/admin/posts" class="small text-primary text-decoration-none">
+                        View All
+                    </a>
+                </div>
+
+                <% recentPosts.forEach(post => { %>
+                    <div class="d-flex gap-3 mb-3 pb-3 border-bottom">
+                        <img src="/<%= post.blogImage %>"
+                             class="rounded-3" width="50" height="50"
+                             style="object-fit:cover;">
+                        <div class="flex-grow-1 min-w-0">
+                            <h6 class="fw-semibold mb-1 small text-truncate">
+                                <%= post.blogTitle %>
+                            </h6>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge rounded-pill px-2 py-1
+                                    <%= post.status === 'published'
+                                        ? 'bg-success-subtle text-success'
+                                        : 'bg-warning-subtle text-warning' %>"
+                                    style="font-size:0.65rem;">
+                                    <%= post.status || 'published' %>
+                                </span>
+                                <small class="text-muted">
+                                    <%= new Date(post.createdAt).toLocaleDateString('en-US',{
+                                        month:'short',day:'numeric'
+                                    }) %>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+
+            </div>
+        </div>
+    </div>
+
+</div>

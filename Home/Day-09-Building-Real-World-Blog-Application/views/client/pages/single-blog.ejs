@@ -1,0 +1,163 @@
+<!-- views/client/pages/single-blog.ejs -->
+
+<!-- Post Header -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+
+                <!-- Breadcrumb -->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb justify-content-center mb-0 small">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+                        <li class="breadcrumb-item active"><%= blog.blogTitle %></li>
+                    </ol>
+                </nav>
+
+                <!-- Category -->
+                <span class="badge rounded-pill px-3 py-2 mb-3 text-white"
+                      style="background:var(--gradient-brand);">
+                    <%= blog.blogCategory %>
+                </span>
+
+                <!-- Title -->
+                <h1 class="display-5 fw-bold mb-4" style="line-height:1.2;">
+                    <%= blog.blogTitle %>
+                </h1>
+
+                <!-- Meta -->
+                <div class="d-flex justify-content-center align-items-center
+                            gap-3 flex-wrap text-muted">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="/<%= blog.author?.avatar || 'images/defaults/avatar.png' %>"
+                             class="rounded-circle" width="36" height="36"
+                             style="object-fit:cover;">
+                        <span class="fw-semibold text-dark">
+                            <%= blog.author?.name || 'Admin' %>
+                        </span>
+                    </div>
+                    <span>•</span>
+                    <span>
+                        <i class="mdi mdi-calendar-outline me-1"></i>
+                        <%= new Date(blog.createdAt).toLocaleDateString('en-US', {
+                            month: 'long', day: 'numeric', year: 'numeric'
+                        }) %>
+                    </span>
+                    <span>•</span>
+                    <span>
+                        <i class="mdi mdi-clock-outline me-1"></i>
+                        <%= Math.ceil(blog.blogContent.split(' ').length / 200) %> min read
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Image -->
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <img src="/<%= blog.blogImage %>"
+                 alt="<%= blog.blogTitle %>"
+                 class="w-100 rounded-4 shadow-lg"
+                 style="max-height:500px; object-fit:cover;">
+        </div>
+    </div>
+</div>
+
+<!-- Article Content + Sidebar -->
+<section class="pb-5">
+    <div class="container">
+        <div class="row g-5 justify-content-center">
+
+            <!-- Article Content -->
+            <div class="col-lg-7">
+                <article class="blog-content" style="font-size:1.1rem;line-height:1.9;">
+                    <%- blog.blogContent %>
+                </article>
+
+                <!-- Tags -->
+                <div class="mt-5 pt-4 border-top">
+                    <div class="d-flex gap-2 flex-wrap">
+                        <% blog.blogTags.split(',').forEach(tag => { %>
+                            <a href="/tag/<%= tag.trim() %>"
+                               class="badge bg-light text-dark border rounded-pill
+                                      px-3 py-2 text-decoration-none">
+                                #<%= tag.trim() %>
+                            </a>
+                        <% }) %>
+                    </div>
+                </div>
+
+                <!-- Author Card -->
+                <%- include('../partials/author-card', { author: blog.author }) %>
+
+                <!-- Comments -->
+                <%- include('../partials/comment-section', { comments: blog.comments }) %>
+
+            </div>
+
+            <!-- Sticky Sidebar -->
+            <div class="col-lg-3">
+                <div class="position-sticky" style="top:100px;">
+
+                    <!-- Share Buttons -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                        <h6 class="fw-bold text-uppercase small mb-3"
+                            style="letter-spacing:1px;">
+                            Share this post
+                        </h6>
+                        <div class="d-flex gap-2">
+                            <a href="#" class="btn btn-outline-primary btn-sm rounded-circle"
+                               style="width:40px;height:40px;"
+                               title="Facebook">
+                                <i class="mdi mdi-facebook"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-info btn-sm rounded-circle"
+                               style="width:40px;height:40px;"
+                               title="Twitter">
+                                <i class="mdi mdi-twitter"></i>
+                            </a>
+                            <a href="#" class="btn btn-outline-secondary btn-sm rounded-circle"
+                               style="width:40px;height:40px;"
+                               title="Copy Link">
+                                <i class="mdi mdi-link-variant"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Related Posts -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4">
+                        <h6 class="fw-bold text-uppercase small mb-3"
+                            style="letter-spacing:1px;">
+                            Related Posts
+                        </h6>
+                        <% relatedPosts.forEach(post => { %>
+                            <a href="/blog/<%= post.slug %>"
+                               class="d-flex gap-3 mb-3 text-decoration-none">
+                                <img src="/<%= post.blogImage %>"
+                                     class="rounded-3" width="60" height="60"
+                                     style="object-fit:cover;">
+                                <div>
+                                    <h6 class="fw-semibold text-dark mb-1 small">
+                                        <%= post.blogTitle %>
+                                    </h6>
+                                    <small class="text-muted">
+                                        <%= new Date(post.createdAt).toLocaleDateString('en-US',{
+                                            month:'short',day:'numeric'
+                                        }) %>
+                                    </small>
+                                </div>
+                            </a>
+                        <% }) %>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

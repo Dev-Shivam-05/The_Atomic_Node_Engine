@@ -1,0 +1,94 @@
+<!-- views/client/partials/sidebar.ejs -->
+
+<!-- Search -->
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+    <h6 class="fw-bold text-uppercase mb-3" style="letter-spacing:1px;font-size:0.75rem;">
+        🔍 Search
+    </h6>
+    <form action="/search">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control rounded-pill rounded-end-0"
+                   placeholder="Search articles...">
+            <button class="btn btn-dark rounded-pill rounded-start-0 px-3">
+                <i class="mdi mdi-magnify"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Categories -->
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+    <h6 class="fw-bold text-uppercase mb-3" style="letter-spacing:1px;font-size:0.75rem;">
+        📂 Categories
+    </h6>
+    <div class="list-group list-group-flush">
+        <% categories.forEach(cat => { %>
+            <a href="/category/<%= cat.slug %>"
+               class="list-group-item list-group-item-action d-flex
+                      justify-content-between align-items-center border-0
+                      rounded-3 px-3 py-2 mb-1">
+                <span><%= cat.name %></span>
+                <span class="badge bg-light text-dark rounded-pill">
+                    <%= cat.postCount %>
+                </span>
+            </a>
+        <% }) %>
+    </div>
+</div>
+
+<!-- Popular Tags -->
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+    <h6 class="fw-bold text-uppercase mb-3" style="letter-spacing:1px;font-size:0.75rem;">
+        🏷️ Popular Tags
+    </h6>
+    <div class="d-flex flex-wrap gap-2">
+        <% tags.forEach(tag => { %>
+            <a href="/tag/<%= tag.slug %>"
+               class="badge bg-light text-dark border rounded-pill px-3 py-2
+                      text-decoration-none tag-pill">
+                #<%= tag.name %>
+            </a>
+        <% }) %>
+    </div>
+</div>
+
+<!-- Popular Posts -->
+<div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+    <h6 class="fw-bold text-uppercase mb-3" style="letter-spacing:1px;font-size:0.75rem;">
+        🔥 Popular Posts
+    </h6>
+    <% popularPosts.forEach((post, i) => { %>
+        <a href="/blog/<%= post.slug %>"
+           class="d-flex gap-3 mb-3 text-decoration-none align-items-center">
+            <span class="fw-bold fs-4 text-muted opacity-25">
+                0<%= i + 1 %>
+            </span>
+            <div>
+                <h6 class="fw-semibold text-dark mb-1 small"
+                    style="line-height:1.5;">
+                    <%= post.blogTitle %>
+                </h6>
+                <small class="text-muted">
+                    <%= new Date(post.createdAt).toLocaleDateString('en-US',{
+                        month:'short',day:'numeric'
+                    }) %>
+                </small>
+            </div>
+        </a>
+    <% }) %>
+</div>
+
+<!-- Newsletter Mini -->
+<div class="card border-0 rounded-4 p-4 text-white text-center"
+     style="background:var(--gradient-brand);">
+    <h6 class="fw-bold mb-2">📬 Subscribe</h6>
+    <p class="small opacity-75 mb-3">Get posts in your inbox</p>
+    <form>
+        <input type="email" class="form-control form-control-sm rounded-pill
+                                   mb-2 text-center border-0"
+               placeholder="your@email.com">
+        <button class="btn btn-dark btn-sm rounded-pill w-100">
+            Subscribe
+        </button>
+    </form>
+</div>

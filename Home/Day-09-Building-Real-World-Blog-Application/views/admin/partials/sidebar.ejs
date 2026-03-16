@@ -1,0 +1,166 @@
+<!-- views/admin/partials/sidebar.ejs -->
+
+<aside class="d-flex flex-column vh-100 position-fixed text-white"
+       style="width:260px; background:var(--gradient-dark); z-index:1000;">
+
+    <!-- Logo -->
+    <div class="p-4 border-bottom border-secondary">
+        <a href="/admin" class="d-flex align-items-center gap-2 text-decoration-none">
+            <div class="d-flex align-items-center justify-content-center
+                        rounded-3 text-white"
+                 style="width:40px;height:40px;background:var(--gradient-brand);">
+                <i class="mdi mdi-shield-crown-outline fs-5"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold text-white mb-0">BlogApp</h6>
+                <small class="text-white-50" style="font-size:0.65rem;
+                       letter-spacing:1px;">ADMIN PANEL</small>
+            </div>
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="flex-grow-1 overflow-auto p-3">
+
+        <!-- Main Section -->
+        <p class="text-uppercase text-white-50 small fw-bold mb-2 mt-2 px-3"
+           style="font-size:0.65rem;letter-spacing:2px;">
+            Main
+        </p>
+
+        <a href="/admin"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'dashboard' ? 'active' : '' %>">
+            <i class="mdi mdi-view-dashboard-outline fs-5"></i>
+            <span class="small fw-semibold">Dashboard</span>
+        </a>
+
+        <a href="/admin/analytics"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'analytics' ? 'active' : '' %>">
+            <i class="mdi mdi-chart-line fs-5"></i>
+            <span class="small fw-semibold">Analytics</span>
+        </a>
+
+        <!-- Content Section -->
+        <p class="text-uppercase text-white-50 small fw-bold mb-2 mt-4 px-3"
+           style="font-size:0.65rem;letter-spacing:2px;">
+            Content
+        </p>
+
+        <a href="/admin/posts"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'posts' ? 'active' : '' %>">
+            <i class="mdi mdi-file-document-outline fs-5"></i>
+            <span class="small fw-semibold">All Posts</span>
+            <span class="badge bg-primary rounded-pill ms-auto small">
+                <%= totalPosts || 0 %>
+            </span>
+        </a>
+
+        <a href="/admin/posts/create"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'create' ? 'active' : '' %>">
+            <i class="mdi mdi-plus-circle-outline fs-5"></i>
+            <span class="small fw-semibold">Create Post</span>
+        </a>
+
+        <a href="/admin/categories"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'categories' ? 'active' : '' %>">
+            <i class="mdi mdi-folder-outline fs-5"></i>
+            <span class="small fw-semibold">Categories</span>
+        </a>
+
+        <a href="/admin/tags"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'tags' ? 'active' : '' %>">
+            <i class="mdi mdi-tag-multiple-outline fs-5"></i>
+            <span class="small fw-semibold">Tags</span>
+        </a>
+
+        <a href="/admin/media"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'media' ? 'active' : '' %>">
+            <i class="mdi mdi-image-multiple-outline fs-5"></i>
+            <span class="small fw-semibold">Media Library</span>
+        </a>
+
+        <!-- Management Section -->
+        <p class="text-uppercase text-white-50 small fw-bold mb-2 mt-4 px-3"
+           style="font-size:0.65rem;letter-spacing:2px;">
+            Management
+        </p>
+
+        <a href="/admin/comments"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'comments' ? 'active' : '' %>">
+            <i class="mdi mdi-comment-multiple-outline fs-5"></i>
+            <span class="small fw-semibold">Comments</span>
+            <% if (pendingComments > 0) { %>
+                <span class="badge bg-danger rounded-pill ms-auto small">
+                    <%= pendingComments %>
+                </span>
+            <% } %>
+        </a>
+
+        <a href="/admin/users"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'users' ? 'active' : '' %>">
+            <i class="mdi mdi-account-group-outline fs-5"></i>
+            <span class="small fw-semibold">Users</span>
+        </a>
+
+        <a href="/admin/settings"
+           class="d-flex align-items-center gap-3 px-3 py-2 rounded-3
+                  text-decoration-none mb-1 sidebar-link
+                  <%= currentPage === 'settings' ? 'active' : '' %>">
+            <i class="mdi mdi-cog-outline fs-5"></i>
+            <span class="small fw-semibold">Settings</span>
+        </a>
+
+    </nav>
+
+    <!-- Admin Profile -->
+    <div class="p-3 border-top border-secondary">
+        <div class="d-flex align-items-center gap-3">
+            <img src="/images/defaults/avatar.png"
+                 class="rounded-circle" width="40" height="40">
+            <div class="flex-grow-1">
+                <small class="fw-bold text-white d-block">Admin User</small>
+                <small class="text-white-50" style="font-size:0.7rem;">
+                    admin@blog.com
+                </small>
+            </div>
+            <a href="/logout" class="text-white-50">
+                <i class="mdi mdi-logout fs-5"></i>
+            </a>
+        </div>
+    </div>
+
+</aside>
+
+<style>
+    .sidebar-link {
+        color: rgba(255,255,255,0.6);
+        transition: all 0.2s ease;
+    }
+    .sidebar-link:hover {
+        color: #fff;
+        background: rgba(255,255,255,0.08);
+    }
+    .sidebar-link.active {
+        color: #fff;
+        background: rgba(99,102,241,0.3);
+        border-left: 3px solid #6366f1;
+    }
+</style>

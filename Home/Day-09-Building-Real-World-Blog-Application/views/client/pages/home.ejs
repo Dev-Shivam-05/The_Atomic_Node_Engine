@@ -1,0 +1,169 @@
+<!-- views/client/pages/home.ejs -->
+
+<%- include('../layouts/main', { title: 'Home' }) %>
+
+<!-- ═══ HERO SECTION ═══ -->
+<section class="py-5 bg-light position-relative overflow-hidden">
+    <div class="container">
+        <div class="row align-items-center min-vh-50">
+            <div class="col-lg-7">
+
+                <!-- Pill Label -->
+                <div class="d-inline-flex align-items-center gap-2 mb-3
+                            px-3 py-2 rounded-pill bg-white shadow-sm">
+                    <span class="d-inline-block rounded-circle bg-success"
+                          style="width:8px;height:8px;"></span>
+                    <small class="fw-semibold text-muted"
+                           style="letter-spacing:1px;font-size:0.7rem;">
+                        FRESH STORIES DAILY
+                    </small>
+                </div>
+
+                <h1 class="display-4 fw-bold mb-3" style="line-height:1.15;">
+                    Stories that
+                    <span style="background:linear-gradient(135deg,#6366f1,#a855f7);
+                                 -webkit-background-clip:text;
+                                 -webkit-text-fill-color:transparent;">
+                        inspire
+                    </span>
+                    <br>the curious mind.
+                </h1>
+
+                <p class="lead text-muted mb-4 pe-lg-5" style="font-size:1.1rem;">
+                    Discover thoughtful articles on technology, life, business,
+                    and everything that moves the world forward.
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="/blog" class="btn btn-dark btn-lg rounded-pill px-5 py-3">
+                        Start Reading
+                        <i class="mdi mdi-arrow-right ms-2"></i>
+                    </a>
+                    <a href="/about" class="btn btn-outline-secondary btn-lg
+                                            rounded-pill px-4 py-3">
+                        About Us
+                    </a>
+                </div>
+
+                <!-- Stats Row -->
+                <div class="d-flex gap-4 mt-5 pt-3">
+                    <div>
+                        <h4 class="fw-bold mb-0"><%= totalBlogs %>+</h4>
+                        <small class="text-muted">Articles</small>
+                    </div>
+                    <div class="border-start ps-4">
+                        <h4 class="fw-bold mb-0"><%= totalCategories %></h4>
+                        <small class="text-muted">Categories</small>
+                    </div>
+                    <div class="border-start ps-4">
+                        <h4 class="fw-bold mb-0"><%= totalAuthors %></h4>
+                        <small class="text-muted">Authors</small>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-5 d-none d-lg-block">
+                <!-- Featured Post Card / Illustration -->
+                <div class="position-relative">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                        <img src="/<%= featuredPost.blogImage %>"
+                             class="w-100" style="height:400px;object-fit:cover;">
+                        <div class="position-absolute bottom-0 start-0 w-100 p-4"
+                             style="background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);">
+                            <span class="badge bg-warning rounded-pill px-3 py-2 mb-2">
+                                <%= featuredPost.blogCategory %>
+                            </span>
+                            <h5 class="text-white fw-bold mb-0">
+                                <%= featuredPost.blogTitle %>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══ LATEST POSTS GRID ═══ -->
+<section class="py-5">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div>
+                <h6 class="text-uppercase fw-bold text-muted mb-1"
+                    style="letter-spacing:2px;font-size:0.72rem;">
+                    Latest
+                </h6>
+                <h2 class="fw-bold mb-0">Recent Articles</h2>
+            </div>
+            <a href="/blog" class="btn btn-outline-dark rounded-pill px-4">
+                View All <i class="mdi mdi-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <% latestBlogs.forEach(blog => { %>
+                <%- include('../partials/blog-card', { blog }) %>
+            <% }) %>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ═══ CATEGORIES ═══ -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Browse by Category</h2>
+            <p class="text-muted">Find exactly what you're looking for</p>
+        </div>
+        <div class="row g-3 justify-content-center">
+            <% categories.forEach(cat => { %>
+                <div class="col-lg-2 col-md-3 col-4">
+                    <a href="/category/<%= cat.slug %>"
+                       class="card border-0 shadow-sm rounded-4 text-center p-4
+                              text-decoration-none h-100 category-card">
+                        <div class="fs-1 mb-2"><%= cat.icon %></div>
+                        <h6 class="fw-bold mb-1"><%= cat.name %></h6>
+                        <small class="text-muted">
+                            <%= cat.postCount %> posts
+                        </small>
+                    </a>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══ NEWSLETTER ═══ -->
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 rounded-4 p-5 text-center text-white
+                            position-relative overflow-hidden"
+                     style="background:linear-gradient(135deg,#6366f1,#a855f7);">
+                    <h3 class="fw-bold mb-2">📬 Never Miss a Story</h3>
+                    <p class="mb-4 opacity-75">
+                        Get the best articles delivered straight to your inbox.
+                        No spam, ever.
+                    </p>
+                    <form class="d-flex gap-2 justify-content-center flex-wrap">
+                        <input type="email"
+                               class="form-control form-control-lg rounded-pill bg-white
+                                      border-0 px-4"
+                               style="max-width:350px;"
+                               placeholder="your@email.com">
+                        <button class="btn btn-dark btn-lg rounded-pill px-5">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,96 @@
+<!-- views/admin/partials/topbar.ejs -->
+
+<header class="bg-white border-bottom shadow-sm position-sticky top-0"
+        style="z-index:999; height:65px; margin-left:260px;">
+    <div class="d-flex align-items-center justify-content-between h-100 px-4">
+
+        <!-- Left: Toggle + Search -->
+        <div class="d-flex align-items-center gap-4">
+            <button class="btn btn-light btn-sm d-lg-none rounded-circle"
+                    id="sidebarToggle" style="width:38px;height:38px;">
+                <i class="mdi mdi-menu"></i>
+            </button>
+
+            <div class="d-none d-md-block">
+                <div class="input-group" style="width:320px;">
+                    <span class="input-group-text bg-light border-end-0 rounded-pill
+                                 rounded-end-0">
+                        <i class="mdi mdi-magnify text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control bg-light border-start-0
+                                              rounded-pill rounded-start-0"
+                           placeholder="Search anything...">
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- Visit Site -->
+            <a href="/" target="_blank"
+               class="btn btn-light btn-sm rounded-pill px-3 d-none d-md-inline-flex
+                      align-items-center gap-1">
+                <i class="mdi mdi-open-in-new"></i>
+                <span class="small fw-semibold">View Site</span>
+            </a>
+
+            <!-- Notifications -->
+            <div class="dropdown">
+                <button class="btn btn-light btn-sm rounded-circle position-relative"
+                        style="width:40px;height:40px;"
+                        data-bs-toggle="dropdown">
+                    <i class="mdi mdi-bell-outline fs-5"></i>
+                    <span class="position-absolute top-0 end-0 badge rounded-pill bg-danger"
+                          style="font-size:0.6rem;">3</span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-4 p-0"
+                     style="width:340px;">
+                    <div class="p-3 border-bottom">
+                        <h6 class="fw-bold mb-0">Notifications</h6>
+                    </div>
+                    <div class="p-3">
+                        <div class="d-flex gap-3 mb-3">
+                            <div class="rounded-circle bg-primary-subtle d-flex align-items-center
+                                        justify-content-center" style="width:36px;height:36px;min-width:36px;">
+                                <i class="mdi mdi-comment-outline text-primary"></i>
+                            </div>
+                            <div>
+                                <small class="fw-semibold d-block">New comment on your post</small>
+                                <small class="text-muted">2 minutes ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2 border-top text-center">
+                        <a href="#" class="btn btn-sm btn-light rounded-pill px-4">View All</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile -->
+            <div class="dropdown">
+                <button class="d-flex align-items-center gap-2 btn p-0"
+                        data-bs-toggle="dropdown">
+                    <img src="/images/defaults/avatar.png"
+                         class="rounded-circle" width="36" height="36">
+                    <div class="d-none d-md-block text-start">
+                        <small class="fw-bold d-block lh-1">Admin</small>
+                        <small class="text-muted" style="font-size:0.7rem;">Super Admin</small>
+                    </div>
+                    <i class="mdi mdi-chevron-down text-muted"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-3">
+                    <li><a class="dropdown-item py-2" href="/admin/profile">
+                        <i class="mdi mdi-account-outline me-2"></i>Profile</a></li>
+                    <li><a class="dropdown-item py-2" href="/admin/settings">
+                        <i class="mdi mdi-cog-outline me-2"></i>Settings</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item py-2 text-danger" href="/logout">
+                        <i class="mdi mdi-logout me-2"></i>Logout</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</header>

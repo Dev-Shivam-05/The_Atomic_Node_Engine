@@ -1,0 +1,320 @@
+/* ═══════════════════════════════════════════════════════════
+   public/css/client.css — CLIENT (PUBLIC BLOG) STYLES
+   ═══════════════════════════════════════════════════════════
+   
+   WHAT THIS FILE DOES:
+   Contains all custom CSS for the public-facing blog website.
+   Bootstrap handles the heavy lifting — this file adds:
+     - Custom color variables
+     - Blog card hover effects
+     - Typography refinements
+     - Component-specific styling
+   
+   HOW IT CONNECTS:
+   Loaded in views/client/partials/header.ejs:
+     <link href="/css/client.css" rel="stylesheet">
+   Express serves it from public/css/client.css
+   
+   ═══════════════════════════════════════════════════════════ */
+
+
+/* ── CSS Custom Properties (Design Tokens) ── */
+:root {
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --primary-light: #eef2ff;
+    --accent: #a855f7;
+    --dark: #0f172a;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --text-tertiary: #94a3b8;
+    --border: #e2e8f0;
+    --bg-light: #f8fafc;
+    --gradient-brand: linear-gradient(135deg, #6366f1, #a855f7);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.12);
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --transition: 0.3s ease;
+}
+
+/* ── Global Styles ── */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+a {
+    color: var(--primary);
+    transition: color var(--transition);
+}
+
+a:hover {
+    color: var(--primary-hover);
+}
+
+/* ── Navbar ── */
+.client-navbar {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: box-shadow var(--transition);
+}
+
+.client-navbar .nav-link {
+    font-weight: 500;
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all var(--transition);
+}
+
+.client-navbar .nav-link:hover,
+.client-navbar .nav-link.active {
+    color: var(--primary);
+    background: var(--primary-light);
+}
+
+/* ── Blog Cards ── */
+.blog-card {
+    transition: transform var(--transition), box-shadow var(--transition);
+    border: 1px solid var(--border);
+}
+
+.blog-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.blog-card .card-img-top {
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.blog-card .card-img-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.blog-card .card-img-overlay-gradient {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+}
+
+/* ── Title Clamp (limit to 2 lines) ── */
+.title-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Excerpt Clamp (limit to 3 lines) ── */
+.excerpt-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ── Category Badge ── */
+.category-badge {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+/* ── Gradient Text ── */
+.gradient-text {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Sidebar ── */
+.sidebar-card {
+    border: 1px solid var(--border);
+    transition: box-shadow var(--transition);
+}
+
+.sidebar-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.tag-pill {
+    transition: all var(--transition);
+    font-size: 0.78rem;
+}
+
+.tag-pill:hover {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-color: var(--primary) !important;
+}
+
+/* ── Single Blog Post Content ── */
+.blog-content {
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+}
+
+.blog-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.blog-content blockquote {
+    border-left: 4px solid var(--primary);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background: var(--primary-light);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.blog-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: 1.5rem 0;
+}
+
+.blog-content code {
+    background: var(--bg-light);
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+}
+
+.blog-content pre {
+    background: var(--dark);
+    color: #e2e8f0;
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.blog-content pre code {
+    background: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+/* ── Pagination ── */
+.page-link {
+    border: none;
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem !important;
+    margin: 0 0.15rem;
+    transition: all var(--transition);
+}
+
+.page-link:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.page-item.active .page-link {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* ── Newsletter Section ── */
+.newsletter-section {
+    background: var(--gradient-brand);
+}
+
+/* ── Comments ── */
+.comment-item {
+    border-left: 3px solid var(--border);
+    padding-left: 1rem;
+    transition: border-color var(--transition);
+}
+
+.comment-item:hover {
+    border-left-color: var(--primary);
+}
+
+/* ── Hero Section ── */
+.hero-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
+/* ── Footer ── */
+.client-footer {
+    background: var(--dark);
+}
+
+.client-footer a {
+    color: rgba(255, 255, 255, 0.5);
+    transition: color var(--transition);
+}
+
+.client-footer a:hover {
+    color: #fff;
+}
+
+/* ── Flash Messages ── */
+.flash-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+}
+
+.flash-message {
+    animation: slideIn 0.3s ease, fadeOut 0.5s ease 4s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* ── Responsive Adjustments ── */
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 40vh;
+    }
+
+    .blog-content {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,305 @@
+/* ═══════════════════════════════════════════════════════════
+   public/css/admin.css — ADMIN DASHBOARD STYLES
+   ═══════════════════════════════════════════════════════════
+   
+   WHAT THIS FILE DOES:
+   Styles specific to the admin dashboard panel.
+   Works alongside Bootstrap — adds admin-specific components.
+   
+   HOW IT CONNECTS:
+   Loaded in views/admin/partials/header.ejs:
+     <link href="/css/admin.css" rel="stylesheet">
+   
+   ═══════════════════════════════════════════════════════════ */
+
+
+/* ── Design Tokens ── */
+:root {
+    --admin-sidebar-width: 260px;
+    --admin-sidebar-bg: #0f172a;
+    --admin-topbar-height: 65px;
+    --admin-primary: #6366f1;
+    --admin-primary-hover: #4f46e5;
+    --admin-primary-light: rgba(99, 102, 241, 0.15);
+}
+
+/* ── Page Layout ── */
+.admin-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-content {
+    margin-left: var(--admin-sidebar-width);
+    width: calc(100% - var(--admin-sidebar-width));
+    min-height: 100vh;
+    background: #f8fafc;
+    transition: margin-left 0.3s ease, width 0.3s ease;
+}
+
+/* ── Sidebar ── */
+.admin-sidebar {
+    width: var(--admin-sidebar-width);
+    min-height: 100vh;
+    background: var(--admin-sidebar-bg);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+}
+
+.admin-sidebar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* Sidebar Links */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin-bottom: 2px;
+}
+
+.sidebar-link:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-link.active {
+    color: #fff;
+    background: var(--admin-primary-light);
+    border-left: 3px solid var(--admin-primary);
+}
+
+.sidebar-link .badge {
+    font-size: 0.65rem;
+}
+
+.sidebar-section-title {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+    padding: 0 1rem;
+    margin: 1.5rem 0 0.5rem;
+}
+
+/* ── Topbar ── */
+.admin-topbar {
+    height: var(--admin-topbar-height);
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+/* ── Stats Cards ── */
+.stat-card {
+    border: none;
+    border-radius: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+/* ── Data Tables ── */
+.admin-table {
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.admin-table thead th {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    border-bottom: 2px solid #e2e8f0;
+    padding: 1rem;
+}
+
+.admin-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.admin-table tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ── Action Buttons ── */
+.action-btn {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+}
+
+/* ── Status Badges ── */
+.status-badge {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    letter-spacing: 0.3px;
+}
+
+.status-published {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status-draft {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-approved {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status-rejected {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* ── Admin Forms ── */
+.admin-form .form-control,
+.admin-form .form-select {
+    border-radius: 0.5rem;
+    border: 1.5px solid #e2e8f0;
+    padding: 0.65rem 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-form .form-control:focus,
+.admin-form .form-select:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.admin-form textarea.form-control {
+    min-height: 120px;
+}
+
+/* ── Empty State ── */
+.empty-state {
+    padding: 3rem;
+    text-align: center;
+    color: #94a3b8;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+}
+
+/* ── Admin Flash Messages ── */
+.admin-flash {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+}
+
+.admin-flash .alert {
+    animation: slideIn 0.3s ease, fadeOut 0.5s ease 4s forwards;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: none;
+    border-radius: 0.75rem;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ── Responsive: Mobile Admin ── */
+@media (max-width: 992px) {
+    .admin-sidebar {
+        transform: translateX(-100%);
+    }
+
+    .admin-sidebar.show {
+        transform: translateX(0);
+    }
+
+    .admin-content {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    /* Overlay when sidebar is open on mobile */
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        display: none;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+    }
+}

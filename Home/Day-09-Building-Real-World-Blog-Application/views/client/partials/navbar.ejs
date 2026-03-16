@@ -1,0 +1,71 @@
+<!-- views/client/partials/navbar.ejs -->
+
+<nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top shadow-sm py-3">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold fs-4" href="/">
+            <div class="d-flex align-items-center justify-content-center rounded-3 text-white"
+                 style="width:38px;height:38px;background:var(--gradient-brand);">
+                <i class="mdi mdi-pencil-outline"></i>
+            </div>
+            <span style="background:var(--gradient-brand);
+                         -webkit-background-clip:text;
+                         -webkit-text-fill-color:transparent;">
+                BlogApp
+            </span>
+        </a>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler border-0" type="button"
+                data-bs-toggle="collapse" data-bs-target="#clientNav">
+            <i class="mdi mdi-menu fs-4"></i>
+        </button>
+
+        <!-- Nav Links -->
+        <div class="collapse navbar-collapse" id="clientNav">
+            <ul class="navbar-nav mx-auto gap-1">
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold px-3" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold px-3" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link fw-semibold px-3 dropdown-toggle" href="#"
+                       data-bs-toggle="dropdown">Categories</a>
+                    <ul class="dropdown-menu border-0 shadow-lg rounded-3">
+                        <% categories.forEach(cat => { %>
+                            <li>
+                                <a class="dropdown-item py-2" href="/category/<%= cat.slug %>">
+                                    <%= cat.icon %> <%= cat.name %>
+                                </a>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold px-3" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fw-semibold px-3" href="/contact">Contact</a>
+                </li>
+            </ul>
+
+            <!-- Right Side -->
+            <div class="d-flex align-items-center gap-3">
+                <!-- Search Icon -->
+                <a href="/search" class="btn btn-light btn-sm rounded-circle
+                                         d-flex align-items-center justify-content-center"
+                   style="width:38px;height:38px;">
+                    <i class="mdi mdi-magnify"></i>
+                </a>
+                <!-- Login -->
+                <a href="/login" class="btn btn-dark btn-sm rounded-pill px-4 py-2">
+                    <i class="mdi mdi-login me-1"></i> Login
+                </a>
+            </div>
+        </div>
+
+    </div>
+</nav>
