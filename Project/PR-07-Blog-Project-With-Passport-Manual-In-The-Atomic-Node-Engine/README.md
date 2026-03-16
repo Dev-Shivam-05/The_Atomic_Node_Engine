@@ -91,3 +91,4 @@ The system uses **Passport.js** with the **Local Strategy** for session-based au
 
 ---
 *Documentation generated for BlogEngine v1.0.0*
+
