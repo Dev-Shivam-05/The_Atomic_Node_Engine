@@ -1,0 +1,96 @@
+<%- include('../../partials/header.ejs', { title: 'User Profile' }) %>
+
+<div class="row py-5">
+    <!-- User Info Sidebar -->
+    <div class="col-lg-4 mb-4">
+        <div class="card border-0 shadow-sm overflow-hidden text-center p-4">
+            <div class="mb-4">
+                <img src="/<%= userProfile.profilePic %>" alt="<%= userProfile.userName %>" class="rounded-circle shadow-sm" width="120" height="120" onerror="this.src='/assets/images/users/profile.png'">
+            </div>
+            <h4 class="fw-bold mb-1"><%= userProfile.userName %></h4>
+            <p class="text-muted small mb-3"><%= userProfile.userEmail %></p>
+            <div class="mb-4">
+                <span class="badge rounded-pill px-3 py-2 <%= userProfile.role === 'admin' ? 'bg-primary' : 'bg-light text-dark border' %>">
+                    <%= userProfile.role.toUpperCase() %>
+                </span>
+            </div>
+            <div class="d-flex justify-content-around py-3 border-top">
+                <div class="text-center">
+                    <div class="h5 fw-bold mb-0"><%= userBlogs.length %></div>
+                    <small class="text-muted">Posts</small>
+                </div>
+                <div class="text-center">
+                    <div class="h5 fw-bold mb-0"><%= new Date(userProfile.createdAt).toLocaleDateString() %></div>
+                    <small class="text-muted">Joined</small>
+                </div>
+            </div>
+            <div class="mt-4">
+                <a href="/admin/users/edit/<%= userProfile._id %>" class="btn btn-outline-primary rounded-pill w-100 mb-2">
+                    <i class="far fa-edit me-2"></i> Edit Account
+                </a>
+                <a href="/admin/users" class="btn btn-light rounded-pill w-100">
+                    <i class="fas fa-arrow-left me-2"></i> Back to List
+                </a>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm p-4 mt-4">
+            <h6 class="fw-bold mb-3">About User</h6>
+            <p class="text-muted small mb-0"><%= userProfile.bio || 'This user hasn\'t shared their bio yet.' %></p>
+        </div>
+    </div>
+
+    <!-- User Content -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3 border-bottom">
+                <h5 class="fw-bold mb-0">Published Blog Posts</h5>
+            </div>
+            <div class="card-body p-0">
+                <% if (userBlogs.length > 0) { %>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4 border-0">Post Title</th>
+                                    <th class="border-0">Category</th>
+                                    <th class="border-0">Stats</th>
+                                    <th class="text-end pe-4 border-0">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% userBlogs.forEach(blog => { %>
+                                    <tr>
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center gap-3 py-2">
+                                                <img src="/<%= blog.blogImage %>" class="rounded" width="50" height="50" style="object-fit: cover;">
+                                                <span class="fw-bold text-dark"><%= blog.blogTitle %></span>
+                                            </div>
+                                        </td>
+                                        <td><small class="text-muted"><%= blog.blogCategory %></small></td>
+                                        <td>
+                                            <div class="d-flex gap-3 text-muted small">
+                                                <span><i class="far fa-heart me-1"></i><%= blog.likeCount %></span>
+                                                <span><i class="far fa-comment me-1"></i><%= blog.commentCount %></span>
+                                            </div>
+                                        </td>
+                                        <td class="text-end pe-4">
+                                            <a href="/blog/details/<%= blog._id %>" class="btn btn-light btn-sm rounded-pill"><i class="far fa-eye text-primary"></i></a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <div class="text-center py-5">
+                        <div class="mb-3"><i class="far fa-file-alt fa-3x text-light"></i></div>
+                        <p class="text-muted">This user hasn't published any posts yet.</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>

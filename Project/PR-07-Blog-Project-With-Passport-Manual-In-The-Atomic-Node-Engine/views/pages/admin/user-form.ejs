@@ -1,0 +1,51 @@
+<%- include('../../partials/header.ejs', { title: title }) %>
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+            <div class="card-header bg-white py-4 border-bottom text-center">
+                <h3 class="mb-1"><%= title %></h3>
+                <p class="text-muted mb-0">Fill in the user information below</p>
+            </div>
+
+            <div class="card-body p-lg-5">
+                <form action="/admin/users/<%= userToEdit ? 'edit/' + userToEdit._id : 'add' %>" method="POST">
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Username</label>
+                        <input type="text" name="userName" class="form-control form-control-lg" placeholder="Enter username" value="<%= userToEdit ? userToEdit.userName : '' %>" required autofocus>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Email Address</label>
+                        <input type="email" name="userEmail" class="form-control form-control-lg" placeholder="name@example.com" value="<%= userToEdit ? userToEdit.userEmail : '' %>" required>
+                    </div>
+
+                    <% if (!userToEdit) { %>
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Password</label>
+                            <input type="password" name="userPassword" class="form-control form-control-lg" placeholder="Enter password" required>
+                        </div>
+                    <% } %>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Role</label>
+                        <select name="role" class="form-select" required>
+                            <option value="user" <%= userToEdit && userToEdit.role === 'user' ? 'selected' : '' %>>User</option>
+                            <option value="admin" <%= userToEdit && userToEdit.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                            <i class="fas fa-save me-2"></i> <%= userToEdit ? 'Update User' : 'Create User' %>
+                        </button>
+                        <a href="/admin/users" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/footer.ejs') %>

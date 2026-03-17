@@ -1,0 +1,107 @@
+<%- include('../partials/header.ejs', { title: 'Browse Blogs' }) %>
+
+<div class="py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h2 class="fw-bold mb-1">Blog Library</h2>
+            <p class="text-muted mb-0">Discover stories from our community</p>
+        </div>
+        <% if (user) { %>
+            <a href="/blog/add-blog" class="btn btn-primary rounded-pill px-4">
+                <i class="fas fa-plus me-2"></i> Create New Post
+            </a>
+        <% } %>
+    </div>
+
+    <% if (!blogs || blogs.length === 0) { %>
+        <div class="text-center py-5">
+            <div class="mb-4">
+                <i class="fas fa-book-open fa-4x text-light"></i>
+            </div>
+            <h4 class="text-muted">No stories found yet</h4>
+            <p class="text-muted mb-4">Be the first to share a story with the world!</p>
+            <% if (user) { %>
+                <a href="/blog/add-blog" class="btn btn-primary px-4 py-2">Write Your First Blog</a>
+            <% } else { %>
+                <a href="/login" class="btn btn-outline-primary px-4 py-2">Log in to Write</a>
+            <% } %>
+        </div>
+    <% } else { %>
+        <div class="row g-4">
+            <% blogs.forEach(blog => { %>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 border-0 shadow-sm hover-up overflow-hidden">
+                        <div class="position-relative">
+                            <img src="/<%= blog.blogImage || 'assets/images/big/img1.jpg' %>" class="card-img-top" alt="<%= blog.blogTitle %>" style="height: 220px; object-fit: cover;">
+                            <div class="position-absolute top-0 start-0 m-3">
+                                <span class="badge bg-white text-primary shadow-sm rounded-pill px-3 py-2">
+                                    <%= blog.blogCategory %>
+                                </span>
+                            </div>
+                            <% if (user) { %>
+                                <div class="position-absolute top-0 end-0 m-3 d-flex gap-2">
+                                    <a href="/blog/edit/<%= blog._id %>" class="btn btn-white btn-sm rounded-circle shadow-sm" title="Edit">
+                                        <i class="fas fa-pen text-primary"></i>
+                                    </a>
+                                    <a href="/blog/delete/<%= blog._id %>" onclick="return confirm('Delete this post?')" class="btn btn-white btn-sm rounded-circle shadow-sm" title="Delete">
+                                        <i class="fas fa-trash text-danger"></i>
+                                    </a>
+                                </div>
+                            <% } %>
+                        </div>
+                        
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center gap-2 mb-3">
+                                <img src="/<%= blog.author ? blog.author.profilePic : 'assets/images/users/1.jpg' %>" class="rounded-circle" width="24" height="24" onerror="this.src='/assets/images/users/1.jpg'">
+                                <small class="text-muted">By <%= blog.author ? blog.author.userName : 'Anonymous' %></small>
+                                <span class="text-muted small ms-auto"><%= new Date(blog.createdAt).toLocaleDateString() %></span>
+                            </div>
+                            
+                            <h5 class="card-title fw-bold mb-3">
+                                <a href="/blog/details/<%= blog._id %>" class="text-dark text-decoration-none">
+                                    <%= blog.blogTitle %>
+                                </a>
+                            </h5>
+                            
+                            <p class="card-text text-muted small mb-4 line-clamp-3">
+                                <%= blog.blogExcerpt %>
+                            </p>
+                            
+                            <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                                <div class="d-flex gap-3 text-muted small">
+                                    <span><i class="far fa-heart me-1"></i><%= blog.likeCount || 0 %></span>
+                                    <span><i class="far fa-comment me-1"></i><%= blog.commentCount || 0 %></span>
+                                </div>
+                                <a href="/blog/details/<%= blog._id %>" class="btn btn-link text-primary p-0 text-decoration-none fw-bold small">
+                                    Read More <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+</div>
+
+<style>
+    .hover-up {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hover-up:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
+    }
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .btn-white {
+        background: white;
+        border: none;
+    }
+</style>
+
+<%- include('../partials/footer.ejs') %>

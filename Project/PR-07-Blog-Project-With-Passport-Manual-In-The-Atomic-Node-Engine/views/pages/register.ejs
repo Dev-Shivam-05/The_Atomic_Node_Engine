@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Create Account - Blog Engine</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="/assets/libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/theme.css">
+    <style>
+        body {
+            background-color: var(--light-color);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+        }
+        .auth-card {
+            width: 100%;
+            max-width: 450px;
+            padding: var(--spacing-xl);
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--box-shadow-lg);
+        }
+        .auth-logo {
+            width: 100px;
+            margin-bottom: var(--spacing-md);
+        }
+        .form-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xs);
+            font-size: var(--font-size-sm);
+        }
+        .form-control {
+            height: 44px;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--border-color);
+        }
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+        .btn-auth {
+            width: 100%;
+            height: 48px;
+            margin-top: var(--spacing-md);
+        }
+        .auth-links {
+            margin-top: var(--spacing-lg);
+            text-align: center;
+            font-size: var(--font-size-sm);
+            color: var(--text-muted);
+        }
+        .strength-meter {
+            height: 4px;
+            width: 100%;
+            background-color: var(--border-color);
+            margin-top: var(--spacing-xs);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .strength-bar {
+            height: 100%;
+            width: 0;
+            transition: var(--transition);
+        }
+        .strength-text {
+            font-size: 11px;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-card">
+        <div class="text-center">
+            <a href="/">
+                <img src="/assets/images/logo.png" class="auth-logo" alt="BlogEngine">
+            </a>
+            <h3 class="mb-1">Create Account</h3>
+            <p class="text-muted mb-4">Join our community of creators</p>
+        </div>
+
+        <% if (error && error.length > 0) { %>
+            <div class="alert alert-danger alert-dismissible fade show border-0 small mb-4" role="alert">
+                <%= error %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+
+        <form method="post" action="/register" enctype="multipart/form-data">
+            
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control" placeholder="Choose a unique username" name="userName" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" placeholder="name@example.com" name="userEmail" required>
+            </div>
+
+            <div class="mb-3 text-center">
+                <label class="form-label d-block">Profile Picture</label>
+                <img src="/assets/images/users/profile.png" id="regPreviewImg" class="rounded-circle shadow-sm mb-2" width="100" height="100" style="object-fit: cover;">
+                <input type="file" name="profilePic" id="regProfilePic" class="form-control" accept="image/*">
+                <small class="text-muted">Optional. Max 2MB.</small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Min. 6 characters" name="userPassword" id="password" required>
+                    <button class="btn btn-outline-light border text-muted" type="button" id="togglePassword">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                </div>
+                <div class="strength-meter">
+                    <div id="strengthBar" class="strength-bar"></div>
+                </div>
+                <div id="strengthText" class="strength-text text-muted">Password strength</div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" placeholder="Repeat your password" name="confirmPassword" id="confirmPassword" required>
+                <div id="matchMessage" class="strength-text mt-1"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-auth">Create Account</button>
+            
+            <div class="auth-links">
+                Already have an account? <a href="/login">Log In</a>
+                <div class="mt-2">
+                    <a href="/" class="text-muted"><i class="fas fa-arrow-left me-1"></i> Back to Home</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            const $password = $('#password');
+            const $toggle = $('#togglePassword');
+            const $strengthBar = $('#strengthBar');
+            const $strengthText = $('#strengthText');
+            const $confirm = $('#confirmPassword');
+            const $matchMessage = $('#matchMessage');
+
+            $toggle.on('click', function() {
+                const type = $password.attr('type') === 'password' ? 'text' : 'password';
+                $password.attr('type', type);
+                $(this).find('i').toggleClass('fa-eye fa-eye-slash');
+            });
+
+            $password.on('input', function() {
+                const val = $(this).val();
+                let score = 0;
+                let color = '#eeeeee';
+                let text = 'Too short';
+
+                if (val.length >= 6) {
+                    score = 33;
+                    color = '#e74c3c';
+                    text = 'Weak';
+                    
+                    if (val.match(/[A-Z]/) || val.match(/[0-9]/)) {
+                        score = 66;
+                        color = '#ffc107';
+                        text = 'Medium';
+                    }
+                    
+                    if (val.match(/[A-Z]/) && val.match(/[0-9]/) && val.match(/[^A-Za-z0-9]/)) {
+                        score = 100;
+                        color = '#28a745';
+                        text = 'Strong';
+                    }
+                }
+
+                $strengthBar.css({ 'width': score + '%', 'background-color': color });
+                $strengthText.text(text).css('color', color);
+            });
+
+            $confirm.on('input', function() {
+                if ($(this).val() !== $password.val()) {
+                    $matchMessage.text('Passwords do not match').css('color', '#e74c3c');
+                    this.setCustomValidity('Passwords do not match');
+                } else {
+                    $matchMessage.text('Passwords match').css('color', '#28a745');
+                    this.setCustomValidity('');
+                }
+            });
+
+            // Image Preview for Registration
+            $('#regProfilePic').on('change', function(e) {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#regPreviewImg').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

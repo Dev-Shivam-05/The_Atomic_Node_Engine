@@ -1,0 +1,133 @@
+<%- include('../partials/header.ejs', { title: 'Admin Command Center' }) %>
+
+<div class="row py-5 g-4">
+    <div class="col-12 mb-2">
+        <div class="d-flex align-items-center gap-3 mb-2">
+            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                <i class="fas fa-shield-alt fa-lg"></i>
+            </div>
+            <div>
+                <h2 class="fw-bold mb-0">Admin Command Center</h2>
+                <p class="text-muted mb-0">Global platform oversight and user governance</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm bg-gradient-primary text-white p-4 h-100 position-relative overflow-hidden">
+            <div class="position-relative z-index-1">
+                <h6 class="text-uppercase small fw-bold opacity-75 tracking-wider mb-2">Total Community</h6>
+                <h2 class="display-5 fw-bold mb-0"><%= stats.totalUsers %></h2>
+                <p class="small mb-0 mt-2 opacity-75"><i class="fas fa-arrow-up me-1"></i> Registered Authors</p>
+            </div>
+            <i class="fas fa-users position-absolute bottom-0 end-0 mb-n3 me-n3 opacity-10" style="font-size: 8rem;"></i>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm bg-gradient-success text-white p-4 h-100 position-relative overflow-hidden">
+            <div class="position-relative z-index-1">
+                <h6 class="text-uppercase small fw-bold opacity-75 tracking-wider mb-2">Stories Published</h6>
+                <h2 class="display-5 fw-bold mb-0"><%= stats.totalBlogs %></h2>
+                <p class="small mb-0 mt-2 opacity-75"><i class="fas fa-check-circle me-1"></i> Live Articles</p>
+            </div>
+            <i class="fas fa-newspaper position-absolute bottom-0 end-0 mb-n3 me-n3 opacity-10" style="font-size: 8rem;"></i>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm bg-gradient-info text-white p-4 h-100 position-relative overflow-hidden">
+            <div class="position-relative z-index-1">
+                <h6 class="text-uppercase small fw-bold opacity-75 tracking-wider mb-2">Engagement</h6>
+                <h2 class="display-5 fw-bold mb-0"><%= stats.totalComments %></h2>
+                <p class="small mb-0 mt-2 opacity-75"><i class="fas fa-comments me-1"></i> Reader Comments</p>
+            </div>
+            <i class="fas fa-heart position-absolute bottom-0 end-0 mb-n3 me-n3 opacity-10" style="font-size: 8rem;"></i>
+        </div>
+    </div>
+
+    <!-- Management Tables -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm mb-4 h-100">
+            <div class="card-header bg-white py-4 px-4 border-bottom d-flex justify-content-between align-items-center">
+                <h5 class="fw-bold mb-0">Recent Platform Activity</h5>
+                <a href="/admin/users" class="btn btn-sm btn-outline-primary rounded-pill px-3">Manage All Users</a>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4 border-0 text-muted small text-uppercase">Story Title</th>
+                                <th class="border-0 text-muted small text-uppercase">Author</th>
+                                <th class="border-0 text-muted small text-uppercase">Date</th>
+                                <th class="text-end pe-4 border-0 text-muted small text-uppercase">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% recentBlogs.forEach(blog => { %>
+                                <tr class="transition-all">
+                                    <td class="ps-4 py-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="/<%= blog.blogImage %>" class="rounded-3 shadow-sm" width="45" height="45" style="object-fit: cover;">
+                                            <span class="fw-bold text-dark"><%= blog.blogTitle %></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-light text-dark border rounded-pill px-2 py-1"><%= blog.author ? blog.author.userName : 'Anonymous' %></span>
+                                    </td>
+                                    <td><small class="text-muted"><%= new Date(blog.createdAt).toLocaleDateString() %></small></td>
+                                    <td class="text-end pe-4">
+                                        <div class="btn-group rounded-pill overflow-hidden shadow-sm">
+                                            <a href="/blog/details/<%= blog._id %>" class="btn btn-white btn-sm px-2" title="View"><i class="far fa-eye text-primary"></i></a>
+                                            <a href="/blog/delete/<%= blog._id %>" onclick="return confirm('Delete?')" class="btn btn-white btn-sm px-2" title="Delete"><i class="far fa-trash-alt text-danger"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white py-4 px-4 border-bottom">
+                <h5 class="fw-bold mb-0">New Author Onboarding</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="list-group list-group-flush">
+                    <% recentUsers.forEach(u => { %>
+                        <div class="list-group-item p-4 border-0 border-bottom hover-bg-light transition-all">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="/<%= u.profilePic %>" class="rounded-circle shadow-sm border border-2 border-white" width="50" height="50" style="object-fit: cover;" onerror="this.src='/assets/images/users/profile.png'">
+                                <div>
+                                    <h6 class="fw-bold mb-0 text-dark"><%= u.userName %></h6>
+                                    <small class="text-muted d-block"><%= u.userEmail %></small>
+                                    <span class="badge bg-soft-primary text-primary mt-1" style="font-size: 0.6rem;"><%= u.role.toUpperCase() %></span>
+                                </div>
+                                <div class="ms-auto">
+                                    <small class="text-muted" style="font-size: 0.7rem;"><%= new Date(u.createdAt).toLocaleDateString() %></small>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient-primary { background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); }
+    .bg-gradient-success { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+    .bg-gradient-info { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+    .bg-soft-primary { background-color: rgba(99, 102, 241, 0.1); }
+    .transition-all { transition: all 0.2s ease; }
+    .z-index-1 { z-index: 1; }
+    .hover-bg-light:hover { background-color: #f8fafc; }
+    .btn-white { background: white; border: 1px solid var(--border-color); }
+</style>
+
+<%- include('../partials/footer.ejs') %>

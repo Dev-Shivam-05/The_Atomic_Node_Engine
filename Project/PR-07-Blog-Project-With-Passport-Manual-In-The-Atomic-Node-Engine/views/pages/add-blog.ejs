@@ -1,0 +1,59 @@
+<%- include('../partials/header.ejs', { title: 'Create New Blog' }) %>
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+            <div class="card-header bg-white py-4 border-bottom text-center">
+                <h3 class="mb-1">Create New Post</h3>
+                <p class="text-muted mb-0">Share your thoughts and ideas with the community</p>
+            </div>
+
+            <div class="card-body p-lg-5">
+                <form action="/blog/add-blog" method="POST" enctype="multipart/form-data">
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Blog Title</label>
+                        <input type="text" name="blogTitle" class="form-control form-control-lg" placeholder="Enter a catchy title" required autofocus>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Category</label>
+                            <select name="blogCategory" class="form-select" required>
+                                <option selected disabled>Choose category...</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Lifestyle">Lifestyle</option>
+                                <option value="Business">Business</option>
+                                <option value="Health">Health & Wellness</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Education">Education</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Featured Image</label>
+                            <input type="file" name="blogImage" class="form-control" accept="image/*" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Excerpt</label>
+                        <textarea name="blogExcerpt" class="form-control" rows="2" placeholder="A short summary for the preview card" required></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Content</label>
+                        <textarea name="blogContent" class="form-control" rows="10" placeholder="Write your story here..." required></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i> Publish Post
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

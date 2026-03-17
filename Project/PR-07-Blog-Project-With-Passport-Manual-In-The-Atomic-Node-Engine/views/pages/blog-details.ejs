@@ -1,0 +1,165 @@
+<%- include('../partials/header.ejs', { title: blog.blogTitle }) %>
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-10">
+        <article class="blog-post bg-white rounded-lg shadow-sm overflow-hidden">
+            <!-- Header Section -->
+            <div class="p-lg-5 p-4 border-bottom">
+                <nav aria-label="breadcrumb" class="mb-3">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="/blog/view-blog">Blogs</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><%= blog.blogCategory %></li>
+                    </ol>
+                </nav>
+                <h1 class="display-4 fw-bold mb-4"><%= blog.blogTitle %></h1>
+                
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="/<%= blog.author.profilePic %>" alt="<%= blog.author.userName %>" class="rounded-circle shadow-sm" width="50" height="50" onerror="this.src='/assets/images/users/profile.png'">
+                        <div>
+                            <h6 class="mb-0 fw-bold">By <%= blog.author.userName %></h6>
+                            <small class="text-muted">Published on <%= new Date(blog.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></small>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-3">
+                        <div class="btn-group shadow-sm rounded-pill">
+                            <button class="btn btn-white border-end <%= userHasLiked ? 'text-danger' : 'text-muted' %>" id="likeBtn" data-id="<%= blog._id %>">
+                                <i class="<%= userHasLiked ? 'fa-solid' : 'fa-regular' %> fa-heart me-1"></i>
+                                <span id="likeCount"><%= blog.likeCount %></span>
+                            </button>
+                            <button class="btn btn-white text-muted">
+                                <i class="fa-regular fa-comment me-1"></i>
+                                <span><%= blog.commentCount %></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Section -->
+            <div class="blog-featured-img">
+                <img src="/<%= blog.blogImage %>" alt="<%= blog.blogTitle %>" class="w-100" style="max-height: 500px; object-fit: cover;">
+            </div>
+
+            <!-- Content Section -->
+            <div class="p-lg-5 p-4">
+                <div class="blog-body mb-5" style="font-size: 1.15rem; line-height: 1.8; color: var(--text-primary); white-space: pre-wrap;">
+                    <%= blog.blogContent %>
+                </div>
+
+                <!-- Author Bio Card -->
+                <div class="author-card p-4 bg-light rounded-lg d-flex gap-4 align-items-center mb-5">
+                    <img src="/<%= blog.author.profilePic %>" alt="" class="rounded-circle" width="80" height="80" onerror="this.src='/assets/images/users/profile.png'">
+                    <div>
+                        <h5 class="fw-bold mb-1">About the Author</h5>
+                        <p class="text-muted mb-0 small"><%= blog.author.bio || 'This author hasn\'t shared their bio yet.' %></p>
+                    </div>
+                </div>
+
+                <hr class="my-5">
+
+                <!-- Comments Section -->
+                <section class="comment-section">
+                    <h3 class="fw-bold mb-4">Comments (<%= blog.commentCount %>)</h3>
+                    
+                    <% if (user) { %>
+                        <div class="card border-0 shadow-sm mb-5 bg-light">
+                            <div class="card-body p-4">
+                                <form action="/blog/comment/<%= blog._id %>" method="POST">
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold small">Leave a comment</label>
+                                        <textarea name="commentContent" class="form-control border-0 shadow-none" rows="3" placeholder="What are your thoughts on this story?" required></textarea>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary rounded-pill px-4">Post Comment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    <% } else { %>
+                        <div class="alert alert-light border text-center py-4 mb-5">
+                            <p class="mb-3 text-muted">Join the conversation. Share your thoughts.</p>
+                            <a href="/login" class="btn btn-outline-primary rounded-pill px-4">Log in to Comment</a>
+                        </div>
+                    <% } %>
+
+                    <div class="comments-list">
+                        <% if (comments.length > 0) { %>
+                            <% comments.forEach(comment => { %>
+                                <div class="d-flex gap-3 mb-4">
+                                    <img src="/<%= comment.user.profilePic %>" alt="" class="rounded-circle mt-1" width="40" height="40" onerror="this.src='/assets/images/users/profile.png'">
+                                    <div class="comment-content bg-white p-3 rounded shadow-sm flex-grow-1 border">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fw-bold small"><%= comment.user.userName %></span>
+                                            <small class="text-muted"><%= new Date(comment.createdAt).toLocaleDateString() %></small>
+                                        </div>
+                                        <p class="mb-0 text-secondary small"><%= comment.commentContent %></p>
+                                    </div>
+                                </div>
+                            <% }) %>
+                        <% } else { %>
+                            <div class="text-center py-4 text-muted">
+                                <p>No comments yet. Start the discussion!</p>
+                            </div>
+                        <% } %>
+                    </div>
+                </section>
+            </div>
+        </article>
+    </div>
+</div>
+
+<style>
+    .blog-post {
+        border: none;
+    }
+    .rounded-lg {
+        border-radius: var(--border-radius-lg) !important;
+    }
+    .btn-white {
+        background: white;
+        border: 1px solid var(--border-color);
+    }
+    .breadcrumb-item a {
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+    .breadcrumb-item.active {
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        $('#likeBtn').click(function() {
+            const blogId = $(this).data('id');
+            const $btn = $(this);
+            $.ajax({
+                url: '/blog/like/' + blogId,
+                type: 'POST',
+                success: function(response) {
+                    if (response.success) {
+                        const countSpan = $('#likeCount');
+                        countSpan.text(response.likeCount);
+                        if (response.liked) {
+                            $btn.addClass('text-danger').removeClass('text-muted');
+                            $btn.find('i').removeClass('fa-regular').addClass('fa-solid');
+                        } else {
+                            $btn.removeClass('text-danger').addClass('text-muted');
+                            $btn.find('i').removeClass('fa-solid').addClass('fa-regular');
+                        }
+                    }
+                },
+                error: function(err) {
+                    if (err.status === 401) {
+                        window.location.href = '/login';
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+<%- include('../partials/footer.ejs') %>

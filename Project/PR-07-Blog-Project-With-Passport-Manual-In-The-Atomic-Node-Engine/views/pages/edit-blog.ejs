@@ -1,0 +1,71 @@
+<%- include('../partials/header.ejs', { title: 'Edit Blog' }) %>
+
+<div class="row justify-content-center py-5">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-lg overflow-hidden">
+            <div class="card-header bg-white py-4 border-bottom text-center">
+                <h3 class="mb-1">Edit Your Post</h3>
+                <p class="text-muted mb-0">Refine and update your content</p>
+            </div>
+
+            <div class="card-body p-lg-5">
+                <form action="/blog/edit/<%= blog._id %>" method="POST" enctype="multipart/form-data">
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Blog Title</label>
+                        <input type="text" name="blogTitle" class="form-control form-control-lg" value="<%= blog.blogTitle %>" required autofocus>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Category</label>
+                            <select name="blogCategory" class="form-select" required>
+                                <option disabled>Choose category...</option>
+                                <option value="Technology" <%= blog.blogCategory === 'Technology' ? 'selected' : '' %>>Technology</option>
+                                <option value="Lifestyle" <%= blog.blogCategory === 'Lifestyle' ? 'selected' : '' %>>Lifestyle</option>
+                                <option value="Business" <%= blog.blogCategory === 'Business' ? 'selected' : '' %>>Business</option>
+                                <option value="Health" <%= blog.blogCategory === 'Health' ? 'selected' : '' %>>Health & Wellness</option>
+                                <option value="Travel" <%= blog.blogCategory === 'Travel' ? 'selected' : '' %>>Travel</option>
+                                <option value="Education" <%= blog.blogCategory === 'Education' ? 'selected' : '' %>>Education</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Featured Image</label>
+                            <div class="mb-2">
+                                <small class="text-muted">Current image:</small><br>
+                                <img src="/<%= blog.blogImage %>" alt="Current Image" class="rounded mt-1" style="max-height: 100px; max-width: 100%; object-fit: cover;">
+                            </div>
+                            <input type="file" name="blogImage" class="form-control" accept="image/*">
+                            <small class="text-muted">Leave empty to keep current image</small>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Excerpt</label>
+                        <textarea name="blogExcerpt" class="form-control" rows="2" required><%= blog.blogExcerpt %></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Content</label>
+                        <textarea name="blogContent" class="form-control" rows="10" required><%= blog.blogContent %></textarea>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn btn-primary btn-lg flex-grow-1">
+                            <i class="fas fa-save me-2"></i> Update Post
+                        </button>
+                        <a href="/user/dashboard" class="btn btn-outline-secondary btn-lg">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <small class="text-muted">
+                Last updated on <%= new Date(blog.updatedAt).toLocaleDateString() %> at <%= new Date(blog.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) %>
+            </small>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

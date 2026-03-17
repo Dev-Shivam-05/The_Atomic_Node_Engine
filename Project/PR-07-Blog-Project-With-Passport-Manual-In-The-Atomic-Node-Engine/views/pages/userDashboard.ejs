@@ -1,0 +1,258 @@
+<%- include('../partials/header.ejs', { title: 'My Dashboard' }) %>
+
+<div class="row py-5 g-4">
+    <!-- Redesigned Sidebar -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm overflow-hidden mb-4">
+            <div class="text-center p-5 bg-white">
+                <div class="position-relative d-inline-block mb-4">
+                    <img src="/<%= user.profilePic %>" alt="<%= user.userName %>" class="rounded-circle shadow-lg border border-4 border-white" width="140" height="140" style="object-fit: cover;" onerror="this.src='/assets/images/users/profile.png'">
+                    <span class="position-absolute bottom-0 end-0 bg-success border border-2 border-white rounded-circle p-2" title="Online" style="width: 20px; height: 20px;"></span>
+                </div>
+                <h3 class="fw-bold mb-1 text-dark"><%= user.userName %></h3>
+                <p class="text-muted small mb-4"><i class="far fa-envelope me-2"></i><%= user.userEmail %></p>
+                <div class="d-flex justify-content-center gap-4 py-3 border-top border-bottom">
+                    <div class="text-center">
+                        <div class="h4 fw-bold mb-0 text-primary"><%= userBlogs.length %></div>
+                        <small class="text-uppercase tracking-wider text-muted fw-bold" style="font-size: 0.65rem;">Stories</small>
+                    </div>
+                    <div class="text-center">
+                        <div class="h4 fw-bold mb-0 text-primary"><%= userComments.length %></div>
+                        <small class="text-uppercase tracking-wider text-muted fw-bold" style="font-size: 0.65rem;">Comments</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-2 bg-light">
+                <div class="nav flex-column nav-pills custom-pills" id="v-pills-tab" role="tablist">
+                    <button class="nav-link active d-flex align-items-center mb-1" id="v-pills-posts-tab" data-bs-toggle="pill" data-bs-target="#v-pills-posts" type="button" role="tab">
+                        <i class="fas fa-layer-group me-3"></i> My Published Stories
+                    </button>
+                    <button class="nav-link d-flex align-items-center mb-1" id="v-pills-liked-tab" data-bs-toggle="pill" data-bs-target="#v-pills-liked" type="button" role="tab">
+                        <i class="fas fa-heart me-3"></i> Liked Collections
+                    </button>
+                    <button class="nav-link d-flex align-items-center mb-1" id="v-pills-comments-tab" data-bs-toggle="pill" data-bs-target="#v-pills-comments" type="button" role="tab">
+                        <i class="fas fa-comment-dots me-3"></i> Recent Activity
+                    </button>
+                    <button class="nav-link d-flex align-items-center" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab">
+                        <i class="fas fa-user-cog me-3"></i> Profile Settings
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Redesigned Main Content Area -->
+    <div class="col-lg-8">
+        <div class="tab-content" id="v-pills-tabContent">
+            <!-- My Posts Tab -->
+            <div class="tab-pane fade show active" id="v-pills-posts" role="tabpanel">
+                <div class="card border-0 shadow-sm min-vh-60">
+                    <div class="card-header bg-white py-4 px-4 border-bottom d-flex justify-content-between align-items-center">
+                        <div>
+                            <h4 class="fw-bold mb-0">Your Stories</h4>
+                            <p class="text-muted small mb-0">Manage and refine your published content</p>
+                        </div>
+                        <a href="/blog/add-blog" class="btn btn-primary rounded-pill">
+                            <i class="fas fa-plus me-2"></i> New Story
+                        </a>
+                    </div>
+                    <div class="card-body p-0">
+                        <% if (userBlogs.length > 0) { %>
+                            <div class="list-group list-group-flush">
+                                <% userBlogs.forEach(blog => { %>
+                                    <div class="list-group-item p-4 hover-bg-light transition-all border-0 border-bottom">
+                                        <div class="row align-items-center g-3">
+                                            <div class="col-md-2">
+                                                <img src="/<%= blog.blogImage %>" class="rounded-3 shadow-sm w-100" style="height: 70px; object-fit: cover;">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h5 class="fw-bold mb-1 text-dark"><%= blog.blogTitle %></h5>
+                                                <div class="d-flex gap-3 text-muted" style="font-size: 0.8rem;">
+                                                    <span><i class="far fa-calendar-alt me-1"></i><%= new Date(blog.createdAt).toLocaleDateString() %></span>
+                                                    <span><i class="far fa-heart me-1"></i><%= blog.likeCount %></span>
+                                                    <span><i class="far fa-comment me-1"></i><%= blog.commentCount %></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 text-md-end">
+                                                <div class="btn-group rounded-pill overflow-hidden shadow-sm">
+                                                    <a href="/blog/details/<%= blog._id %>" class="btn btn-white btn-sm px-3" title="View"><i class="far fa-eye text-primary"></i></a>
+                                                    <a href="/blog/edit/<%= blog._id %>" class="btn btn-white btn-sm px-3" title="Edit"><i class="far fa-edit text-success"></i></a>
+                                                    <a href="/blog/delete/<%= blog._id %>" class="btn btn-white btn-sm px-3" title="Delete" onclick="return confirm('Permanently delete this story?')"><i class="far fa-trash-alt text-danger"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <div class="text-center py-5">
+                                <h5 class="text-muted fw-bold">No stories yet</h5>
+                                <p class="text-muted mb-4">Start your journey by sharing your first insight.</p>
+                                <a href="/blog/add-blog" class="btn btn-outline-primary rounded-pill px-4">Create Your First Post</a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Liked Tab -->
+            <div class="tab-pane fade" id="v-pills-liked" role="tabpanel">
+                <div class="card border-0 shadow-sm min-vh-60">
+                    <div class="card-header bg-white py-4 px-4 border-bottom">
+                        <h4 class="fw-bold mb-0">Liked Collections</h4>
+                        <p class="text-muted small mb-0">Stories that inspired you</p>
+                    </div>
+                    <div class="card-body p-0">
+                        <% if (likedBlogs.length > 0) { %>
+                            <div class="list-group list-group-flush">
+                                <% likedBlogs.forEach(item => { %>
+                                    <% if (item.blog) { %>
+                                        <div class="list-group-item p-4 border-0 border-bottom">
+                                            <div class="d-flex align-items-center gap-4">
+                                                <img src="/<%= item.blog.blogImage %>" class="rounded-3" width="100" height="70" style="object-fit: cover;">
+                                                <div class="flex-grow-1">
+                                                    <h6 class="fw-bold mb-1"><%= item.blog.blogTitle %></h6>
+                                                    <small class="text-muted d-block mb-2">By <span class="text-dark fw-bold"><%= item.blog.author ? item.blog.author.userName : 'Anonymous' %></span></small>
+                                                    <a href="/blog/details/<%= item.blog._id %>" class="btn btn-link btn-sm text-primary p-0 text-decoration-none fw-bold">Read Story <i class="fas fa-arrow-right ms-1"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <div class="text-center py-5">
+                                <div class="mb-4"><i class="far fa-heart fa-4x text-light"></i></div>
+                                <h5 class="text-muted">No likes yet</h5>
+                                <p class="text-muted mb-4">Explore stories and show some love!</p>
+                                <a href="/blog/view-blog" class="btn btn-primary rounded-pill px-4">Browse Stories</a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Comments Tab -->
+            <div class="tab-pane fade" id="v-pills-comments" role="tabpanel">
+                <div class="card border-0 shadow-sm min-vh-60">
+                    <div class="card-header bg-white py-4 px-4 border-bottom">
+                        <h5 class="fw-bold mb-0">Recent Activity</h5>
+                        <p class="text-muted small mb-0">Your contributions across the platform</p>
+                    </div>
+                    <div class="card-body p-0">
+                        <% if (userComments.length > 0) { %>
+                            <div class="list-group list-group-flush">
+                                <% userComments.forEach(comment => { %>
+                                    <% if (comment.blog) { %>
+                                        <div class="list-group-item p-4 border-0 border-bottom">
+                                            <div class="d-flex justify-content-between mb-2">
+                                                <h6 class="text-primary fw-bold mb-0">On: <%= comment.blog.blogTitle %></h6>
+                                                <small class="text-muted"><%= new Date(comment.createdAt).toLocaleDateString() %></small>
+                                            </div>
+                                            <p class="mb-3 text-secondary small"><%= comment.commentContent %></p>
+                                            <a href="/blog/details/<%= comment.blog._id %>" class="btn btn-link btn-sm text-decoration-none p-0">View Post <i class="fas fa-arrow-right ms-1"></i></a>
+                                        </div>
+                                    <% } %>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <div class="text-center py-5">
+                                <div class="mb-3"><i class="far fa-comment fa-3x text-light"></i></div>
+                                <p class="text-muted">You haven't commented on any posts yet.</p>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab Redesign -->
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel">
+                <div class="card border-0 shadow-sm min-vh-60">
+                    <div class="card-header bg-white py-4 px-4 border-bottom">
+                        <h4 class="fw-bold mb-0">Account Customization</h4>
+                        <p class="text-muted small mb-0">Update your identity and bio</p>
+                    </div>
+                    <div class="card-body p-4">
+                        <form action="/user/profile/update" method="POST" enctype="multipart/form-data">
+                            <div class="row g-5">
+                                <div class="col-md-4 text-center">
+                                    <div class="position-relative d-inline-block">
+                                        <img src="/<%= user.profilePic %>" id="previewImg" class="rounded-circle shadow-lg mb-3 border border-4 border-white" width="150" height="150" style="object-fit: cover;" onerror="this.src='/assets/images/users/profile.png'">
+                                        <label for="profilePic" class="position-absolute bottom-0 end-0 bg-primary text-white rounded-circle p-2 shadow-sm cursor-pointer" title="Update Photo">
+                                            <i class="fas fa-camera"></i>
+                                        </label>
+                                        <input type="file" name="profilePic" id="profilePic" class="d-none" accept="image/*">
+                                    </div>
+                                    <p class="text-muted small mt-3 px-3">We recommend a square image for best results.</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold text-dark">Display Name</label>
+                                        <input type="text" name="userName" class="form-control form-control-lg bg-light border-0" value="<%= user.userName %>" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label fw-bold text-dark">Short Biography</label>
+                                        <textarea name="bio" class="form-control bg-light border-0" rows="4" placeholder="Tell the world your story..."><%= user.bio %></textarea>
+                                    </div>
+                                    <div class="d-grid pt-3">
+                                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                                            <i class="fas fa-check-circle me-2"></i> Update My Profile
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .min-vh-60 { min-height: 60vh; }
+    .tracking-wider { letter-spacing: 0.05em; }
+    .transition-all { transition: all 0.3s ease; }
+    .cursor-pointer { cursor: pointer; }
+    .hover-bg-light:hover { background-color: #f8fafc; }
+    
+    /* Custom Pills Redesign */
+    .custom-pills .nav-link {
+        color: var(--text-secondary);
+        font-weight: 600;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        text-align: left;
+        width: 100%;
+        background: none;
+    }
+    .custom-pills .nav-link:hover {
+        background-color: var(--white);
+        color: var(--primary-color);
+        transform: translateX(5px);
+    }
+    .custom-pills .nav-link.active {
+        background-color: var(--white) !important;
+        color: var(--primary-color) !important;
+        box-shadow: var(--box-shadow);
+        border-color: var(--border-color);
+    }
+    .btn-white { background: white; border: 1px solid var(--border-color); }
+    .btn-white:hover { background: #f8fafc; }
+</style>
+
+<script>
+    document.getElementById('profilePic').addEventListener('change', function(e) {
+        if (this.files && this.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('previewImg').setAttribute('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+        }
+    });
+</script>
+
+<%- include('../partials/footer.ejs') %>
