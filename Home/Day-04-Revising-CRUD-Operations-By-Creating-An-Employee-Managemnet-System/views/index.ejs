@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Registration</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        .form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+        }
+
+        .form-container .form-floating {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-container .btn-primary {
+            background: #ff6b6b;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-container .btn-primary:hover {
+            background: #ee5253;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-container h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .form-container .form-check-label {
+            color: #f8f9fa;
+        }
+
+        .form-container input,
+        .form-container select {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            border: none;
+            border-radius: 8px !important;
+        }
+
+        .form-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <header class="bg-white border-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container-xl">
+
+                <!-- Mobile toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Logo -->
+                <a class="navbar-brand ms-2 ms-lg-0" href="#">
+                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600" height="32"
+                        alt="Logo">
+                </a>
+
+                <!-- Desktop Nav -->
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-4">
+
+                        <!-- Women Mega Menu -->
+                        <li class="nav-item dropdown position-static">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Women</a>
+                            <div class="dropdown-menu w-100 border-0 shadow-sm mt-0">
+                                <div class="container py-4">
+                                    <div class="row g-4">
+
+                                        <div class="col-md-3">
+                                            <h6>Clothing</h6>
+                                            <a class="dropdown-item" href="#">Tops</a>
+                                            <a class="dropdown-item" href="#">Dresses</a>
+                                            <a class="dropdown-item" href="#">Pants</a>
+                                            <a class="dropdown-item" href="#">Denim</a>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <h6>Accessories</h6>
+                                            <a class="dropdown-item" href="#">Watches</a>
+                                            <a class="dropdown-item" href="#">Bags</a>
+                                            <a class="dropdown-item" href="#">Sunglasses</a>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <h6>Brands</h6>
+                                            <a class="dropdown-item" href="#">Full Nelson</a>
+                                            <a class="dropdown-item" href="#">My Way</a>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <img class="img-fluid rounded"
+                                                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/mega-menu-category-01.jpg">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <!-- Men Mega Menu -->
+                        <li class="nav-item dropdown position-static">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Men</a>
+                            <div class="dropdown-menu w-100 border-0 shadow-sm mt-0">
+                                <div class="container py-4">
+                                    <div class="row g-4">
+
+                                        <div class="col-md-3">
+                                            <h6>Clothing</h6>
+                                            <a class="dropdown-item" href="#">Tops</a>
+                                            <a class="dropdown-item" href="#">Pants</a>
+                                            <a class="dropdown-item" href="#">Jackets</a>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <h6>Accessories</h6>
+                                            <a class="dropdown-item" href="#">Watches</a>
+                                            <a class="dropdown-item" href="#">Wallets</a>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <h6>Brands</h6>
+                                            <a class="dropdown-item" href="#">Re-Arranged</a>
+                                            <a class="dropdown-item" href="#">Counterfeit</a>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <img class="img-fluid rounded"
+                                                src="https://tailwindcss.com/plus-assets/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Company</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Stores</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right side -->
+                <div class="d-flex align-items-center ms-auto gap-3">
+
+                    <a href="#" class="text-decoration-none">Sign in</a>
+                    <a href="#" class="text-decoration-none">Create account</a>
+
+                    <a href="#" class="text-decoration-none d-flex align-items-center">
+                        <img src="https://tailwindcss.com/plus-assets/img/flags/flag-canada.svg" width="20">
+                        <span class="ms-2">CAD</span>
+                    </a>
+
+                    <a href="#" class="text-secondary">
+                        🔍
+                    </a>
+
+                    <a href="#" class="text-secondary position-relative">
+                        🛒
+                        <span class="position-absolute top-0 start-100 translate-middle badge bg-secondary">0</span>
+                    </a>
+
+                </div>
+            </div>
+        </nav>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenu">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+            </div>
+
+            <div class="offcanvas-body">
+                <h6>Women</h6>
+                <a class="d-block mb-2" href="#">Tops</a>
+                <a class="d-block mb-2" href="#">Dresses</a>
+
+                <hr>
+
+                <h6>Men</h6>
+                <a class="d-block mb-2" href="#">T-Shirts</a>
+                <a class="d-block mb-2" href="#">Jackets</a>
+
+                <hr>
+
+                <a class="d-block mb-2" href="#">Company</a>
+                <a class="d-block mb-2" href="#">Stores</a>
+
+                <hr>
+
+                <a class="d-block mb-2" href="#">Sign in</a>
+                <a class="d-block mb-2" href="#">Create account</a>
+            </div>
+        </div>
+
+    </header>
+    <main>
+        <div class="form-container">
+            <h3><i class="bi bi-person-badge-fill"></i> Employee Registration</h3>
+
+            <form method="post" action="/">
+                <!-- Employee Name -->
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="employeeName" placeholder="John Doe" name="employeeName" required>
+                    <label for="employeeName"><i class="bi bi-person me-2"></i>Employee Name</label>
+                    <div class="form-icon"><i class="bi bi-person-circle"></i></div>
+                </div>
+
+                <!-- Employee Email -->
+                <div class="form-floating">
+                    <input type="email" class="form-control" id="employeeEmail" placeholder="name@example.com" name="employeeEmail" required>
+                    <label for="employeeEmail"><i class="bi bi-envelope me-2"></i>Email Address</label>
+                    <div class="form-text text-white">We'll never share your email with anyone else.</div>
+                </div>
+
+                <!-- Designation -->
+                <div class="form-floating">
+                    <select class="form-select" id="designation" name="designation" required>
+                        <option value="">Select Designation</option>
+                        <option value="developer">Software Developer</option>
+                        <option value="manager">Project Manager</option>
+                        <option value="designer">UI/UX Designer</option>
+                        <option value="analyst">Data Analyst</option>
+                        <option value="hr">HR Executive</option>
+                    </select>
+                    <label for="designation"><i class="bi bi-briefcase me-2"></i>Designation</label>
+                </div>
+
+                <!-- Salary -->
+                <div class="form-floating">
+                    <input type="number" class="form-control" id="salary" name="employeeSalary" placeholder="50000" min="0" step="1000">
+                    <label for="salary"><i class="bi bi-currency-dollar me-2"></i>Monthly Salary ($)</label>
+                    <div class="form-text text-white">Enter gross monthly salary before taxes.</div>
+                </div>
+
+                <!-- Checkbox -->
+                <div class="form-check mb-4">
+                    <input class="form-check-input" type="checkbox" value="" id="termsCheck" required>
+                    <label class="form-check-label" for="termsCheck">
+                        I confirm the details are accurate <i class="bi bi-check-circle-fill text-success ms-1"></i>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="bi bi-send me-2"></i>Register Employee
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- Bootstrap JS Bundle (Optional, for advanced interactions) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
