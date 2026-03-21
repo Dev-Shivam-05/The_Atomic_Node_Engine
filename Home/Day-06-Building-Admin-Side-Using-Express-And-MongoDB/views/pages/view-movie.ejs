@@ -1,0 +1,124 @@
+<%- include('../partials/header.ejs') %>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Form Wizard</h4>
+                    <div class="ms-auto text-end">
+                        <!-- ============================================================== -->
+                        <!-- End Container fluid  -->
+                        <!-- ============================================================== -->
+                        <!-- simple page scripts -->
+                        <script>
+                            function confirmDelete() {
+                                return confirm('Are you sure you want to delete this movie?');
+                            }
+                        </script>
+                        <!-- ============================================================== -->
+                        <!-- footer -->
+                        <!-- ============================================================== -->
+                        <%- include('../partials/footer.ejs') %>
+                            <!-- ============================================================== -->
+                            <!-- Container fluid  -->
+                            <!-- ============================================================== -->
+                            <div class="container-fluid">
+                                <!-- ============================================================== -->
+                                <!-- Start Page Content -->
+                                <!-- ============================================================== -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <h4 class="page-title">Movies</h4>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <a href="/admin/add-movie" class="btn btn-success"><i
+                                                class="fa fa-plus me-2"></i> Add Movie</a>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="moviesTable"
+                                                class="table table-striped table-hover align-middle">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Poster</th>
+                                                        <th scope="col">Title</th>
+                                                        <th scope="col">Rating</th>
+                                                        <th scope="col">Genre</th>
+                                                        <th scope="col" class="text-center">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% if (typeof movies !=='undefined' && movies.length) { %>
+                                                        <% movies.forEach(function(movie, idx){ %>
+                                                            <tr>
+                                                                <td>
+                                                                    <%= idx + 1 %>
+                                                                </td>
+                                                                <td>
+                                                                    <img src="/<%= movie.poster ? movie.poster : '../assets/images/users/1.jpg' %>"
+                                                                        alt="poster" class="img-thumbnail"
+                                                                        style="width:60px;height:90px;object-fit:cover;">
+                                                                </td>
+                                                                <td>
+                                                                    <%= movie.title || movie.movieTitle || 'Untitled' %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= movie.rating ?
+                                                                        ('⭐'.repeat(Number(movie.rating))) : '-' %>
+                                                                </td>
+                                                                <td>
+                                                                    <%= movie.genre || '-' %>
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <a href="/movie/edit-movie/<%= movie._id %>"
+                                                                        class="btn btn-sm btn-outline-primary me-1">Edit</a>
+                                                                    <form action="/movie/delete-movie/<%= movie._id %>"
+                                                                        method="POST" style="display:inline-block;"
+                                                                        onsubmit="return confirmDelete();">
+                                                                        <button type="submit"
+                                                                            class="btn btn-sm btn-outline-danger">Delete</button>
+                                                                    </form>
+                                                                </td>
+                                                            </tr>
+                                                            <% }) %>
+                                                                <% } else { %>
+                                                                    <tr>
+                                                                        <td colspan="6" class="text-center">No movies
+                                                                            found. Add your first movie.</td>
+                                                                    </tr>
+                                                                    <% } %>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- ============================================================== -->
+                                <!-- End PAge Content -->
+                                <!-- ============================================================== -->
+                                <!-- ============================================================== -->
+                                <!-- Right sidebar -->
+                                <!-- ============================================================== -->
+                                <!-- .right-sidebar -->
+                                <!-- ============================================================== -->
+                                <!-- End Right sidebar -->
+                                <!-- ============================================================== -->
+                            </div>
+                            <!-- ============================================================== -->
+                            <!-- End Container fluid  -->
+                            <!-- ============================================================== -->
+                            <!-- ============================================================== -->
+                            <!-- footer -->
+                            <!-- ============================================================== -->
+                            <%- include('../partials/footer.ejs') %>
