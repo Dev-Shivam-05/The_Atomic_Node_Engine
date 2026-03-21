@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "bun": "^1.3.7",
+    "dot": "^1.1.3",
+    "ejs": "^4.0.1",
+    "env": "^0.0.2",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11",
+    "yarn": "^1.22.22"
+  },
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "name": "day-05-creating-product-management-system-using-express-and-mongodb",
+  "module": "index.js",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
