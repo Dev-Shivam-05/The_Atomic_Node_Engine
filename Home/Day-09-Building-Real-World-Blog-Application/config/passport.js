@@ -172,6 +172,4 @@ const configurePassport = (passport) => {
     });
 };
 
-
-// Step 13: Export the configuration function (ES Module)
 export default configurePassport;
