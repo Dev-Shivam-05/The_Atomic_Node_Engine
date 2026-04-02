@@ -24,7 +24,7 @@ const userController = {
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: error.message });
-    }
+    } 
   },
   async getAllUsers(req, res) {
     try {
@@ -104,7 +104,7 @@ const userController = {
           <h1>Email Verification</h1>
           <p>Welcome to our platform! To complete your registration, please verify your email address by entering the OTP (One-Time Password) below:</p>
           <p>Please note that this OTP is valid for 10 minutes. If you did not request this verification, please ignore this email.</p>
-          <h2>Your OTP is <strong>${otp}</strong></h2>
+          <h2>Your OTP is <strong>${user.otp}</strong></h2>
           <p>Thank you for registering with us!</p>
         `,
       };
@@ -125,7 +125,7 @@ const userController = {
       if (user.isVerified) {
         return res.status(400).json({ error: "Email already verified" });
       }
-      if (otp === userOtp) {
+      if (user.otp === userOtp) {
         return res.status(200).json({ message: "OTP verified successfully" });
       }
       return res.status(400).json({
@@ -160,7 +160,7 @@ const userController = {
   async userLogout(req, res) {
     try {
       const { userId } = req.user;
-      const user = await userModel.findByIdAndUpdate(userId, { isVerified: true });
+      const user = await userModel.findByIdAndUpdate(userId, { isVerified: false });
       return res.status(200).json({ message: "Logout Successful" });
     } catch (error) {
       console.error(error);

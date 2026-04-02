@@ -37,58 +37,95 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
-                        <form class="form-horizontal">
+                        <form class="form-horizontal" action="/product/create-product" method="post"
+                            enctype="multipart/form-data">
                             <div class="card-body">
                                 <h4 class="card-title">Product Info</h4>
                                 <div class="form-group row">
-                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Product Name</label>
+                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">Product
+                                        Name</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="fname" name="productName"
                                             placeholder="Product Name Here">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">Product Description</label>
+                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">Product
+                                        Description</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="lname" name="productDescription"
                                             placeholder="Product Description Here">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lname"
-                                        class="col-sm-3 text-right control-label col-form-label">Product Price</label>
+                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">Product
+                                        Price</label>
                                     <div class="col-sm-9">
                                         <input type="number" class="form-control" id="lname" name="productPrice"
                                             placeholder="Product Price Here" min="1" max="1000000">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="email1"
-                                        class="col-sm-3 text-right control-label col-form-label">Product Quantity</label>
+                                    <label for="email1" class="col-sm-3 text-right control-label col-form-label">Product
+                                        Quantity</label>
                                     <div class="col-sm-9">
                                         <input type="number" class="form-control" id="email1" name="productQuantity"
                                             placeholder="Product Quantity Here" min="1" max="1000000">
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Contact
-                                        No</label>
+                                    <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Product
+                                        Image</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="cono1"
-                                            placeholder="Contact No Here">
+                                        <input type="file" class="form-control" id="cono1" name="Image" required
+                                            accept="image/*">
                                     </div>
                                 </div>
+                                <!-- Category Dropdown -->
                                 <div class="form-group row">
-                                    <label for="cono1"
-                                        class="col-sm-3 text-right control-label col-form-label">Message</label>
-                                    <div class="col-sm-9">
-                                        <textarea class="form-control"></textarea>
-                                    </div>
+                                    <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Product
+                                        Category</label>
+                                    <select name="productCategory" id="categorySelect"
+                                        onchange="fetchSubcategories(this.value)"
+                                        class="form-select form-select-lg form-control bg-light" required>
+                                        <option value="" disabled selected>Choose a category...</option>
+                                        <% categories.forEach((category)=> { %>
+                                            <option value="<%= category._id %>">
+                                                <%= category.categoryName %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="cono1" class="text-right control-label col-form-label">Product
+                                        Subcategory</label>
+                                    <!-- Subcategory Dropdown -->
+                                    <select id="subcategorySelect" name="productSubcategory"
+                                        onchange="fetchExtraCategories(this.value)"
+                                        class="form-select form-select-lg form-control bg-light mt-2" required>
+                                        <option value="" selected disabled>Select Category First</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="cono1" class="text-right control-label col-form-label">Product
+                                        ExtraCategory</label>
+                                    <!-- ExtraCategory Dropdown -->
+                                    <select id="extraCategorySelect" name="productExtraCategory"
+                                        class="form-select form-select-lg form-control bg-light mt-2" required>
+                                        <option value="" disabled selected>Select SubCategory First</option>
+                                        <% extraCategories.forEach((extraCategory)=> { %>
+                                            <option value="<%= extraCategory._id %>">
+                                                <%= extraCategory.extraCategoryName %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
                                 </div>
                             </div>
                             <div class="border-top">
                                 <div class="card-body">
-                                    <button type="button" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -113,3 +150,146 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <%- include('../partials/footer.ejs') %>
+
+
+            <script>
+                async function fetchSubcategories(categoryId) {
+                    const subCatDropdown = document.getElementById('subcategorySelect');
+                    const extraCatDropdown = document.getElementById('extraCategorySelect');
+
+                    // Reset both dependent dropdowns
+                    subCatDropdown.innerHTML = '<option value="">Loading...</option>';
+                    extraCatDropdown.innerHTML = '<option value="">Select Subcategory First</option>';
+
+                    if (!categoryId) {
+                        subCatDropdown.innerHTML = '<option value="">Select Category First</option>';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/api/sub-category/get-by-category/${categoryId}`);
+                        const data = await response.json();
+
+                        subCatDropdown.innerHTML = '<option value="" selected disabled>Select Subcategory</option>';
+
+                        if (data.success && data.subcategories.length > 0) {
+                            data.subcategories.forEach(sub => {
+                                const option = document.createElement('option');
+                                option.value = sub._id;
+                                option.textContent = sub.subcategoryName;
+                                subCatDropdown.appendChild(option);
+                            });
+                        } else {
+                            subCatDropdown.innerHTML = '<option value="">No Subcategories Found</option>';
+                        }
+                    } catch (error) {
+                        console.error("Error fetching subcategories:", error);
+                        subCatDropdown.innerHTML = '<option value="">Error loading subcategories</option>';
+                    }
+                }
+
+                async function fetchExtraCategories(subCategoryId) {
+                    const extraCatDropdown = document.getElementById('extraCategorySelect');
+
+                    extraCatDropdown.innerHTML = '<option value="">Loading...</option>';
+
+                    if (!subCategoryId) {
+                        extraCatDropdown.innerHTML = '<option value="">Select Subcategory First</option>';
+                        return;
+                    }
+
+                    try {
+                        const response = await fetch(`/api/extra-category/get-by-sub-category/${subCategoryId}`);
+                        const data = await response.json();
+
+                        extraCatDropdown.innerHTML = '<option value="" selected disabled>Select Extra Category</option>';
+
+                        // Note: Check if your API returns "extraCategories" or "subcategories"
+                        const list = data.extraCategories || data.subcategories || [];
+
+                        if (data.success && list.length > 0) {
+                            list.forEach(extra => {
+                                const option = document.createElement('option');
+                                option.value = extra._id;
+                                option.textContent = extra.extraCategoryName; // Ensure this matches your DB schema
+                                extraCatDropdown.appendChild(option);
+                            });
+                        } else {
+                            extraCatDropdown.innerHTML = '<option value="">No Extra Categories Found</option>';
+                        }
+                    } catch (error) {
+                        console.error("Error fetching extraCategories:", error);
+                        extraCatDropdown.innerHTML = '<option value="">Error loading extraCategories</option>';
+                    }
+                }
+            </script>
+            <!-- <script>
+                async function fetchSubcategories(categoryId) {
+                    const subCatDropdown = document.getElementById('subcategorySelect');
+
+                    // Reset dropdown while loading
+                    subCatDropdown.innerHTML = '<option value="">Loading...</option>';
+
+                    if (!categoryId) {
+                        subCatDropdown.innerHTML = '<option value="">Select Category First</option>';
+                        return;
+                    }
+
+                    try {
+                        // Adjust the URL to match your actual API route
+                        const response = await fetch(`http://localhost:8081/api/sub-category/get-by-category/${categoryId}`);
+                        const data = await response.json();
+
+                        // Clear the "Loading..." message
+                        subCatDropdown.innerHTML = '<option value="">Select Subcategory</option>';
+
+                        if (data.success && data.subcategories.length > 0) {
+                            data.subcategories.forEach(sub => {
+                                const option = document.createElement('option');
+                                option.value = sub._id;
+                                option.textContent = sub.subcategoryName;
+                                subCatDropdown.appendChild(option);
+                            });
+                        } else {
+                            subCatDropdown.innerHTML = '<option value="">No Subcategories Found</option>';
+                        }
+                    } catch (error) {
+                        console.error("Error fetching subcategories:", error);
+                        subCatDropdown.innerHTML = '<option value="">Error loading subcategories</option>';
+                    }
+                }
+                async function fetchExtraCategories(categoryId) {
+                    const extraCatDropdown = document.getElementById('extraCategorySelect');
+
+                    // Reset dropdown while loading
+                    subCatDropdown.innerHTML = '<option value="">Loading...</option>';
+
+                    if (!categoryId) {
+                        extraCatDropdown.innerHTML = '<option value="">Select Category First</option>';
+                        return;
+                    }
+
+                    try {
+                        // Adjust the URL to match your actual API route
+                        const response = await fetch(`http://localhost:8081/api/extra-category/get-by-category/${categoryId}`);
+                        const data = await response.json();
+
+                        // Clear the "Loading..." message
+                        extraCatDropdown.innerHTML = '<option value="">Select ExtraCategory</option>';
+
+                        if (data.success && data.subcategories.length > 0) {
+                            data.subcategories.forEach(sub => {
+                                const option = document.createElement('option');
+                                option.value = extra._id;
+                                option.textContent = sub.subcategoryName;
+                                subCatDropdown.appendChild(option);
+                            });
+                        } else {
+                            extraCatDropdown.innerHTML = '<option value="">No ExtraCategories Found</option>';
+                        }
+                    } catch (error) {
+                        console.error("Error fetching extraCategories:", error);
+                        extraCatDropdown.innerHTML = '<option value="">Error loading extraCategories</option>';
+                    }
+                }
+            </script> -->

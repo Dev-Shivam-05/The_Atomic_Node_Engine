@@ -5,8 +5,8 @@ import upload from '../../middleware/imageUpload.js';
 const productRouter = Router();
 
 productRouter.get('/', productController.getAllProducts);
-productRouter.post('/', upload, productController.createProduct);
-productRouter.patch('/:id', upload, productController.updateProduct);
+productRouter.post('/',  productController.createProduct);
+productRouter.patch('/:id',  productController.updateProduct);
 productRouter.delete('/:id', productController.deleteProduct);
 productRouter.get('/:id', productController.getProductById);
 

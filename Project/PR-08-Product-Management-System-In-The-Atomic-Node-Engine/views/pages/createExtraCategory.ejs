@@ -12,12 +12,12 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-12 d-flex no-block align-items-center">
-                    <h4 class="page-title">Create extraCategory</h4>
+                    <h4 class="page-title">Create ExtraCategory</h4>
                     <div class="ml-auto text-right">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="/">extraCategory</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Create extraCategory</li>
+                                <li class="breadcrumb-item"><a href="/">Category</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Create Category</li>
                             </ol>
                         </nav>
                     </div>
@@ -34,46 +34,66 @@
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
+            <!-- <div class="container py-5"> -->
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="">
-                            <div class="card-body">
-                                <h4 class="card-title">extraCategory Info</h4>
-                                <div class="form-group row">
-                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">extraCategory
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow-sm overflow-hidden">
+                        <!-- Card Header with accent border -->
+                        <div class="card-header bg-white border-top border-primary border-4 pt-4">
+                            <h4 class="card-title fw-bold text-dark mb-1">Add New ExtraCategory</h4>
+                            <p class="text-muted small">Fill in the details to create a new ExtraCategory.</p>
+                        </div>
+
+                        <form method="POST" enctype="multipart/form-data" action="/extra-category/create-extra-category">
+                            <div class="card-body p-4">
+                                <!-- ExtraCategory Name -->
+                                <div class="mb-4">
+                                    <label for="extraCategoryName" class="form-label fw-semibold">ExtraCategory
                                         Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="fname" name="extraCategoryName"
-                                            placeholder="extraCategory Name Here">
+                                    <input type="text" class="form-control form-control-lg bg-light"
+                                        id="extraCategoryName" name="extraCategoryName"
+                                        placeholder="e.g. Wireless Headphones" required>
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="mb-3">
+                                    <label for="Image" class="form-label fw-semibold">ExtraCategory Image</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control bg-light" id="Image" name="Image"
+                                            required>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">extraCategory
-                                        Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="lname" name="extraCategoryName"
-                                            placeholder="extraCategory Name Here">
-                                    </div>
+
+                                <!-- Category Selection -->
+                                <div class="mb-4">
+                                    <label for="subCategoryId" class="form-label fw-semibold">ExtraCategory
+                                        Parent Sub Category</label>
+                                    <select name="subCategoryId" id="subCategoryId"
+                                        class="form-select form-select-lg bg-light" required>
+                                        <option value="" disabled selected>Choose a sub category...</option>
+                                        <% extraCategories.forEach((extraCategory)=> { %>
+                                            <option value="<%= extraCategory._id %>">
+                                                <%= extraCategory.subcategoryName %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="lname"
-                                        class="col-sm-3 text-right control-label col-form-label">Sub Category</label>
-                                    <div class="col-sm-9">
-                                        <input type="file" class="form-control" id="lname" name="extraCategoryImage"
-                                            placeholder="extraCategory Image Here">
-                                    </div>
-                                </div>
+
                             </div>
-                            <div class="border-top">
-                                <div class="card-body">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <!-- Footer Actions -->
+                            <div class="card-footer bg-light border-0 p-4">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="button" class="btn btn-outline-secondary px-4 me-md-2">Cancel</button>
+                                    <button type="submit" class="btn btn-primary px-5 fw-bold mx-4">Save
+                                        ExtraCategory</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <!-- </div> -->
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->

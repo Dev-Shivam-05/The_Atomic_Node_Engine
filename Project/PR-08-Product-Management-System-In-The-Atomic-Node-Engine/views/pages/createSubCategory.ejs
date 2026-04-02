@@ -34,46 +34,66 @@
             <!-- ============================================================== -->
             <!-- Start Page Content -->
             <!-- ============================================================== -->
+            <!-- <div class="container py-5"> -->
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="">
-                            <div class="card-body">
-                                <h4 class="card-title">SubCategory Info</h4>
-                                <div class="form-group row">
-                                    <label for="fname" class="col-sm-3 text-right control-label col-form-label">SubCategory
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow-sm overflow-hidden">
+                        <!-- Card Header with accent border -->
+                        <div class="card-header bg-white border-top border-primary border-4 pt-4">
+                            <h4 class="card-title fw-bold text-dark mb-1">Add New SubCategory</h4>
+                            <p class="text-muted small">Fill in the details to create a new subcategory.</p>
+                        </div>
+
+                        <form method="POST" enctype="multipart/form-data" action="/sub-category/create-sub-category">
+                            <div class="card-body p-4">
+                                <!-- SubCategory Name -->
+                                <div class="mb-4">
+                                    <label for="subcategoryName" class="form-label fw-semibold">SubCategory
                                         Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="fname" name="subCategoryName"
-                                            placeholder="SubCategory Name Here">
+                                    <input type="text" class="form-control form-control-lg bg-light"
+                                        id="subcategoryName" name="subcategoryName"
+                                        placeholder="e.g. Wireless Headphones" required>
+                                </div>
+
+                                <!-- Image Upload -->
+                                <div class="mb-3">
+                                    <label for="Image" class="form-label fw-semibold">SubCategory Image</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control bg-light" id="Image" name="Image"
+                                            required>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">Sub Category
-                                        Name</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="lname" name="subCategoryName"
-                                            placeholder="SubCategory Name Here">
-                                    </div>
+
+                                <!-- Category Selection -->
+                                <div class="mb-4">
+                                    <label for="categoryId" class="form-label fw-semibold">Parent
+                                        Category</label>
+                                    <select name="categoryId" id="categoryId"
+                                        class="form-select form-select-lg bg-light" required>
+                                        <option value="" disabled selected>Choose a category...</option>
+                                        <% categories.forEach((category)=> { %>
+                                            <option value="<%= category._id %>">
+                                                <%= category.categoryName %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="lname"
-                                        class="col-sm-3 text-right control-label col-form-label">Sub Category</label>
-                                    <div class="col-sm-9">
-                                        <input type="file" class="form-control" id="lname" name="subcategoryImage"
-                                            placeholder="SubCategory Image Here">
-                                    </div>
-                                </div>
+
                             </div>
-                            <div class="border-top">
-                                <div class="card-body">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                            <!-- Footer Actions -->
+                            <div class="card-footer bg-light border-0 p-4">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <button type="button" class="btn btn-outline-secondary px-4 me-md-2">Cancel</button>
+                                    <button type="submit" class="btn btn-primary px-5 fw-bold mx-4">Save
+                                        SubCategory</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+            <!-- </div> -->
             <!-- ============================================================== -->
             <!-- End PAge Content -->
             <!-- ============================================================== -->

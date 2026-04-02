@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy Store - Explore Our Magic Collection</title>
+    <link rel="stylesheet" href="/assets/libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/_user-panel.css">
+    <style>
+        .skeleton-card {
+            height: 350px;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="bg-white py-3 shadow-sm sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h1 class="h4 mb-0 text-primary">Magic Toy Store</h1>
+            <nav>
+                <a href="/shop" class="text-dark me-3">Home</a>
+                <a href="/admin" class="btn btn-outline-primary btn-sm">Admin Access</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="catalogue-container container">
+        <div id="skeleton-loader" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            <!-- Skeleton cards for loading state -->
+            <div class="col"><div class="skeleton-card skeleton"></div></div>
+            <div class="col"><div class="skeleton-card skeleton"></div></div>
+            <div class="col"><div class="skeleton-card skeleton"></div></div>
+            <div class="col"><div class="skeleton-card skeleton"></div></div>
+        </div>
+
+        <div id="product-grid" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 d-none">
+            <!-- Dynamic cards will be rendered here -->
+        </div>
+
+        <div id="empty-state" class="text-center py-5 d-none">
+            <h3 class="text-muted">No toys found in the magic chest yet!</h3>
+            <p>Come back later or ask the shopkeeper.</p>
+        </div>
+    </main>
+
+    <!-- Product Detail Overlay -->
+    <div id="detail-overlay" class="detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="close-btn" id="close-modal" aria-label="Close details">&times;</button>
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-md-6">
+                    <div id="productCarousel" class="carousel slide shadow-sm rounded overflow-hidden" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="carousel-content">
+                            <!-- Carousel items go here -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="ps-md-4">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb" id="detail-breadcrumbs"></ol>
+                        </nav>
+                        <h2 id="modal-title" class="display-5 fw-bold mb-3"></h2>
+                        <div class="mb-4">
+                            <span id="detail-category" class="badge badge-custom rounded-pill"></span>
+                            <span id="detail-subcategory" class="badge badge-custom rounded-pill"></span>
+                        </div>
+                        <p id="detail-description" class="lead text-muted mb-4"></p>
+                        <div class="d-flex align-items-center mb-4">
+                            <span class="h2 text-primary fw-bold mb-0" id="detail-price"></span>
+                            <span class="ms-3 text-muted" id="detail-stock"></span>
+                        </div>
+                        <hr>
+                        <div class="row text-muted small">
+                            <div class="col-6">SKU: <span id="detail-sku"></span></div>
+                            <div class="col-6">Added: <span id="detail-date"></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const CACHE_KEY = 'magic_toys_cache';
+        const TTL = 5 * 60 * 1000; // 5 minutes
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+        });
+
+        async function initApp() {
+            const products = await fetchProducts();
+            if (products && products.length > 0) {
+                renderProducts(products);
+            } else {
+                showEmptyState();
+            }
+        }
+
+        async function fetchProducts() {
+            const cached = sessionStorage.getItem(CACHE_KEY);
+            if (cached) {
+                const { data, timestamp } = JSON.parse(cached);
+                if (Date.now() - timestamp < TTL) {
+                    console.log('Serving from cache');
+                    return data;
+                }
+            }
+
+            try {
+                const response = await fetch('/api/product');
+                const result = await response.json();
+                if (result.products) {
+                    sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+                        data: result.products,
+                        timestamp: Date.now()
+                    }));
+                    return result.products;
+                }
+            } catch (error) {
+                console.error('Error fetching toys:', error);
+                return null;
+            }
+        }
+
+        function renderProducts(products) {
+            const grid = document.getElementById('product-grid');
+            const loader = document.getElementById('skeleton-loader');
+            
+            grid.innerHTML = products.map(product => `
+                <div class="col">
+                    <article class="card product-card" tabindex="0" aria-label="View details for ${product.productName}">
+                        <img src="/${product.productImage || 'assets/images/big/img1.jpg'}" 
+                             class="card-img-top" 
+                             alt="${product.productName}" 
+                             loading="lazy">
+                        <div class="card-body">
+                            <h5 class="card-title text-truncate">${product.productName}</h5>
+                            <p class="card-text">${truncate(product.productDescription, 120)}</p>
+                            <div class="product-price">$${product.productPrice}</div>
+                            <button class="btn btn-outline-primary w-100 mt-auto" 
+                                    onclick="openDetails('${product._id}')">
+                                View Details
+                            </button>
+                        </div>
+                    </article>
+                </div>
+            `).join('');
+
+            loader.classList.add('d-none');
+            grid.classList.remove('d-none');
+        }
+
+        function showEmptyState() {
+            document.getElementById('skeleton-loader').classList.add('d-none');
+            document.getElementById('empty-state').classList.remove('d-none');
+        }
+
+        function truncate(str, n) {
+            return (str.length > n) ? str.substr(0, n - 1) + '&hellip;' : str;
+        }
+
+        async function openDetails(productId) {
+            const cached = JSON.parse(sessionStorage.getItem(CACHE_KEY));
+            const product = cached.data.find(p => p._id === productId);
+            
+            if (!product) return;
+
+            // Fill Modal
+            document.getElementById('modal-title').textContent = product.productName;
+            document.getElementById('detail-description').textContent = product.productDescription;
+            document.getElementById('detail-price').textContent = `$${product.productPrice}`;
+            document.getElementById('detail-category').textContent = product.productCategory?.categoryName || 'General';
+            document.getElementById('detail-subcategory').textContent = product.productSubcategory?.subcategoryName || '';
+            document.getElementById('detail-stock').textContent = product.productQuantity > 0 ? 'In Stock' : 'Out of Stock';
+            document.getElementById('detail-sku').textContent = product._id.substr(-8).toUpperCase();
+            document.getElementById('detail-date').textContent = new Date(product.createdAt).toLocaleDateString();
+
+            // Image Carousel (using same image up to 4 times as mock for now)
+            const carouselContent = document.getElementById('carousel-content');
+            const imgPath = `/${product.productImage || 'assets/images/big/img1.jpg'}`;
+            carouselContent.innerHTML = `
+                <div class="carousel-item active"><img src="${imgPath}" class="d-block w-100" alt="${product.productName}"></div>
+                <div class="carousel-item"><img src="${imgPath}" class="d-block w-100" alt="${product.productName}"></div>
+            `;
+
+            document.getElementById('detail-overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close Modal Logic
+        const closeModal = () => {
+            document.getElementById('detail-overlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        document.getElementById('close-modal').onclick = closeModal;
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

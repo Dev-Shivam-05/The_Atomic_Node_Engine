@@ -5,6 +5,7 @@ import uploadImage from '../../middleware/imageUpload.js';
 
 const categoryRouter = Router();
 
+
 categoryRouter.get('/', categoryController.getAllCategories);
 categoryRouter.post('/', categoryController.createCategory);
 categoryRouter.patch('/:id', categoryController.updateCategory);

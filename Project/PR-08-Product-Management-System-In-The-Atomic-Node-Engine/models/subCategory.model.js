@@ -5,13 +5,14 @@ const subcategorySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    subcategoryDescription: {
+    Image: {
         type: String,
+    },
+    categoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: true,
-    },
-    subcategoryImage: {
-        type: String,
-    },
+    }
 }, {
     timestamps: true,
 });

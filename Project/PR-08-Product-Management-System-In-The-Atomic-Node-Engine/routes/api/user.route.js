@@ -1,12 +1,12 @@
 import Router from 'express';
 import upload from '../../middleware/imageUpload.js';
-import userController from '../../controllers/apiControllers/user.controller.js';
+import userController from '../../controllers/apicontrollers/user.controller.js';
 
 const userRouter = Router();
 
 userRouter.get('/', userController.getAllUsers);
-userRouter.post('/', upload, userController.createUser);
-userRouter.patch('/:id', upload, userController.updateUser);
+userRouter.post('/',  userController.createUser);
+userRouter.patch('/:id',  userController.updateUser);
 userRouter.delete('/:id', userController.deleteUser);
 userRouter.get('/:id', userController.getUserById);
 

@@ -43,23 +43,34 @@
                                 <table id="zero_config" class="table table-striped table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Sr.No</th>
+                                            <th>Product Name</th>
+                                            <th>Product Category</th>
+                                            <th>Product Subcategory</th>
+                                            <th>Product Price</th>
+                                            <th>Product Quantity</th>
+                                            <th>Product Description</th>
+                                            <th>Product Image</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>Edinburgh</td>
-                                            <td>61</td>
-                                            <td>2011/04/25</td>
-                                            <td>$320,800</td>
-                                        </tr>
+                                        <% products.forEach((product, index) => { %>
+                                            <tr>
+                                                <td><%= index + 1 %></td>
+                                                <td><%= product.productName %></td>
+                                                <td><%= product.productCategory.categoryName %></td>
+                                                <td><%= product.productSubcategory.subcategoryName %></td>
+                                                <td><%= product.productPrice %></td>
+                                                <td><%= product.productQuantity %></td>
+                                                <td><%= product.productDescription %></td>
+                                                <td><img src="/<%= product.Image %>" alt="<%= product.productName %>" width="100" height="100"></td>
+                                                <td>
+                                                    <a href="/product/delete-product/<%= product._id %>" class="btn btn-danger btn-sm">Delete</a>
+                                                    <a href="/product/edit-product/<%= product._id %>" class="btn btn-primary btn-sm">Update</a>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
                                     </tbody>
                                 </table>
                             </div>

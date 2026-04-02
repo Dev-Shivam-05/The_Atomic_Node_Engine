@@ -1,0 +1,103 @@
+<%- include('../partials/header.ejs') %>
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Edit SubCategory</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/sub-category/view-categories">SubCategory</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-8"> <!-- Adjusted width for better edit view -->
+                    <div class="card border-0 shadow-sm overflow-hidden">
+                        <div class="card-header bg-white border-top border-primary border-4 pt-4">
+                            <h4 class="card-title fw-bold text-dark mb-1">Edit SubCategory</h4>
+                            <p class="text-muted small">Modify the details for <strong>
+                                    <%= subCategory.subcategoryName %>
+                                </strong></p>
+                        </div>
+
+                        <!-- Note: Action points to your edit route with the ID -->
+                        <form method="POST" enctype="multipart/form-data"
+                            action="/sub-category/edit-sub-category/<%= subCategory._id %>">
+                            <div class="card-body p-4">
+
+                                <!-- SubCategory Name -->
+                                <div class="mb-4">
+                                    <label for="subcategoryName" class="form-label fw-semibold">SubCategory Name</label>
+                                    <input type="text" class="form-control form-control-lg bg-light"
+                                        id="subcategoryName" name="subcategoryName"
+                                        value="<%= subCategory.subcategoryName %>" required>
+                                </div>
+
+                                <!-- Current Image Preview -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-semibold d-block">Current Image</label>
+                                    <div class="bg-light p-2 rounded text-center border">
+                                        <img id="ImagePreview" src="/<%= subCategory.Image %>" alt="Preview"
+                                            class="img-fluid rounded" style="max-height: 150px;">
+                                    </div>
+                                </div>
+
+                                <!-- New Image Upload -->
+                                <div class="mb-4">
+                                    <label for="Image" class="form-label fw-semibold">Upload New Image</label>
+                                    <div class="input-group">
+                                        <input type="file" class="form-control bg-light" id="ImageInput" name="Image"
+                                            accept="Image/*" required>
+                                    </div>
+                                </div>
+
+                                <!-- Parent Category Selection (If needed for edit) -->
+                                <div class="mb-4">
+                                    <label for="categoryId" class="form-label fw-semibold">Parent Category</label>
+                                    <select name="categoryId" id="categoryId"
+                                        class="form-select form-select-lg bg-light" required>
+                                        <% categories.forEach((category) => { %>
+                                            <option value="<%= category._id %>" class="form-select-lg form-select bg-light" name="categoryId"
+                                                <%= subCategory.categoryId.toString()===category._id.toString()
+                                                ? 'selected' : '' %> >
+                                                <%= category.categoryName %>
+                                            </option>
+                                            <% }); %>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <!-- Footer Actions -->
+                            <div class="card-footer bg-light border-0 p-4">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="/sub-category/view-sub-categories"
+                                        class="btn btn-outline-secondary px-4 me-md-2">Cancel</a>
+                                    <button type="submit" class="btn btn-primary px-5 fw-bold">Update
+                                        SubCategory</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include('../partials/footer.ejs') %>
+    </div>
+
+    <script>
+        // Live preview for the new Image selection
+        document.getElementById('ImageInput').onchange = function (evt) {
+            const [file] = this.files;
+            if (file) {
+                document.getElementById('ImagePreview').src = URL.createObjectURL(file);
+            }
+        };
+    </script>

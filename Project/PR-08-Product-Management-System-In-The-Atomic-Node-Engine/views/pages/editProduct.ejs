@@ -1,0 +1,164 @@
+<%- include('../partials/header.ejs') %>
+
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Edit Product</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/product/view-products">Product</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Product</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <form class="form-horizontal" action="/product/edit-product/<%= product._id %>" method="post"
+                            enctype="multipart/form-data">
+                            <div class="card-body">
+                                <h4 class="card-title">Edit Product Info</h4>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">Product Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" name="productName"
+                                            value="<%= product.productName %>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">Description</label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control"
+                                            name="productDescription"><%= product.productDescription %></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">Price</label>
+                                    <div class="col-sm-3">
+                                        <input type="number" class="form-control" name="productPrice"
+                                            value="<%= product.productPrice %>">
+                                    </div>
+                                    <label class="col-sm-3 text-right control-label col-form-label">Quantity</label>
+                                    <div class="col-sm-3">
+                                        <input type="number" class="form-control" name="productQuantity"
+                                            value="<%= product.productQuantity %>">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">Current
+                                        Image</label>
+                                    <div class="col-sm-9">
+                                        <img id="preview" src="/<%= product.Image %>" alt="Preview"
+                                            style="max-width: 150px; margin-bottom: 10px; border: 1px solid #ddd; padding: 5px;">
+                                        <input type="file" class="form-control" id="imageInput" name="Image"
+                                            accept="image/*" onchange="previewImage(event)" required>   
+                                        <small class="text-muted">Leave empty to keep the current image</small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">Category</label>
+                                    <div class="col-sm-9">
+                                        <select name="productCategory" id="categorySelect"
+                                            onchange="fetchSubcategories(this.value)" class="form-control" required>
+                                            <option value="" disabled>Choose a category...</option>
+                                            <% categories.forEach((category)=> { %>
+                                                <option value="<%= category._id %>"
+                                                    <%=product.productCategory==category._id.toString() ? 'selected'
+                                                    : '' %>>
+                                                    <%= category.categoryName %>
+                                                </option>
+                                                <% }); %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-sm-3 text-right control-label col-form-label">Subcategory</label>
+                                    <div class="col-sm-9">
+                                        <select id="subcategorySelect" name="productSubcategory" class="form-control"
+                                            required>
+                                            <option value="">Loading Subcategories...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-top">
+                                <div class="card-body">
+                                    <button type="submit" class="btn btn-primary">Update Product</button>
+                                    <a href="/product/view-products" class="btn btn-secondary">Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+        <script>
+            // 1. Image Preview Function
+            function previewImage(event) {
+                const reader = new FileReader();
+                reader.onload = function () {
+                    const output = document.getElementById('preview');
+                    output.src = reader.result;
+                }
+                reader.readAsDataURL(event.target.files[0]);
+            }
+
+            // 2. Fetch Subcategories and auto-select existing one
+            async function fetchSubcategories(categoryId, selectedSubId = null) {
+                const subCatDropdown = document.getElementById('subcategorySelect');
+                if (!categoryId) return;
+
+                try {
+                    const response = await fetch(`http://localhost:8081/api/sub-category/get-by-category/${categoryId}`);
+                    const data = await response.json();
+ 
+                    subCatDropdown.innerHTML = '<option value="" disabled>Select Subcategory</option>';
+
+                    if (data.success && data.subcategories.length > 0) {
+                        data.subcategories.forEach(sub => {
+                            const option = document.createElement('option');
+                            option.value = sub._id;
+                            option.textContent = sub.subcategoryName;
+
+                            // If this matches the product's subcategory, select it
+                            if (selectedSubId && sub._id === selectedSubId) {
+                                option.selected = true;
+                            }
+                            subCatDropdown.appendChild(option);
+                        });
+                    } else {
+                        subCatDropdown.innerHTML = '<option value="">No Subcategories Found</option>';
+                    }
+                } catch (error) {
+                    console.error("Error:", error);
+                }
+            }
+
+            // 3. Initialize on Page Load
+            window.onload = function () {
+                const currentCategoryId = document.getElementById('categorySelect').value;
+                const currentSubCategoryId = "<%= product.productSubcategory %>"; // Injected from EJS
+
+                if (currentCategoryId) {
+                    fetchSubcategories(currentCategoryId, currentSubCategoryId);
+                }
+            };
+        </script>

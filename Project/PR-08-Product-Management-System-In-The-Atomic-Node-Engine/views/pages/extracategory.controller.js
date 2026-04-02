@@ -1,20 +1,21 @@
 import fs from "fs";
 import categoryModel from "../models/category.model.js";
 
-const subCategoryController = {
-  createSubCategoryPage: async (req, res) => {
-    const categories = await categoryModel.find();
-    console.log(categories);
-    return res.render("./pages/createSubCategory.ejs", { categories });
+const extraCategoryController = {
+  createExtraCategoryPage: async (req, res) => {
+    const subCategories = await fetch("http://localhost:8081/api/sub-category");
+    const subCategoriesToJson = await subCategories.json();
+    console.log(subCategoriesToJson);
+    return res.render("./pages/createExtraCategory.ejs", { extraCategories: subCategoriesToJson.subcategories });
   },
-  createSubCategory: async (req, res) => {
+  createExtraCategory: async (req, res) => {
     try {
       console.log();
-      console.log("============ CreateSubCategory Start ============");
+      console.log("============ CreateExtraCategory Start ============");
 
       console.log(req.body);
       req.body.Image = req.file.path;
-      const response = await fetch("http://localhost:8081/api/sub-category/", {
+      const response = await fetch("http://localhost:8081/api/extra-category/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,13 +27,13 @@ const subCategoryController = {
       const data = await response.json();
       console.log(data);
 
-      console.log("============ CreateSubCategory End ============");
+      console.log("============ CreateExtraCategory End ============");
       console.log();
 
       return res.redirect(
         data.success
-          ? "/sub-category/view-sub-categories"
-          : "/sub-category/create-sub-category",
+          ? "/extra-category/view-extra-categories"
+          : "/extra-category/create-extra-category",
       );
     } catch (error) {
       return res.status(500).json({
@@ -42,11 +43,11 @@ const subCategoryController = {
       });
     }
   },
-  viewSubCategories: async (req, res) => {
+  viewExtraCategories: async (req, res) => {
     try {
       console.log();
-      console.log("============ ViewSubCategories Start ============");
-      const response = await fetch("http://localhost:8081/api/sub-category", {
+      console.log("============ ViewExtraCategories Start ============");
+      const response = await fetch("http://localhost:8081/api/extra-category/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -57,11 +58,11 @@ const subCategoryController = {
 
       // const category = await categoryModel.find();
       // console.log(categories);
-      console.log("============ ViewSubCategories End ============");
+      console.log("============ ViewExtraCategories End ============");
       console.log();
 
-      return res.render("./pages/viewSubCategories.ejs", {
-        subCategories: responseToJson.subcategories,
+      return res.render("./pages/viewExtraCategories.ejs", {    
+        extraCategories: responseToJson.extraCategories,
       });
     } catch (error) {
       return res.status(500).json({
@@ -71,12 +72,12 @@ const subCategoryController = {
       });
     }
   },
-  deleteSubCategory: async (req, res) => {
+  deleteExtraCategory: async (req, res) => {
     try {
       console.log();
-      console.log("============ DeleteSubCategory Start ============");
+      console.log("============ DeleteExtraCategory Start ============");
       const response = await fetch(
-        "http://localhost:8081/api/sub-category/" + req.params.id,
+        "http://localhost:8081/api/extra-category/" + req.params.id,
         {
           method: "DELETE",
           headers: {
@@ -90,10 +91,10 @@ const subCategoryController = {
       const responseToJson = await response.json();
       console.log(responseToJson);
 
-      console.log("============ DeleteSubCategory End ============");
+      console.log("============ DeleteExtraCategory End ============");
       console.log();
 
-      return res.redirect(req.get("referer") || "/sub-category/view-sub-categories");
+      return res.redirect(req.get("referrer") || "/extra-category/view-extra-categories");
     } catch (error) {
       return res.status(500).json({
         success: false,
@@ -102,12 +103,12 @@ const subCategoryController = {
       });
     }
   },
-  editSubCategoryPage: async (req, res) => {
+  editExtraCategoryPage: async (req, res) => {
     console.log();
-    console.log("============ EditSubCategoryPage Start ============");
+    console.log("============ EditExtraCategoryPage Start ============");
     console.log(req.params.id);
-    const subcategory = await fetch(
-      "http://localhost:8081/api/sub-category/" + req.params.id,
+    const extracategory = await fetch(
+      "http://localhost:8081/api/extra-category/" + req.params.id,
       {
         method: "GET",
         headers: {
@@ -124,25 +125,25 @@ const subCategoryController = {
         },
       },
     );
-    const subcategoryToJson = await subcategory.json();
+    const extracategoryToJson = await extracategory.json();
     const categoryToJson = await category.json();
-    console.log(subcategoryToJson);
-    console.log("============ EditSubCategoryPage End ============");
+    console.log(extracategoryToJson);
+    console.log("============ EditExtraCategoryPage End ============");
     console.log();
 
-    return res.render("../views/pages/editSubCategory.ejs", {
-      subCategory: subcategoryToJson.subcategory,
+    return res.render("./pages/editExtraCategory.ejs", {
+      extraCategory: extracategoryToJson.extracategory,
       categories: categoryToJson.categories,
     });
   },
-  editSubCategory: async (req, res) => {
+  editExtraCategory: async (req, res) => {
     try {
       console.log();
-      console.log("============ EditSubCategory Start ============");
+      console.log("============ EditExtraCategory Start ============");
       req.body.Image = req.file ? req.file.path : req.body.Image || '';
       console.log(req.body);
       const response = await fetch(
-        "http://localhost:8081/api/sub-category/" + req.params.id,
+        "http://localhost:8081/api/extra-category/" + req.params.id,
         {
           method: "PATCH",
           headers: {
@@ -153,12 +154,12 @@ const subCategoryController = {
       );
       const responseToJson = await response.json();
       
-      console.log( "Edit SubCategory Response: " + responseToJson.success + " " + responseToJson.message + " " + responseToJson);
+      console.log( "Edit ExtraCategory Response: " + responseToJson.success + " " + responseToJson.message + " " + responseToJson);
 
-      console.log("============ EditSubCategory End ============");
+      console.log("============ EditExtraCategory End ============");
       console.log();
 
-      return res.redirect("/sub-category/view-sub-categories");
+      return res.redirect("/extra-category/view-extra-categories");
     } catch (error) {
       return res.status(500).json({
         success: false,
@@ -169,4 +170,4 @@ const subCategoryController = {
   },
 };
 
-export default subCategoryController;
+export default extraCategoryController;

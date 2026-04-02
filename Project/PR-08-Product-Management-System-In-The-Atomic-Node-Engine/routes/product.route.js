@@ -1,13 +1,21 @@
 import Router from "express";
+import productController from "../controllers/product.controller.js";
+import uploadImage from "../middleware/imageUpload.js";
 
 const productRouter = Router();
 
-productRouter.get('/create-product',(req,res)=>{
-    return res.render('./pages/createProduct.ejs');
-});
+// Create a product
+productRouter.get("/create-product",productController.createProductPage);
+productRouter.post("/create-product",uploadImage, productController.createProduct);
 
-productRouter.get('/view-products',(req,res)=>{
-    return res.render('./pages/viewProduct.ejs');
-});
+// View all products
+productRouter.get("/view-products",productController.viewProducts);
+
+// Delete a product
+productRouter.get("/delete-product/:id",productController.deleteProduct);
+
+// Edit a product
+productRouter.get("/edit-product/:id",productController.editProductPage);
+productRouter.post("/edit-product/:id",uploadImage, productController.editProduct);
 
 export default productRouter;

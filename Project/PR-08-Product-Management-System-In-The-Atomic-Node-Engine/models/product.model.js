@@ -17,7 +17,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    productImage: {
+    Image: {
         type: String,
     },
     productCategory: {
@@ -28,6 +28,11 @@ const productSchema = new mongoose.Schema({
     productSubcategory: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Subcategory',
+        required: true,
+    },
+    productExtraCategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ExtraCategory',
         required: true,
     },
 },{

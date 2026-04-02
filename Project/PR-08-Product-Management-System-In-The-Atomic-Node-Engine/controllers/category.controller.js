@@ -105,8 +105,8 @@ const categoryController = {
       // console.log(`File :- ${req.file}`);
       
       console.log('============ Edit Category Starts =============');
-      // req.body.Image = req.file ? req.file.path : "";
-      // console.log("Request Body :- ",req.body);
+      req.body.Image = req.file ? req.file.path : "";
+      console.log("Request Body :- ",req.body);
       const response = await fetch(
         `http://localhost:8081/api/category/${req.params.id}`,
         {
@@ -119,6 +119,7 @@ const categoryController = {
       );
       console.log("Response :- ",response);
       const data = await response.json();
+      console.log("Response Data :- ",data.category);
       if(req.file){
         fs.unlinkSync(data.category.Image);
       }

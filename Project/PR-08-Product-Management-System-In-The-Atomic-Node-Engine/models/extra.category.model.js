@@ -5,14 +5,15 @@ const extraCategorySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    extraCategoryDescription: {
+    Image: {
         type: String,
+    },
+    subCategoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Subcategory',
         required: true,
-    },
-    extraCategoryImage: {
-        type: String,
-    },
-},{
+    }
+}, {
     timestamps: true,
 });
 
