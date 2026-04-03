@@ -1,0 +1,83 @@
+<%- include('../partials/header.ejs') %>
+<div class="page-wrapper">
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">Category Management</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                            <li class="breadcrumb-item active">Edit Category</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8"> <div class="card">
+                    <form class="form-horizontal" method="POST" enctype="multipart/form-data" action="/category/create-category">
+                        <div class="card-body">
+                            <h4 class="card-title">Category Details</h4>
+                            <hr>
+                            
+                            <div class="form-group row">
+                                <label class="col-sm-3 text-right control-label col-form-label">Category Name</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="categoryName" 
+                                           value="<%= category.categoryName %>" placeholder="Enter name...">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 text-right control-label col-form-label">Description</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" name="categoryDescription" rows="3" placeholder="Enter description..."><%= category.categoryDescription %></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 text-right control-label col-form-label">Current Image</label>
+                                <div class="col-sm-9">
+                                    <div class="image-preview-wrapper mb-2">
+                                        <img id="imagePreview" src="/<%= category.Image || '/assets/images/placeholder.jpg' %>" 
+                                             alt="Preview" style="max-width: 200px; border-radius: 5px; border: 1px solid #ddd; display: block;">
+                                    </div>
+                                    <small class="text-muted">Preview of the selected image</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-3 text-right control-label col-form-label">Upload New Image</label>
+                                <div class="col-sm-9">
+                                    <input type="file" id="imageInput" class="form-control" name="Image" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-top">
+                            <div class="card-body text-right">
+                                <button type="submit" class="btn btn-success">Save Changes</button>
+                                <a href="/category/view-categories" class="btn btn-secondary">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../partials/footer.ejs') %>
+</div>
+
+<script>
+    document.getElementById('imageInput').onchange = function (evt) {
+        const [file] = this.files;
+        if (file) {
+            // Update the source of the image tag to the newly selected file
+            document.getElementById('imagePreview').src = URL.createObjectURL(file);
+        }
+    };
+</script>
