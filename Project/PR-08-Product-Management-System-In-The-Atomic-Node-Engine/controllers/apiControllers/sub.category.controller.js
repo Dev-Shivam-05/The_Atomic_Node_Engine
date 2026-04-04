@@ -1,5 +1,5 @@
 import fs from "fs";
-import subcategoryModel from "../../models/subcategory.model.js";
+import subcategoryModel from "../../models/subCategory.model.js";
 
 const subcategoryController = {
   async createSubCategory(req, res) {
