@@ -14,7 +14,7 @@ const subCategoryController = {
 
       console.log(req.body);
       req.body.Image = req.file.path;
-      const response = await fetch("http://localhost:8081/api/sub-category/", {
+      const response = await fetch("https://product-management-system-q0bp.onrender.com/api/sub-category/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const subCategoryController = {
     try {
       console.log();
       console.log("============ ViewSubCategories Start ============");
-      const response = await fetch("http://localhost:8081/api/sub-category", {
+      const response = await fetch("https://product-management-system-q0bp.onrender.com/api/sub-category", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ const subCategoryController = {
       console.log();
       console.log("============ DeleteSubCategory Start ============");
       const response = await fetch(
-        "http://localhost:8081/api/sub-category/" + req.params.id,
+        "https://product-management-system-q0bp.onrender.com/api/sub-category/" + req.params.id,
         {
           method: "DELETE",
           headers: {
@@ -107,7 +107,7 @@ const subCategoryController = {
     console.log("============ EditSubCategoryPage Start ============");
     console.log(req.params.id);
     const subcategory = await fetch(
-      "http://localhost:8081/api/sub-category/" + req.params.id,
+      "https://product-management-system-q0bp.onrender.com/api/sub-category/" + req.params.id,
       {
         method: "GET",
         headers: {
@@ -116,7 +116,7 @@ const subCategoryController = {
       },
     );
     const category = await fetch(
-      "http://localhost:8081/api/category/",
+      "https://product-management-system-q0bp.onrender.com/api/category/",
       {
         method: "GET",
         headers: {
@@ -142,7 +142,7 @@ const subCategoryController = {
       req.body.Image = req.file ? req.file.path : req.body.Image || '';
       console.log(req.body);
       const response = await fetch(
-        "http://localhost:8081/api/sub-category/" + req.params.id,
+        "https://product-management-system-q0bp.onrender.com/api/sub-category/" + req.params.id,
         {
           method: "PATCH",
           headers: {

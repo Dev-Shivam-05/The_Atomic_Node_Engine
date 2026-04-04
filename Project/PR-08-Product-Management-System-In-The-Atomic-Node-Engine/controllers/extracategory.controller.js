@@ -3,7 +3,7 @@ import categoryModel from "../models/category.model.js";
 
 const extraCategoryController = {
   createExtraCategoryPage: async (req, res) => {
-    const subCategories = await fetch("http://localhost:8081/api/sub-category");
+    const subCategories = await fetch("https://product-management-system-q0bp.onrender.com/api/sub-category");
     const subCategoriesToJson = await subCategories.json();
     console.log(subCategoriesToJson);
     return res.render("./pages/createExtraCategory.ejs", { extraCategories: subCategoriesToJson.subcategories });
@@ -15,7 +15,7 @@ const extraCategoryController = {
 
       console.log(req.body);
       req.body.Image = req.file.path;
-      const response = await fetch("http://localhost:8081/api/extra-category/", {
+      const response = await fetch("https://product-management-system-q0bp.onrender.com/api/extra-category/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const extraCategoryController = {
     try {
       console.log();
       console.log("============ ViewExtraCategories Start ============");
-      const response = await fetch("http://localhost:8081/api/extra-category/", {
+      const response = await fetch("https://product-management-system-q0bp.onrender.com/api/extra-category/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ const extraCategoryController = {
       console.log();
       console.log("============ DeleteExtraCategory Start ============");
       const response = await fetch(
-        "http://localhost:8081/api/extra-category/" + req.params.id,
+        "https://product-management-system-q0bp.onrender.com/api/extra-category/" + req.params.id,
         {
           method: "DELETE",
           headers: {
@@ -108,7 +108,7 @@ const extraCategoryController = {
     console.log("============ EditExtraCategoryPage Start ============");
     console.log(req.params.id);
     const extraCategory = await fetch(
-      "http://localhost:8081/api/extra-category/" + req.params.id,
+      "https://product-management-system-q0bp.onrender.com/api/extra-category/" + req.params.id,
       {
         method: "GET",
         headers: {
@@ -118,7 +118,7 @@ const extraCategoryController = {
     );
     const extraCategoryToJson = await extraCategory.json();
     const subCategory = await fetch(
-      "http://localhost:8081/api/sub-category/",
+      "https://product-management-system-q0bp.onrender.com/api/sub-category/",
       {
         method: "GET",
         headers: {
@@ -144,7 +144,7 @@ const extraCategoryController = {
       req.body.Image = req.file ? req.file.path : req.body.Image || '';
       console.log(req.body);
       const response = await fetch(
-        "http://localhost:8081/api/extra-category/" + req.params.id,
+        "https://product-management-system-q0bp.onrender.com/api/extra-category/" + req.params.id,
         {
           method: "PATCH",
           headers: {

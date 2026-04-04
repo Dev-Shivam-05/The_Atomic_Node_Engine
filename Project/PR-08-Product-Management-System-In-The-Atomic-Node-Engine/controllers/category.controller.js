@@ -9,7 +9,7 @@ const categoryController = {
       // console.log(req.file);
       req.body.Image = req.file ? req.file.path : "";
       // console.log("Request Body :- ",req.body);
-      const response = await fetch("http://localhost:8081/api/category/", {
+      const response = await fetch("https://product-management-system-q0bp.onrender.com/api/category/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ const categoryController = {
   },
   viewCategories: async (req, res) => {
     try {
-      const response = await fetch("http://localhost:8081/api/category/", {
+      const response = await fetch("https://product-management-system-q0bp.onrender.com/api/category/", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const categoryController = {
   deleteCategory: async (req, res) => {
     try {
       const response = await fetch(
-        `http://localhost:8081/api/category/${req.params.id}`,
+        `https://product-management-system-q0bp.onrender.com/api/category/${req.params.id}`,
         {
           method: "DELETE",
           headers: {
@@ -78,7 +78,7 @@ const categoryController = {
   editCategoryPage: async (req, res) => {
     try {
       const response = await fetch(
-        `http://localhost:8081/api/category/${req.params.id}`,
+        `https://product-management-system-q0bp.onrender.com/api/category/${req.params.id}`,
         {
           method: "GET",
           headers: {
@@ -108,7 +108,7 @@ const categoryController = {
       req.body.Image = req.file ? req.file.path : "";
       console.log("Request Body :- ",req.body);
       const response = await fetch(
-        `http://localhost:8081/api/category/${req.params.id}`,
+        `https://product-management-system-q0bp.onrender.com/api/category/${req.params.id}`,
         {
           method: "PATCH",
           headers: {

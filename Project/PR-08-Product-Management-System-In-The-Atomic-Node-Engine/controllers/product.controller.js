@@ -2,14 +2,14 @@ const productController = {
   createProductPage: async (req, res) => {
     console.log();
     console.log(`============ Create Product Page Starts ============ `);
-    const categories = await fetch("http://localhost:8081/api/category/", {
+    const categories = await fetch("https://product-management-system-q0bp.onrender.com/api/category/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     });
     const subcategories = await fetch(
-      "http://localhost:8081/api/sub-category",
+      "https://product-management-system-q0bp.onrender.com/api/sub-category",
       {
         method: "GET",
         headers: {
@@ -18,7 +18,7 @@ const productController = {
       },
     );
     const extraCategories = await fetch(
-      "http://localhost:8081/api/extra-category",
+      "https://product-management-system-q0bp.onrender.com/api/extra-category",
       {
         method: "GET",
         headers: {
@@ -43,7 +43,7 @@ const productController = {
     console.log(`============ Create Product Starts ============ `);
     req.body.Image = req.file ? req.file.path : "";
     console.log("Request Body: ", req.body);
-    const response = await fetch("http://localhost:8081/api/product", {
+    const response = await fetch("https://product-management-system-q0bp.onrender.com/api/product", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const productController = {
   viewProducts: async (req, res) => {
     console.log();
     console.log(`============ View Products Starts ============ `);
-    const response = await fetch("http://localhost:8081/api/product/", {
+    const response = await fetch("https://product-management-system-q0bp.onrender.com/api/product/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const productController = {
     console.log();
     console.log(`============ Delete Product Starts ============ `);
     const response = await fetch(
-      `http://localhost:8081/api/product/${req.params.id}`,
+      `https://product-management-system-q0bp.onrender.com/api/product/${req.params.id}`,
       {
         method: "DELETE",
         headers: {
@@ -92,7 +92,7 @@ const productController = {
     console.log();
     console.log(`============ Edit Product Page Starts ============ `);
     const responseProduct = await fetch(
-      `http://localhost:8081/api/product/${req.params.id}`,
+      `https://product-management-system-q0bp.onrender.com/api/product/${req.params.id}`,
       {
         method: "GET",
         headers: {
@@ -101,7 +101,7 @@ const productController = {
       },
     );
     const responseCategory = await fetch(
-      "http://localhost:8081/api/category/",
+      "https://product-management-system-q0bp.onrender.com/api/category/",
       {
         method: "GET",
         headers: {
@@ -124,7 +124,7 @@ const productController = {
     req.body.Image = req.file ? req.file.path : "";
     console.log("Request Body: ", req.body);
     const response = await fetch(
-      `http://localhost:8081/api/product/${req.params.id}`,
+      `https://product-management-system-q0bp.onrender.com/api/product/${req.params.id}`,
       {
         method: "PATCH",
         headers: {
