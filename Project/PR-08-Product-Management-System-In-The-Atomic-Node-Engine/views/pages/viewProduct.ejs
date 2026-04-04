@@ -55,22 +55,40 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% products.forEach((product, index) => { %>
+                                        <% products.forEach((product, index)=> { %>
                                             <tr>
-                                                <td><%= index + 1 %></td>
-                                                <td><%= product.productName %></td>
-                                                <td><%= product.productCategory.categoryName %></td>
-                                                <td><%= product.productSubcategory.subcategoryName %></td>
-                                                <td><%= product.productPrice %></td>
-                                                <td><%= product.productQuantity %></td>
-                                                <td><%= product.productDescription %></td>
-                                                <td><img src="/<%= product.Image %>" alt="<%= product.productName %>" width="100" height="100"></td>
                                                 <td>
-                                                    <a href="/product/delete-product/<%= product._id %>" class="btn btn-danger btn-sm">Delete</a>
-                                                    <a href="/product/edit-product/<%= product._id %>" class="btn btn-primary btn-sm">Update</a>
+                                                    <%= index + 1 %>
+                                                </td>
+                                                <td>
+                                                    <%= product.productName %>
+                                                </td>
+                                                <td>
+                                                    <%= product.productCategory?.categoryName || 'No Category' %>
+                                                </td>
+                                                <td>
+                                                    <%= product.productSubcategory?.subcategoryName || 'No Subcategory'
+                                                        %>
+                                                </td>
+                                                <td>
+                                                    <%= product.productPrice || 'No Price' %>
+                                                </td>
+                                                <td>
+                                                    <%= product.productQuantity || 'No Quantity' %>
+                                                </td>
+                                                <td>
+                                                    <%= product.productDescription || 'No Description' %>
+                                                </td>
+                                                <td><img src="/<%= product.Image || 'No Image' %>" alt="<%= product.productName || 'No Image' %>"
+                                                        width="100" height="100"></td>
+                                                <td>
+                                                    <a href="/product/delete-product/<%= product._id %>"
+                                                        class="btn btn-danger btn-sm">Delete</a>
+                                                    <a href="/product/edit-product/<%= product._id %>"
+                                                        class="btn btn-primary btn-sm">Update</a>
                                                 </td>
                                             </tr>
-                                        <% }); %>
+                                            <% }); %>
                                     </tbody>
                                 </table>
                             </div>
