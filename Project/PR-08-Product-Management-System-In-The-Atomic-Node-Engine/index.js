@@ -3,7 +3,7 @@ import express from "express";
 import envConfig from "./config/dotenv.js";
 import db from "./config/db.js";
 import router from "./routes/index.js";
-import authMiddleware from "./middleware/auth.js";
+// import authMiddleware from "./middleware/auth.js";
 
 const port = envConfig.PORT;
 const app = express();
