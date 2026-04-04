@@ -8,8 +8,8 @@ const productController = {
       if (req.file) {
         req.body.image = req.file.path;
       }
-      // const product = await productModel.create(req.body).populate('productCategory productSubcategory');
-      const product = await productModel.create(req.body);
+      const product = await productModel.create(req.body).populate('productCategory productSubcategory');
+      // const product = await productModel.create(req.body);
       return res
         .status(201)
         .json({ message: "Product created successfully", product });
